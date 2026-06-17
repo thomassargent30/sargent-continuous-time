@@ -1,0 +1,21 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Continuous Time Stochastic Processes"
+    chapters:
+      - file: chapters/01_covariance_stationary_processes
+      - file: chapters/02_mean_square_continuity_differentiability
+      - file: chapters/03_poisson_counting_process
+      - file: chapters/04_physical_realizability
+      - file: chapters/05_poisson_driven_processes
+      - file: chapters/06_wiener_process
+      - file: chapters/07_wiener_driven_sde
+      - file: chapters/08_spectral_densities
+      - file: chapters/09_characterizations_ms_differentiability
+      - file: chapters/10_cramer_representation
+      - file: chapters/11_linear_sde
+      - file: chapters/12_prediction
+      - file: chapters/13_locally_unpredictable
+      - file: chapters/14_nonstationary_examples
+      - file: chapters/15_discrete_sampling_folding

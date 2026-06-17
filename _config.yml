@@ -1,0 +1,44 @@
+#######################################################################################
+# Jupyter Book configuration (jupyter-book 1.x / Sphinx-based)
+# Sargent — "Preliminary Introduction to Continuous Time Stochastic Processes"
+#######################################################################################
+
+title: "Continuous Time Stochastic Processes"
+author: "Thomas J. Sargent"
+copyright: "2026"
+logo: ""
+
+execute:
+  execute_notebooks: "off"
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+    - colon_fence
+    - deflist
+    - html_admonition
+
+html:
+  use_issues_button: false
+  use_repository_button: true
+  use_edit_page_button: false
+  home_page_in_navbar: false
+
+repository:
+  url: https://github.com/maxmaxmaxmaxmaxmax373/sargent-continuous-time
+  branch: main
+
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    mathjax3_config:
+      tex:
+        tags: "ams"
+        macros:
+          "abs":   ["\\left| #1 \\right|", 1]
+          "norm":  ["\\left\\lVert #1 \\right\\rVert", 1]
+          "Prob":  "\\operatorname{Prob}"
+          "Var":   "\\operatorname{Var}"
+          "cov":   "\\operatorname{cov}"
+          "Real":  "\\mathbb{R}"
