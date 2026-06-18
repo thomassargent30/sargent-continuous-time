@@ -39,6 +39,17 @@ Relative to the original typed manuscript, this MyST/Jupyter Book edition:
 14. Examples of Nonstationary Processes
 15. Discrete Sampling: The Folding Formula
 
+## Companion Papers
+
+The second part collects three companion papers that apply the continuous time machinery
+developed above to problems of time aggregation, prediction, and the relationship between
+continuous and discrete time models. They originally appeared as separate chapters of a related
+volume and are reproduced here for convenience.
+
+16. Time Aggregation (Hansen and Sargent, from *Two Difficulties in Interpreting Vector Autoregressions*, §2)
+17. Prediction Formulas for Continuous Time Linear Rational Expectations Models (Hansen and Sargent)
+18. Temporal Aggregation of Economic Time Series (Marcet)
+
 ## Notation
 
 Throughout, $E$ denotes the mathematical expectation operator and $\mathbb{R}$ the real

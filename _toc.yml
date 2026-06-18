@@ -19,3 +19,8 @@ parts:
       - file: chapters/13_locally_unpredictable
       - file: chapters/14_nonstationary_examples
       - file: chapters/15_discrete_sampling_folding
+  - caption: "Companion Papers"
+    chapters:
+      - file: chapters/16_time_aggregation_var
+      - file: chapters/17_prediction_formulas_continuous_time
+      - file: chapters/18_temporal_aggregation
