@@ -120,12 +120,14 @@ $$
 \text{where }\ d > c > 0.
 $$
 
-$$
-B_{ab}(w)
-$$
+The band-pass filter $B_{cd}(w)$ is illustrated in {numref}`fig-10-1`.
 
-```{note}
-*(Figure omitted — hand-drawn in the original manuscript.)*
+```{figure} figures/fig-10-1_bandpass_window.png
+:name: fig-10-1
+:width: 90%
+:align: center
+
+Figure 1. The band-pass filter ("window") $B_{cd}(w)$, defined on the frequency axis $w \in (-\infty,\, \infty)$. It equals $1$ on the two symmetric frequency bands $[c,\, d]$ and $[-d,\, -c]$ and equals $0$ everywhere else, with $d > c > 0$.
 ```
 
 Define the time function

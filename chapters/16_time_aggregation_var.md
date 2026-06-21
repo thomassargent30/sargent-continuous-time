@@ -368,20 +368,20 @@ It can be shown directly by using {eq}`eq-16-2-17` and {eq}`eq-16-2-24` in {eq}`
 {eq}`eq-16-2-8` that this condition will not be met for any $r \geq 2$. Thus, only if $z(t)$ is a
 first-order autoregressive process does $C_k$ turn out to be a sampled version of $p(\tau)$.
 
-```{figure} figures/fig-16-5_ma_kernels.jpeg
+```{figure} figures/fig-16-5_ma_kernels.png
 :name: fig-16-5
-:width: 80%
+:width: 90%
 :align: center
 
-Figure 5. Continuous time $(p(j))$ and discrete time $(C_j)$ moving average kernels.
+Figure 5. Continuous time and discrete time moving-average kernels for the example of Table 1. The solid curve is the continuous time kernel $p(\tau) = \sum_{j=1}^{3} \delta_j e^{\lambda_j \tau}$ (markers show its integer samples $p(j)$); the dashed line is the discrete time kernel $C_k$. The two kernels share the roots $\lambda_j$ but have different residues, so $C_k$ is *not* a sampled version of $p(\tau)$.
 ```
 
-```{figure} figures/fig-16-6_f_function.jpeg
+```{figure} figures/fig-16-6_f_function.png
 :name: fig-16-6
-:width: 70%
+:width: 75%
 :align: center
 
-Figure 6. The function $f(\tau)$.
+Figure 6. The aggregation kernel $f(\tau)$ of {eq}`eq-16-2-7` for the example of Table 1. On $[0,1]$ it coincides with $p(\tau)$; it does not vanish for $\tau > 1$, and is in fact larger in absolute value over most of $[1,2]$ than over $[0,1]$ — a consequence of the system being third order rather than first order in continuous time.
 ```
 
 Table 1 and Figure 5 present a numerical example that illustrates the preceeding ideas. For the
@@ -401,265 +401,232 @@ $z_t$. Matrix versions of {eq}`eq-16-2-17` and {eq}`eq-16-2-24` hold, where the 
 the zeroes of $\det \theta(s)$ and the $\delta_j$'s and the $\gamma_j$'s are $(n \times n)$ matrices
 given by {eq}`eq-16-2-16` and {eq}`eq-16-2-23`.
 
-```{list-table} Table 1. An Example of Aggregation Over Time
-:name: tbl-16-1
-:header-rows: 0
+**Table 1. An Example of Aggregation Over Time**
 
-* - $\psi(D) = 1$
-* - $\theta(D) = .2 + .4D + .6D^2 + D^3$
-* - $\lambda_j$ (zeroes of $\theta(s)$): $-.5424$, $-.0288 \pm .6066$
-```
+The continuous time process is the third-order system
 
-$\delta_j$ in Partial Fraction Representation of $\psi(D)/\theta(D)$:
+$$
+\psi(D) = 1, \qquad \theta(D) = .2 + .4D + .6D^2 + D^3,
+$$
 
-```{list-table}
+whose characteristic roots $\lambda_j$ (the zeroes of $\theta(s)$) are
+
+$$
+\lambda_1 = -.5424, \qquad \lambda_{2,3} = -.0288 \pm .6066\, i .
+$$
+
+The implied discrete time mixed moving-average autoregressive representation $z_t = \big(c(L)/d(L)\big)\, a_t$ has
+
+$$
+d(L) = 1 - 2.1779L + 1.8722L^2 - .5485L^3, \qquad c(L) = 1 + .4800L + .0192L^2 ,
+$$
+
+with the zeroes of the numerator spectral factor $c(L)$ located at $-.0441$ and $-.4359$ (both real, with moduli $.044$ and $.436$).
+
+The residues of the continuous time kernel $p(\tau) = \sum_j \delta_j e^{\lambda_j \tau}$ and of the discrete time kernel $C_k = \sum_j \gamma_j e^{\lambda_j k}$ are reported below. Because $\gamma_j/\gamma_1 \neq \delta_j/\delta_1$ for $j \geq 2$, the discrete time kernel $C_k$ is not a sampled version of $p(\tau)$ ({numref}`fig-16-5`).
+
+```{list-table} Residues $\delta_j$ (kernel $p$) and $\gamma_j$ (kernel $C$) in the partial-fraction expansions of $\psi(D)/\theta(D)$ and $C(L)$.
 :header-rows: 1
-:name: tbl-16-1-delta
+:name: tbl-16-1-residues
 
 * - $j$
-  - Real $(\delta_j)$
-  - Imaginary $(\delta_j)$
-  - Real $(\delta_j/\delta_1)$
-  - Imaginary $(\delta_j/\delta_1)$
+  - $\operatorname{Re}\delta_j$
+  - $\operatorname{Im}\delta_j$
+  - $\delta_j/\delta_1$
+  - $\operatorname{Re}\gamma_j$
+  - $\operatorname{Im}\gamma_j$
+  - $\gamma_j/\gamma_1$
 * - 1
-  - 1.5831
-  - 0
-  - 1.00
-  - 0
+  - $1.5831$
+  - $0$
+  - $1.000$
+  - $1.7984$
+  - $0$
+  - $1.000$
 * - 2
   - $-.7915$
-  - .6701
-  - $-.50$
-  - .423
-* - 3
-  - $-.7915$
-  - .6701
-  - $-.50$
-  - $-.423$
-```
-
-Zeroes of Spectral Factorization of Numerator Polynomial $(c(L))$:
-
-```{list-table}
-:header-rows: 1
-:name: tbl-16-1-zeros
-
-* - 
-  - Real Part of Zero
-  - Imaginary Part of Zero
-  - Modulus
-* - 1
-  - $-.0441$
-  - 0
-  - .044
-* - 2
-  - $-.4359$
-  - 0
-  - .436
-```
-
-$\gamma_j$ in Partial Fraction Representation of $C(L)$:
-
-```{list-table}
-:header-rows: 1
-:name: tbl-16-1-gamma
-
-* - $j$
-  - Real $(\gamma_j)$
-  - Imaginary $(\gamma_j)$
-  - Real $(\gamma_j/\gamma_1)$
-  - Imaginary $(\gamma_j/\gamma_1)$
-* - 1
-  - 1.7984
-  - 0
-  - 1.000
-  - 0
-* - 2
+  - $.6701$
+  - $-.500 + .423\,i$
   - $-.3992$
-  - 2.0310
-  - $-.222$
-  - 1.129
+  - $2.0310$
+  - $-.222 + 1.129\,i$
 * - 3
+  - $-.7915$
+  - $-.6701$
+  - $-.500 - .423\,i$
   - $-.3992$
   - $-2.0310$
-  - $-.222$
-  - 1.129
+  - $-.222 - 1.129\,i$
 ```
 
-Discrete Time Mixed Moving-Average, Autoregressive Representation:
+*Panel A — the kernels at integer lags $k = 0, 1, \ldots, 20$* (plotted in {numref}`fig-16-5`). The column $f(k)$ shows how rapidly the aggregation kernel $f$ of {eq}`eq-16-2-7` decays once $\tau$ exceeds $1$.
 
-$$
-d(L) = 1 - 2.1779L + 1.8722L^2 - .5485L^3
-$$
-
-$$
-c(L) = 1 + .4800L + .0192L^2
-$$
-
-```{list-table} Table 1 (continued)
+```{list-table}
 :header-rows: 1
-:name: tbl-16-1-cont
+:name: tbl-16-1-integers
+
+* - $k$
+  - $p(k)$
+  - $C_k$
+  - $f(k)$
+* - 0
+  - $0$
+  - $1.000000$
+  - $0$
+* - 1
+  - $.398987$
+  - $2.657971$
+  - $.398987$
+* - 2
+  - $1.197125$
+  - $3.935901$
+  - $.136629$
+* - 3
+  - $1.860267$
+  - $4.144677$
+  - $-.073263$
+* - 4
+  - $2.029242$
+  - $3.116763$
+  - $.032542$
+* - 5
+  - $1.593759$
+  - $1.188521$
+  - $-.014212$
+* - 6
+  - $.692895$
+  - $-.972014$
+  - $.006197$
+* - 7
+  - $-.361072$
+  - $-2.631591$
+  - $-.002701$
+* - 8
+  - $-1.208944$
+  - $-3.259333$
+  - $.001178$
+* - 9
+  - $-1.576723$
+  - $-2.705194$
+  - $-.000513$
+* - 10
+  - $-1.368770$
+  - $-1.233866$
+  - $.000224$
+* - 11
+  - $-.692635$
+  - $.588609$
+  - $-.000098$
+* - 12
+  - $.188765$
+  - $2.107332$
+  - $.000043$
+* - 13
+  - $.956663$
+  - $2.810459$
+  - $-.000019$
+* - 14
+  - $1.350008$
+  - $2.498675$
+  - $.000008$
+* - 15
+  - $1.252755$
+  - $1.336741$
+  - $-.000004$
+* - 16
+  - $.725963$
+  - $-.224260$
+  - $.000002$
+* - 17
+  - $-.020340$
+  - $-1.619749$
+  - $-.000001$
+* - 18
+  - $-.722582$
+  - $-2.374213$
+  - $.000000$
+* - 19
+  - $-1.131496$
+  - $-2.261452$
+  - $-.000000$
+* - 20
+  - $-1.124345$
+  - $-1.369232$
+  - $.000000$
+```
+
+*Panel B — the aggregation kernel $f(\tau)$ on $[0,2]$* (plotted in {numref}`fig-16-6`). On $[0,1]$, $f(\tau) = p(\tau)$; the two diverge for $\tau > 1$.
+
+```{list-table}
+:header-rows: 1
+:name: tbl-16-1-fine
 
 * - $\tau$
   - $f(\tau)$
   - $p(\tau)$
-  - $C_k$
-* - 0
-  - 0
-  - 0
-  - 1.000000
-* - .100
-  - .004900
-  - .004900
-  - 
-* - .200
-  - .019198
-  - .010108
-  - 
-* - .300
-  - .042288
-  - .042288
-  - 
-* - .400
-  - .073563
-  - .073563
-  - 
-* - .500
-  - .112414
-  - .112414
-  - 
-* - .600
-  - .158231
-  - .153231
-  - 
-* - .700
-  - .210404
-  - .210404
-  - 
-* - .800
-  - .268324
-  - .268324
-  - 
-* - .900
-  - .331386
-  - .331386
-  - 
-* - 1.000
-  - .398987
-  - .398987
-  - 2.657971
-* - 1.100
-  - .457506
-  - .470529
-  - 
-* - 1.200
-  - .494395
-  - .545421
-  - 
-* - 1.300
-  - .510679
-  - .623079
-  - 
-* - 1.400
-  - .507397
-  - .702926
-  - 
-* - 1.500
-  - .485602
-  - .784396
-  - 
-* - 1.600
-  - .446360
-  - .866935
-  - 
-* - 1.700
-  - .390751
-  - .949999
-  - 
-* - 1.800
-  - .319860
-  - 1.033059
-  - 
-* - 1.900
-  - .234786
-  - 1.115601
-  - 
-* - 2.000
-  - .136629
-  - 1.197125
-  - 3.935901
-* - 3.000
-  - $-.073263$
-  - 1.860267
-  - 4.144677
-* - 4.000
-  - .032542
-  - 2.029242
-  - 3.116763
-* - 5.000
-  - $-.014212$
-  - 1.593759
-  - 1.188521
-* - 6.000
-  - .006197
-  - .692895
-  - $-.972014$
-* - 7.000
-  - $-.002701$
-  - $-.361072$
-  - $-2.631591$
-* - 8.000
-  - .001178
-  - $-1.208944$
-  - $-3.259333$
-* - 9.000
-  - $-.000513$
-  - $-1.576723$
-  - $-2.705194$
-* - 10.000
-  - .000224
-  - $-1.368770$
-  - $-1.233866$
-* - 11.000
-  - $-.000098$
-  - $-.692635$
-  - .588609
-* - 12.000
-  - .000043
-  - .188765
-  - 2.107332
-* - 13.000
-  - $-.000019$
-  - .956663
-  - 2.810459
-* - 14.000
-  - .000008
-  - 1.350008
-  - 2.498675
-* - 15.000
-  - $-.000004$
-  - 1.252755
-  - 1.336741
-* - 16.000
-  - .000002
-  - .725963
-  - $-.224260$
-* - 17.000
-  - $-.000001$
-  - $-.020340$
-  - $-1.619749$
-* - 18.000
-  - .000000
-  - $-.722582$
-  - $-2.374213$
-* - 19.000
-  - $-.000000$
-  - $-1.131496$
-  - $-2.261452$
-* - 20.000
-  - .000000
-  - $-1.124345$
-  - $-1.369232$
+* - $.0$
+  - $0$
+  - $0$
+* - $.1$
+  - $.004900$
+  - $.004900$
+* - $.2$
+  - $.019198$
+  - $.019198$
+* - $.3$
+  - $.042288$
+  - $.042288$
+* - $.4$
+  - $.073563$
+  - $.073563$
+* - $.5$
+  - $.112414$
+  - $.112414$
+* - $.6$
+  - $.158231$
+  - $.158231$
+* - $.7$
+  - $.210404$
+  - $.210404$
+* - $.8$
+  - $.268324$
+  - $.268324$
+* - $.9$
+  - $.331386$
+  - $.331386$
+* - $1.0$
+  - $.398987$
+  - $.398987$
+* - $1.1$
+  - $.457506$
+  - $.470529$
+* - $1.2$
+  - $.494395$
+  - $.545421$
+* - $1.3$
+  - $.510679$
+  - $.623079$
+* - $1.4$
+  - $.507397$
+  - $.702926$
+* - $1.5$
+  - $.485602$
+  - $.784396$
+* - $1.6$
+  - $.446360$
+  - $.866935$
+* - $1.7$
+  - $.390751$
+  - $.949999$
+* - $1.8$
+  - $.319860$
+  - $1.033059$
+* - $1.9$
+  - $.234786$
+  - $1.115601$
+* - $2.0$
+  - $.136629$
+  - $1.197125$
 ```
 
 ## (a) Locally Unpredictable Processes and Linear Quadratic Models

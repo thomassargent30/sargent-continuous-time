@@ -23,4 +23,4 @@ parts:
     chapters:
       - file: chapters/16_time_aggregation_var
       - file: chapters/17_prediction_formulas_continuous_time
-      - file: chapters/18_temporal_aggregation
+      - file: chapters/18_temporal_aggregation_streamlined

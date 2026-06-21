@@ -29,13 +29,15 @@ and
 
 (iii) $x(t)$ is continuous from the left.
 
-The solution concept is illustrated in figure (—).
+The solution concept is illustrated in {numref}`fig-5-1`.
 
-```{note}
-*(Figure omitted — hand-drawn in the original manuscript.)*
+```{figure} figures/fig-5-1_solution_concept.png
+:name: fig-5-1
+:width: 90%
+:align: center
+
+Figure 1. The solution concept for a Poisson-driven stochastic differential equation. Between the arrival times $t_i$ the path $x(t)$ satisfies the ordinary differential equation $dx/dt = f(x,\, t)$ (the smooth segments). At each arrival time $t_i$, $x(t)$ jumps by the amount $g\bigl(\lim_{t \downarrow t_i} x(t),\, t_i\bigr)$ (the dashed vertical segments). The solution is continuous from the left: at $t_i$ the value $x(t_i)$ equals the left limit (filled dot), while the post-jump value is the right limit (open dot).
 ```
-
-*Illustration: $x(t)$ satisfies $\frac{dx}{dt} = f(x,\, t)$ at instants between arrival times $t_i$; at arrival times $t_i$, $x(t)$ jumps by amount $g\ (\lim_{t \downarrow t_i}\ x(t),\, t_i)$.*
 
 As a first example, consider the stochastic differential equation
 
