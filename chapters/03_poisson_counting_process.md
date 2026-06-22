@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 3. The Poisson Counting Process
 
 A *Poisson counting process* $N(t)$ is a continuous time stochastic process that assumes
@@ -69,12 +82,16 @@ $$
 E\, \big(N(t) - EN(t)\big)^2 = \lambda t.
 $$
 
-An example of a realization of a Poisson counting process is given in figure (—). The
+An example of a realization of a Poisson counting process is given in {numref}`fig-3-1`. The
 random points in time $t_1,\ t_2,\ \ldots$ at which $N(t)$ jumps are called *arrival
 times*.
 
-```{note}
-*(Figure omitted — hand-drawn in the original manuscript.)*
+```{figure} figures/fig-3-1_poisson_sample_path.png
+:name: fig-3-1
+:width: 90%
+:align: center
+
+Figure 1. A realization (sample path) of a Poisson counting process $N(t)$ with rate $\lambda$. The process starts at $N(0) = 0$ and increases by one unit at each random arrival time $t_1, t_2, \ldots$. It is right-continuous: at an arrival time $t_i$ it takes the post-jump value $N(t_i)$ (filled dot), while the pre-jump left limit $N(t_i^-)$ is shown as an open dot. The interarrival times $t_i - t_{i-1}$ are independent and exponentially distributed with mean $1/\lambda$.
 ```
 
 Notice that the event that the first arrival time $t_1 \leq T_1$ is the event that
@@ -254,16 +271,19 @@ R(t_1,\, t_2) = \begin{cases} \lambda^2 & |t_1 - t_2| > \epsilon \\ \lambda^2 &+
 $$
 
 The function $\lambda/\epsilon - \lambda |t_1 - t_2|/\epsilon^2$ for
-$|t_1 - t_2| \leq \epsilon$ is plotted in figure (—), and inscribes a triangle of area
+$|t_1 - t_2| \leq \epsilon$ is plotted in {numref}`fig-3-2`, and inscribes a triangle of area
 $\lambda$ above the horizontal axis. It is known that the limit as $\epsilon \to 0$, of the
 ordinary function $\max\ (0,\, \frac{\lambda}{\epsilon}\ -\ \frac{\lambda |t_1 - t_2|}{\epsilon^2})$
-
-```{note}
-*(Figure omitted — hand-drawn in the original manuscript.)*
-```
-
 defines the Dirac delta generalized function with mass $\lambda$,
 $\lambda \delta(t_1 - t_2)$.
+
+```{figure} figures/fig-3-2_delta_triangle.png
+:name: fig-3-2
+:width: 90%
+:align: center
+
+Figure 2. The triangular function $\lambda/\epsilon - \lambda|t_1 - t_2|/\epsilon^2$ on $|t_1 - t_2| \leq \epsilon$, shown for three window widths $\epsilon$. Each triangle has height $\lambda/\epsilon$, base $[-\epsilon, \epsilon]$, and area exactly $\lambda$. As $\epsilon \to 0$ the triangles become taller and narrower while preserving their area, so in the limit they define the Dirac delta generalized function with mass $\lambda$, namely $\lambda\,\delta(t_1 - t_2)$.
+```
 
 It is a "spike" of "mass" $\lambda$ at $t_1 - t_2 = 0$, and is equal to zero for
 $t_1 - t_2 \neq 0$.
@@ -292,3 +312,125 @@ The process $Y(t)$ defined by (—) is an ordinary stochastic process, consistin
 of the function $L$ shifted by the random arrival times $t_i$. Such a process $Y(t)$ is
 called *shot noise*. In Section (—), we shall show how to calculate its first and second
 order moments.
+
+## Exercises
+
+The following exercises use simulation to illustrate the properties of the Poisson
+counting process derived above. They use only `numpy` and `matplotlib`.
+
+```{code-cell} ipython3
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+The key fact we exploit is that a Poisson process of rate $\lambda$ can be simulated by
+drawing **independent exponential interarrival times** with mean $1/\lambda$ and
+accumulating them: the cumulative sums are the arrival times $t_1, t_2, \ldots$, and
+$N(t)$ counts how many arrival times do not exceed $t$.
+
+```{code-cell} ipython3
+def poisson_arrivals(lam, T, rng):
+    """Arrival times of a rate-lam Poisson process on the interval [0, T]."""
+    times, t = [], 0.0
+    while True:
+        t += rng.exponential(1.0 / lam)
+        if t > T:
+            break
+        times.append(t)
+    return np.array(times)
+```
+
+```{exercise-start}
+:label: pois_ex1
+```
+
+Take a Poisson process with rate $\lambda = 2$.
+
+(a) Simulate and plot three sample paths of $N(t)$ on $[0, 10]$, together with the
+mean function $E\,N(t) = \lambda t$.
+
+(b) By simulating many independent paths, verify the moment formulas
+$E\,N(T) = \lambda T$ and $\operatorname{Var} N(T) = \lambda T$ derived in the text. (Recall
+that $\operatorname{Var} N(T) = E\,N(T)$ is a signature property of the Poisson
+distribution.)
+
+```{exercise-end}
+```
+
+```{solution-start} pois_ex1
+:class: dropdown
+```
+
+```{code-cell} ipython3
+rng = np.random.default_rng(42)
+lam, T = 2.0, 10.0
+
+# (a) three sample paths
+grid = np.linspace(0, T, 1000)
+fig, ax = plt.subplots(figsize=(10, 4))
+for i in range(3):
+    arr = poisson_arrivals(lam, T, rng)
+    Nt = np.searchsorted(arr, grid, side='right')   # N(t) = #{arrivals <= t}
+    ax.step(grid, Nt, where='post', lw=1.2, label=f'path {i+1}')
+ax.plot(grid, lam * grid, 'k--', lw=2, label=r'$E\,N(t)=\lambda t$')
+ax.set_xlabel('$t$'); ax.set_ylabel('$N(t)$')
+ax.set_title(rf'Sample paths of a Poisson process ($\lambda={lam}$)')
+ax.legend()
+plt.show()
+```
+
+```{code-cell} ipython3
+# (b) Monte Carlo check of the first two moments of N(T)
+reps = 20_000
+counts = np.array([len(poisson_arrivals(lam, T, rng)) for _ in range(reps)])
+
+print(f"E[N(T)]:    simulated {counts.mean():.3f},   theory {lam * T:.3f}")
+print(f"Var[N(T)]:  simulated {counts.var():.3f},   theory {lam * T:.3f}")
+```
+
+The simulated mean and variance both sit close to $\lambda T = 20$, as the theory predicts.
+
+```{solution-end}
+```
+
+```{exercise-start}
+:label: pois_ex2
+```
+
+The text shows that the first arrival time is exponentially distributed,
+$\operatorname{Prob}\{t_1 \le T_1\} = 1 - e^{-\lambda T_1}$. More generally, the
+**interarrival times** $t_{i} - t_{i-1}$ of a Poisson process are independent and
+exponentially distributed with mean $1/\lambda$.
+
+Simulate one long sample path (rate $\lambda = 2$ on $[0, 5000]$), extract its
+interarrival times, and compare their histogram with the exponential density
+$\lambda e^{-\lambda u}$. Report the sample mean interarrival time and compare it to
+$1/\lambda$.
+
+```{exercise-end}
+```
+
+```{solution-start} pois_ex2
+:class: dropdown
+```
+
+```{code-cell} ipython3
+arr = poisson_arrivals(lam, 5000.0, rng)
+gaps = np.diff(np.concatenate([[0.0], arr]))   # interarrival times
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.hist(gaps, bins=60, density=True, alpha=0.6, label='simulated interarrivals')
+u = np.linspace(0, gaps.max(), 200)
+ax.plot(u, lam * np.exp(-lam * u), 'r-', lw=2, label=r'$\lambda e^{-\lambda u}$')
+ax.set_xlabel('interarrival time $u$'); ax.set_ylabel('density')
+ax.legend()
+plt.show()
+
+print(f"mean interarrival time: simulated {gaps.mean():.4f},  theory {1/lam:.4f}")
+```
+
+The histogram tracks the exponential density and the mean gap is close to $1/\lambda = 0.5$,
+confirming the exponential interarrival property.
+
+```{solution-end}
+```

@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 6. The Wiener Process
 
 We shall now describe a class of stochastic processes that can be described by stochastic differential equations driven by a "Wiener Process." We shall approach the Wiener process by regarding it as the limit as $\lambda \to \infty$ of a process $x(t)$ that solves
@@ -110,3 +123,112 @@ The Wiener process $W(t)$ is characterized by the following properties.
 (iv) Sample paths or realizations of $W(t)$ are continuous with probability 1.
 
 Property (ii) is the *independent increments* property, and is inherited from the Poisson process of which $W(t)$ is the limit.
+
+## Exercises
+
+```{code-cell} ipython3
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+```{exercise-start}
+:label: wiener_ex1
+```
+
+The text builds the Wiener process as the limit $\lambda \to \infty$ of
+
+$$
+dx(t) = \frac{1}{\sqrt{\lambda}}\,\bigl(dN_1(t) - dN_2(t)\bigr),
+$$
+
+where $N_1, N_2$ are independent Poisson counters of rate $\lambda/2$. The value at $t = 1$
+is $x(1) = \lambda^{-1/2}\bigl(N_1(1) - N_2(1)\bigr)$, where $N_1(1), N_2(1)$ are
+independent $\operatorname{Poisson}(\lambda/2)$ variables.
+
+Draw many samples of $x(1)$ for $\lambda \in \{4, 40, 400\}$ and show that the histogram
+of $x(1)$ converges to the standard normal density (mean $0$, variance $1$) as $\lambda$
+grows — i.e. illustrate that the limiting process is Gaussian with $E\,x(1)^2 = 1$.
+
+```{exercise-end}
+```
+
+```{solution-start} wiener_ex1
+:class: dropdown
+```
+
+```{code-cell} ipython3
+rng = np.random.default_rng(7)
+g = np.linspace(-4, 4, 200)
+std_normal = np.exp(-g**2 / 2) / np.sqrt(2 * np.pi)
+
+fig, axes = plt.subplots(1, 3, figsize=(13, 4), sharey=True)
+for ax, lam in zip(axes, [4, 40, 400]):
+    N1 = rng.poisson(lam / 2, size=200_000)
+    N2 = rng.poisson(lam / 2, size=200_000)
+    x1 = (N1 - N2) / np.sqrt(lam)              # x(1) for this lambda
+    ax.hist(x1, bins=80, density=True, alpha=0.6)
+    ax.plot(g, std_normal, 'r-', lw=2)
+    ax.set_title(rf'$\lambda={lam}$,  var $={x1.var():.2f}$')
+    ax.set_xlabel('$x(1)$')
+axes[0].set_ylabel('density')
+plt.show()
+```
+
+For small $\lambda$ the distribution of $x(1)$ is visibly discrete (jumps of size
+$\lambda^{-1/2}$), but as $\lambda$ grows the jumps shrink and the distribution fills in
+the standard normal bell curve, with variance approaching $1$.
+
+```{solution-end}
+```
+
+```{exercise-start}
+:label: wiener_ex2
+```
+
+Once the Wiener process is in hand it is most convenient to simulate it directly from its
+Gaussian independent increments: on a grid of spacing $dt$, the increments
+$W(t+dt) - W(t)$ are i.i.d. $\mathcal{N}(0, dt)$, so $W$ is a cumulative sum of such
+increments.
+
+(a) Using this construction, verify the even-moment formulas derived in the text,
+$E\,W(1)^2 = 1$, $E\,W(1)^4 = 3$, and $E\,W(1)^6 = 15$.
+
+(b) Verify that the **quadratic variation** $\sum_k \bigl(W(t_{k+1}) - W(t_k)\bigr)^2$
+over $[0, 1]$ concentrates at $1$ as the mesh shrinks — the hallmark of a process that is
+continuous but of unbounded variation, and the source of the extra term in Itô's rule
+(Chapter 7).
+
+```{exercise-end}
+```
+
+```{solution-start} wiener_ex2
+:class: dropdown
+```
+
+```{code-cell} ipython3
+rng = np.random.default_rng(11)
+n, dt = 40_000, 0.002
+steps = int(1.0 / dt)
+
+dW = rng.normal(0.0, np.sqrt(dt), size=(n, steps))   # Gaussian increments
+W = np.cumsum(dW, axis=1)
+WT = W[:, -1]                                         # W(1) across paths
+
+# (a) even moments of W(1)
+for p, theory in [(2, 1), (4, 3), (6, 15)]:
+    print(f"E[W(1)^{p}] = {np.mean(WT**p):6.3f}   (theory {theory})")
+```
+
+```{code-cell} ipython3
+# (b) quadratic variation on [0, 1]
+qv = np.sum(dW**2, axis=1)
+print(f"quadratic variation over [0,1]: mean {qv.mean():.4f},  std {qv.std():.4f}  (theory 1)")
+```
+
+The second and fourth moments match $1$ and $3$ closely; the sixth moment ($15$) carries
+more Monte Carlo error because it weights the tails heavily. The quadratic variation
+clusters tightly around $1$ with a small standard deviation that would shrink further as
+$dt \to 0$.
+
+```{solution-end}
+```

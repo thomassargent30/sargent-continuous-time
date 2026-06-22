@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 5. Stochastic Processes Driven by a Poisson Counting Process
 
 We now study a class of differential equations that are driven by the generalized derivative $dN/dt$ of a Poisson counting process. The equation that we study can be represented formally in the alternative ways.
@@ -540,3 +553,100 @@ z(t) = \sum_{i=1}^{\infty}\ a(\tau_i)\, h(t - \tau_i).
 $$
 
 Later, the process $z(t)$ will be shown to be a covariance stationary one for which the first and second moments are readily computed.
+
+## Exercises
+
+```{code-cell} ipython3
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+```{exercise-start}
+:label: telegraph_ex1
+```
+
+The **random telegraph wave** switches between $+1$ and $-1$ at the arrival times of a
+Poisson counter of rate $\lambda$. Equivalently, if $N(t)$ is the counter and $x(0)$ is
+$\pm 1$ with equal probability, then
+
+$$
+x(t) = x(0)\, (-1)^{N(t)}.
+$$
+
+When the initial sign is equally likely to be $+1$ or $-1$, the text shows the process is
+stationary with mean zero and autocorrelation
+
+$$
+R(\tau) = e^{-2\lambda|\tau|}.
+$$
+
+(a) Simulate and plot one sample path with $\lambda = 1$.
+
+(b) Estimate the autocovariance $R(\tau)$ by averaging $x(t)\,x(t+\tau)$ over an ensemble
+of simulated paths, and compare it with $e^{-2\lambda\tau}$.
+
+```{exercise-end}
+```
+
+```{solution-start} telegraph_ex1
+:class: dropdown
+```
+
+The sign of $x(t)$ flips each time the Poisson counter advances, so on a time grid we only
+need the *number of arrivals* up to each grid point. We obtain that count by searching the
+sorted arrival times.
+
+```{code-cell} ipython3
+rng = np.random.default_rng(0)
+
+def telegraph_path(lam, grid, rng):
+    """A random telegraph wave sampled on `grid`, with random initial sign."""
+    T = grid[-1]
+    times, t = [], 0.0
+    while True:
+        t += rng.exponential(1.0 / lam)
+        if t > T:
+            break
+        times.append(t)
+    n_arrivals = np.searchsorted(np.array(times), grid, side='right')
+    x0 = rng.choice([-1.0, 1.0])
+    return x0 * (-1.0) ** n_arrivals
+
+lam = 1.0
+dt = 0.02
+grid = np.arange(0.0, 40.0 + dt, dt)
+
+# (a) one sample path
+fig, ax = plt.subplots(figsize=(10, 3))
+ax.step(grid, telegraph_path(lam, grid, rng), where='post')
+ax.set_ylim(-1.5, 1.5); ax.set_xlabel('$t$'); ax.set_ylabel('$x(t)$')
+ax.set_title('A random telegraph wave')
+plt.show()
+```
+
+```{code-cell} ipython3
+# (b) estimate the autocovariance over an ensemble of paths
+n_paths = 1500
+L = len(grid)
+X = np.empty((n_paths, L))
+for i in range(n_paths):
+    X[i] = telegraph_path(lam, grid, rng)
+
+max_lag = int(2.0 / dt)
+acf = np.array([np.mean(X[:, :L - k] * X[:, k:]) for k in range(max_lag)])
+taus = np.arange(max_lag) * dt
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(taus, acf, 'o', ms=3, label=r'simulated $R(\tau)$')
+ax.plot(taus, np.exp(-2 * lam * taus), 'r-', lw=2, label=r'$e^{-2\lambda\tau}$')
+ax.set_xlabel(r'$\tau$'); ax.set_ylabel(r'$R(\tau)$')
+ax.legend()
+plt.show()
+```
+
+The simulated autocovariance falls on the exponential $e^{-2\lambda\tau}$, confirming the
+analytical result. Note that $R(\tau)$ has a kink at $\tau = 0$: the telegraph wave is mean
+square continuous but **not** mean square differentiable.
+
+```{solution-end}
+```

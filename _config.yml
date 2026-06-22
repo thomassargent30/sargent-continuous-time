@@ -9,7 +9,8 @@ copyright: "2026"
 logo: ""
 
 execute:
-  execute_notebooks: "off"
+  execute_notebooks: "cache"
+  timeout: 120
 
 parse:
   myst_enable_extensions:
@@ -30,6 +31,8 @@ repository:
   branch: main
 
 sphinx:
+  extra_extensions:
+    - sphinx_exercise
   config:
     myst_footnote_transition: false
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

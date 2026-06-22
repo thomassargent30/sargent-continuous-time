@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 8. Spectral Densities
 
 ## (a) General Results
@@ -439,3 +452,103 @@ $g_j = \lim_{s\to \lambda_j}\ (s - \lambda_j)\ \frac{(s + b)}{(s - \lambda_1)\ (
 
 We invite the reader to demonstrate how (—) can be inverted to express $w(t)$ as a sum of
 square summable integrals of past values of $x(t),\ Dx(t)$, and $D^2 x(t)$.
+
+## Exercises
+
+These exercises use the Ornstein–Uhlenbeck process of Chapter 7,
+
+$$
+dx(t) = -a\,x(t)\,dt + b\,dW(t), \qquad a, b > 0,
+$$
+
+as a running example. From Table 4 (the row $(D-\lambda)x = w$ with $\lambda = -a$, scaled
+by $b$), its autocovariance and spectral density are
+
+$$
+R(\tau) = \frac{b^2}{2a}\, e^{-a|\tau|}, \qquad
+S(w) = \frac{b^2}{a^2 + w^2}.
+$$
+
+```{code-cell} ipython3
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+```{exercise-start}
+:label: spec_ex1
+```
+
+Take $a = 1$, $b = 0.7$.
+
+(a) Plot the spectral density $S(w) = b^2/(a^2 + w^2)$.
+
+(b) Verify property (iii) of the text numerically: the spectral density decomposes the
+variance, $\frac{1}{2\pi}\int_{-\infty}^{\infty} S(w)\,dw = R(0) = b^2/(2a)$.
+
+(c) Simulate a long OU path, form its **periodogram** (the sample analogue of the spectral
+density), and check that, after smoothing, it tracks $S(w)$.
+
+```{exercise-end}
+```
+
+```{solution-start} spec_ex1
+:class: dropdown
+```
+
+```{code-cell} ipython3
+a, b = 1.0, 0.7
+S = lambda w: b**2 / (a**2 + w**2)
+
+# (a) the spectral density
+w = np.linspace(-8, 8, 400)
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(w, S(w), lw=2)
+ax.set_xlabel('$w$'); ax.set_ylabel('$S(w)$')
+ax.set_title(r'Spectral density of the OU process, $S(w)=b^2/(a^2+w^2)$')
+plt.show()
+
+# (b) variance decomposition
+wfine = np.linspace(-1500, 1500, 3_000_001)
+lhs = np.trapz(S(wfine), wfine) / (2 * np.pi)
+print(f"(1/2π)∫S(w)dw = {lhs:.4f},   R(0) = b^2/2a = {b**2 / (2 * a):.4f}")
+```
+
+```{code-cell} ipython3
+# (c) periodogram of a simulated OU path vs the theoretical spectrum
+rng = np.random.default_rng(5)
+dt, T = 0.05, 6000.0
+steps = int(T / dt)
+x = np.empty(steps); x[0] = 0.0
+s = b * np.sqrt(dt)
+for k in range(steps - 1):
+    x[k + 1] = x[k] - a * x[k] * dt + s * rng.normal()
+x = x[int(200 / dt):]            # burn-in
+x = x - x.mean()
+
+N = len(x)
+freqs = np.fft.rfftfreq(N, d=dt) * 2 * np.pi      # angular frequencies
+P = (dt / N) * np.abs(np.fft.rfft(x))**2          # periodogram
+
+# band-average to tame the noise
+nb = 200
+edges = np.linspace(0, 8, nb + 1)
+wc = 0.5 * (edges[1:] + edges[:-1])
+Pb = np.array([P[(freqs >= edges[i]) & (freqs < edges[i + 1])].mean() for i in range(nb)])
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(wc, Pb, '.', alpha=0.5, label='periodogram (band-averaged)')
+ww = np.linspace(0, 8, 400)
+ax.plot(ww, S(ww), 'r-', lw=2, label=r'$S(w)=b^2/(a^2+w^2)$')
+ax.set_xlabel('$w$'); ax.set_ylabel('spectral density')
+ax.legend()
+plt.show()
+```
+
+The numerical integral of $S(w)/2\pi$ reproduces $R(0) = b^2/(2a)$, and the smoothed
+periodogram of the simulated path follows the theoretical spectrum: most of the variance
+sits at low frequencies, with a $1/w^2$ tail. (The raw periodogram is very noisy — its
+variance does not vanish as the sample grows — which is why we band-average; this is the
+practical motivation for *spectral smoothing*.)
+
+```{solution-end}
+```
