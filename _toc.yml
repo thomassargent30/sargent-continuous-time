@@ -4,6 +4,7 @@ root: intro
 parts:
   - caption: "Continuous Time Stochastic Processes"
     chapters:
+      - file: chapters/00_introduction
       - file: chapters/01_covariance_stationary_processes
       - file: chapters/02_mean_square_continuity_differentiability
       - file: chapters/03_poisson_counting_process
@@ -24,3 +25,5 @@ parts:
       - file: chapters/16_time_aggregation_var
       - file: chapters/17_prediction_formulas_continuous_time
       - file: chapters/18_temporal_aggregation_streamlined
+      - file: chapters/19_appreciation_phillips
+      - file: chapters/20_phillips_1959_sde
