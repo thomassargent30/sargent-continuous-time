@@ -17,9 +17,9 @@ We shall now describe a class of stochastic processes that can be described by s
 
 $$
 dx(t) = 1/\sqrt\lambda\, \left(dN_1(t) - dN_2(t)\right)
-$$
+$$ (eq-6-sde)
 
-where $N_1$ and $N_2$ are independent Poisson counters with rates $\lambda/2$. We have already seen that for $\lambda > 0$, this process is a random walk with jumps of size $\pm\, 1/\sqrt\lambda$ occurring at times that arrive at a mean rate of $\lambda/2$ per unit of time. As we drive $\lambda$ toward infinity, the jump size $1/\sqrt\lambda$ goes to zero, while the average number of arrivals or jumps per unit of time goes to infinity. We have seen that the mean function and autocorrelation function of the solution $x(t)$ of (—) are given by
+where $N_1$ and $N_2$ are independent Poisson counters with rates $\lambda/2$. We have already seen that for $\lambda > 0$, this process is a random walk with jumps of size $\pm\, 1/\sqrt\lambda$ occurring at times that arrive at a mean rate of $\lambda/2$ per unit of time. As we drive $\lambda$ toward infinity, the jump size $1/\sqrt\lambda$ goes to zero, while the average number of arrivals or jumps per unit of time goes to infinity. We have seen that the mean function and autocorrelation function of the solution $x(t)$ of {eq}`eq-6-sde` are given by
 
 $$
 \begin{aligned}
@@ -36,7 +36,7 @@ $$
 dx(t) =\ \frac{1}{\sqrt\lambda}\ \left(dN_1(t) - dN_2\,(t)\right)
 $$
 
-where $N_1$ and $N_2$ are two independent Poisson counters with identical rates $\lambda/2 > 0$. Using rule (—), we have that for $p > 0$
+where $N_1$ and $N_2$ are two independent Poisson counters with identical rates $\lambda/2 > 0$. Using rule {eq}`eq-5-rule1`, we have that for $p > 0$
 
 $$
 \begin{aligned}
@@ -46,29 +46,29 @@ dx^p &= \left[(x + \frac{1}{\sqrt\lambda}\,)^p - x^p\right]\, dN_1 + \left[(x - 
 \end{aligned}
 $$
 
-It follows from rule (—) that
+It follows from rule {eq}`eq-5-rule2` that
 
 $$
 \begin{aligned}
 \frac{d}{dt}\ E x^p &= \binom{p}{2}\ \left(\frac{1}{\lambda}\right)\ E x^{p-2}\, \lambda + \binom{p}{4}\ \left(\frac{1}{\lambda}\right)^2\ E x^{p-4}\, \lambda + \cdots + \left(\frac{1}{\sqrt\lambda}\right)^{p-1}\, \lambda \\
 p\ &\text{ even, }\ p \geq 2
 \end{aligned}
-$$
+$$ (eq-6-even)
 
 $$
 \begin{aligned}
 \frac{d}{dt}\ E x^p &= \binom{p}{2}\ \left(\frac{1}{\lambda}\right)\ E x^{p-2}\, \lambda + \binom{p}{4}\ \left(\frac{1}{\lambda}\right)^2\, E x^{p-4}\, \cdot\, \lambda + \ldots + \left(\frac{1}{\sqrt\lambda}\right)^{p-1}\ E x \cdot \lambda \\
 &\ p\ \text{ odd}
 \end{aligned}
-$$
+$$ (eq-6-odd)
 
-We have calculated that $E x(t) = 0$, and that $E x(t)^2 = t$. Using (—) recursively to calculate odd moments, we find that
+We have calculated that $E x(t) = 0$, and that $E x(t)^2 = t$. Using {eq}`eq-6-odd` recursively to calculate odd moments, we find that
 
 $$
 E x(t)^p = 0\ \text{ for }\ p\ \text{ odd.}
 $$
 
-For even powers of $p$ higher than 2, we drive $\lambda \to \infty$ in (—) and find that
+For even powers of $p$ higher than 2, we drive $\lambda \to \infty$ in {eq}`eq-6-even` and find that
 
 $$
 \frac{d}{dt}\ E x^p = \binom{p}{2}\, E x^{p-2},
@@ -88,7 +88,7 @@ E x(t)^2 &= t \\
 E x(t)^4 &= \frac{1}{2} \int_0^t 4 \cdot 3 \cdot sds = 3 t^2 \\
 E x(t)^6 &= 15 t^3
 \end{aligned}
-$$
+$$ (eq-6-moments)
 
 and so on.
 
@@ -102,9 +102,9 @@ integration by parts shows that $E x^p = 0$ for $p$ odd, while for $p$ even
 
 $$
 E x^p = \sigma^{p/2}\ (p - 1)\ (p - 3)\ \ldots\ 1.\ p\ \text{ even}
-$$
+$$ (eq-6-gauss)
 
-It is known that if all of the moments of a process equal those of a Gaussian process, then that process is itself Gaussian. Comparing (—) with (—), we can conclude that the limiting process as $\lambda \to \infty$ is *Gaussian* with mean zero and variance $t$. That is, $x(t)$ has density
+It is known that if all of the moments of a process equal those of a Gaussian process, then that process is itself Gaussian. Comparing {eq}`eq-6-moments` with {eq}`eq-6-gauss`, we can conclude that the limiting process as $\lambda \to \infty$ is *Gaussian* with mean zero and variance $t$. That is, $x(t)$ has density
 
 $$
 f\left(x(t)\right) = (2 \pi t)^{-1/2}\ \exp\ \frac{-x(t)^2}{2 t}\, ,\ t \geq 0.

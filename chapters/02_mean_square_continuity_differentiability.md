@@ -302,12 +302,12 @@ $R(\tau)$ has the Taylors (Maclaurin) series representation.
 
 $$
 R(\tau) = \sum_{n=0}^{\infty} \ R^{(n)}\ (0)\ \frac{\tau^n}{n!}
-$$
+$$ (eq-2-analytic)
 
 We note that if $R(\tau)$ is analytic, then for all integer $n > 0$, the $n^{th}$ mean
 square derivative $x^{(n)}\,(t)$ exists; we can now state the following theorem.
 
-**Theorem (—).** Let $x(t, w)$ be a covariance stationary stochastic process with analytic
+**Theorem 9.** Let $x(t, w)$ be a covariance stationary stochastic process with analytic
 autocorrelation function $R(\tau)$. Then $x(t)$ can be expanded in a Taylor series, i.e.,
 
 $$
@@ -321,29 +321,30 @@ $$
 E\, \big\{ x(t + \tau) - \hat x(t + \tau) \big\}^2 &= E\, \big\{ [ x(t + \tau) - \hat x(t + \tau)] x(t + \tau) \big\} \\
 &- E\, \big\{ [x(t + \tau) - \hat x(t + \tau) ] \hat x(t + \tau) \big\} = 0,
 \end{aligned}
-$$
+$$ (eq-2-plus)
 
 where
 
 $$
 \hat x(t + \tau) = \sum_{n=0}^{\infty} x^{(n)}(t)\ \frac{\tau^n}{n!}.
-$$
+$$ (eq-2-xhat)
 
-From the analytic nature of $R(\tau)$ it follows from (*) that
+From the analytic nature of $R(\tau)$ it follows from {eq}`eq-2-analytic` that
 
 $$
 R^{(m)}(\tau) = \sum_{n=m}^{\infty} R^{(n)}(0)\ \frac{\tau^{n-m}}{(n-m)!}\, ,\ \text{ for } m \geq 1.
-$$
+$$ (eq-2-Rm)
 
 It also follows from a Taylor series of $R(\tau + \lambda)$ about $\lambda = 0$ that
 
 $$
-R(0) = \sum_{n=0}^{\infty} R^{(n)}(\tau)\ \frac{(-\tau)^n}{n!}. \qquad (b)
-$$
+R(0) = \sum_{n=0}^{\infty} R^{(n)}(\tau)\ \frac{(-\tau)^n}{n!}.
+$$ (eq-2-R0)
 
-Substituting the right side of (—) into (+), noting by the reasoning that led to theorem
-(—) that $E x^{(n)}(t) x^{(m)}(t - \tau) = (-1)^m R^{(n + m)}(\tau)$, and using (a) and (b)
-to evaluate the two terms in braces in (+) gives the desired results.
+Substituting the right side of {eq}`eq-2-xhat` into {eq}`eq-2-plus`, noting by the
+reasoning that led to Theorem 8 that $E x^{(n)}(t) x^{(m)}(t - \tau) = (-1)^m R^{(n + m)}(\tau)$,
+and using {eq}`eq-2-Rm` and {eq}`eq-2-R0` to evaluate the two terms in braces in
+{eq}`eq-2-plus` gives the desired results.
 
 The preceding states that if $R(\tau)$ is analytic, then the stochastic process $x(t)$ is
 differentiable an arbitrarily large number of times, and that $x(t)$ is perfectly

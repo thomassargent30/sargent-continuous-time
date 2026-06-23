@@ -41,7 +41,7 @@ Relative to the original typed manuscript, this MyST/Jupyter Book edition:
 
 ## Companion Papers
 
-The second part collects five companion papers that apply the continuous time machinery
+The second part collects seven companion papers that apply the continuous time machinery
 developed above to problems of time aggregation, prediction, and the relationship between
 continuous and discrete time models. They originally appeared as separate chapters of a related
 volume and are reproduced here for convenience.
@@ -51,6 +51,8 @@ volume and are reproduced here for convenience.
 18. Temporal Aggregation of Economic Time Series (Marcet)
 19. An Appreciation of A. W. Phillips (Hansen and Sargent)
 20. The Estimation of Parameters in Systems of Stochastic Differential Equations (Phillips, *Biometrika*, 1959)
+21. Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in Continuous Time (Hansen and Sargent, *IER*, 1983)
+22. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities (Hansen and Sargent, *Econometrica*, 1983)
 
 ## Notation
 

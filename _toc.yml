@@ -27,3 +27,5 @@ parts:
       - file: chapters/18_temporal_aggregation_streamlined
       - file: chapters/19_appreciation_phillips
       - file: chapters/20_phillips_1959_sde
+      - file: chapters/21_aggregation_inverse_optimal_predictor
+      - file: chapters/22_dimensionality_aliasing_problem

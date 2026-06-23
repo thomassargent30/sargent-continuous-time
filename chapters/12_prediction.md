@@ -9,7 +9,7 @@ moving average representation
 
 $$
 x(t) = \int^\infty_0 p(s)\, w(t-s)\, ds
-$$
+$$ (eq-12-wold)
 
 where $\int^\infty_0 p(s)^2\, ds < +\infty$ and $w(t)$ is a fundamental white
 noise for $x(t)$. Recall that the property that $w(t)$ is a fundamental white
@@ -36,7 +36,7 @@ functions $b(s)$ for $0 \leq s < \infty$ such that $\int^\infty_0 b(s)^2\, ds <
 +\infty$. The equality of these spaces means that lagged $x$'s contain the
 same amount of information as lagged $w$'s.
 
-Since (—) holds for all $t$, we have
+Since {eq}`eq-12-wold` holds for all $t$, we have
 
 $$
 x(t + u) = \int^\infty_{s=-u} p(s+u)\, w(t-s)\, ds,\ \text{ for }\ u \geq 0.
@@ -46,15 +46,15 @@ Using the identity of the linear spaces $H_x(-\infty,\,t)$ and $H_w(-\infty,\,t)
 
 $$
 E\, [\, x(t+u) \mid x(v),\, v \leq t \,] = \int^\infty_{s=0} p(s+u)\, w(t-s)\, ds.
-$$
+$$ (eq-12-wk)
 
-Equation (—) is the continuous time Wiener–Kolmogorov formula.
+Equation {eq}`eq-12-wk` is the continuous time Wiener–Kolmogorov formula.
 
 Using operational calculus, the formula can be expressed as
 
 $$
 E_t\, x(t+u) = [\, \tilde P(D)\, e^{-Du} \,]_+\, w(t)
-$$
+$$ (eq-12-wkop)
 
 where $[\, \tilde P(s)\, e^{-su} \,]_+$ is the time function formed by taking
 the inverse Laplace transform of $\tilde P(s)\, e^{-su}$, and then convoluting
@@ -64,14 +64,14 @@ function for $t < 0$ equal to zero, while leaving values of the function for $t
 operator*. Note by property 4 (Delay) of Table 2 that $e^{-su}\, \tilde P(s)$ is
 the Laplace transform of the function $p(s+u)$.
 
-As an example of the use of formula (—), let $x(t)$ be governed by the
+As an example of the use of formula {eq}`eq-12-wk`, let $x(t)$ be governed by the
 first order stochastic differential equation
 
 $$
 (D+a)\, x(t) = w(t),\qquad a > 0
 $$
 
-so that $p(\tau) = e^{-a\tau}$. Then formula (—) gives
+so that $p(\tau) = e^{-a\tau}$. Then formula {eq}`eq-12-wk` gives
 
 $$
 \begin{aligned}
@@ -84,7 +84,7 @@ or
 
 $$
 E_t\, x(t+u) = e^{-au}\, x(t).
-$$
+$$ (eq-12-ar1pred)
 
 ## (b) A Formula for Predicting "Geometric Distributed Leads"
 
@@ -92,18 +92,18 @@ In linear rational expectation models, there often appear terms of the form
 
 $$
 E_t \int^\infty_0 e^{\rho u}\, x(t+u)\, du \qquad re(\rho) < 0
-$$
+$$ (eq-12-glead)
 
 where $x(t)$ is a covariance stationary stochastic process. Where $x(t)$ is
-governed by the first order Markov process $(D+a)\, x(t) = w(t)$, equation (—)
+governed by the first order Markov process $(D+a)\, x(t) = w(t)$, equation {eq}`eq-12-ar1pred`
 implies that the linear least squares forecast of the geometric distributed
-lead (—) is given by
+lead {eq}`eq-12-glead` is given by
 
 $$
 \int^\infty_0 e^{\rho u}\, E_t\, x(t+u)\, du = \left( \int^\infty_0 e^{\rho u}\, e^{-au}\, du \right) x(t) = \frac{1}{a - \rho}\, x(t).
 $$
 
-An approach to the evaluation of (—) which readily generalizes to $x(t)$'s
+An approach to the evaluation of {eq}`eq-12-glead` which readily generalizes to $x(t)$'s
 governed by higher order linear differential equations is as follows. Denote
 the geometric distributed lead to be forecast as
 
@@ -112,12 +112,12 @@ $$
 x(t)^{\ast} &= \int^\infty_0 e^{\rho u}\, x(t+u)\, du \\
 x(t)^{\ast} &= \left( \frac{-1}{\rho + D} \right)\ \left( \frac{1}{a+D} \right)\, w(t)
 \end{aligned}
-$$
+$$ (eq-12-xstar)
 
 where for $re(\rho) < 0,\ -1/\rho + s$ is the Laplace transform of the time
 function $e^{-\rho u}$ for $u \leq 0,\ 0$ for $u > 0$.
 
-Obtaining a partial fraction representation of the right side of (—) gives
+Obtaining a partial fraction representation of the right side of {eq}`eq-12-xstar` gives
 
 $$
 x(t)^{\ast} = \frac{1}{a-\rho}\ \left[ \left( \frac{-1}{\rho + D} \right) + \left( \frac{1}{a+D} \right) \right]\ w(t)
@@ -136,18 +136,18 @@ $$
 E_t\, x(t)^{\ast} &= \left( \frac{1}{a-\rho} \right) \int^\infty_0 e^{-as}\, w(t-s)\, ds = \left( \frac{1}{a-\rho} \right)\ \frac{1}{a + D}\ w(t) \\
 &= \left( \frac{1}{a - \rho} \right) x(t).
 \end{aligned}
-$$
+$$ (eq-12-Estar)
 
-This approach generalizes readily as follows. Represent equation (—) as
+This approach generalizes readily as follows. Represent equation {eq}`eq-12-Estar` as
 
 $$
 \begin{aligned}
 E_t\, x(t)^{\ast} &= \left( \frac{1}{a - \rho} \right)\ \left( \frac{1}{a+D} \right)\, w(t) \\
 E_t\, x(t)^{\ast} &= \left[ \frac{-\tilde P(D) + \tilde P(-\rho)}{D+\rho} \right]\, w(t)
 \end{aligned}
-$$
+$$ (eq-12-Estarop)
 
-where $\tilde P(D) = 1/(a+D)$. As it happens, Equation (—) holds for *any*
+where $\tilde P(D) = 1/(a+D)$. As it happens, Equation {eq}`eq-12-Estarop` holds for *any*
 $\tilde P(D)$, where $\tilde P(s)$ is the Laplace transform of a
 squared summable function $p(\tau)$ concentrated on $\tau \in [0,\, \infty)$.
 Thus, where
@@ -156,10 +156,10 @@ $$
 x(t) = \int^\infty_0 p(\tau)\, w(t-\tau)\, d\tau
 $$
 
-we claim that the generalization of (—) is
+we claim that the generalization of {eq}`eq-12-Estarop` is
 
 $$
 E_t \int^\infty_0 e^{\rho s}\, x(t+s)\, ds = \left[ \frac{-\tilde P(D) + \tilde P(-\rho)}{D+\rho} \right]\, w(t).
-$$
+$$ (eq-12-gen)
 
-This generalization of (—) will be established in chapter (—).
+This generalization of {eq}`eq-12-gen` will be established in Chapter 17.

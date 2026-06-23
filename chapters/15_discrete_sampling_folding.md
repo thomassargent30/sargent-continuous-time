@@ -21,10 +21,10 @@ function $R^d(\tau)$ where
 
 $$
 R^d(\tau) = \sum_{n=-\infty}^{\infty} R(nT)\, \delta(\tau - nT),
-$$
+$$ (eq-15-Rd)
 
 so that $R^d(\tau)$ is a train of delta functions with mass $R(nT)$ at
-$\tau = 0,\ \pm\, T,\ \pm\, 2T, \ldots\,$. Equation (—) can also be represented as
+$\tau = 0,\ \pm\, T,\ \pm\, 2T, \ldots\,$. Equation {eq}`eq-15-Rd` can also be represented as
 
 $$
 R^d(\tau) = R(\tau)\ S_T(\tau)
@@ -36,7 +36,7 @@ $$
 S_T(\tau) = \sum_{n=-\infty}^{\infty} \delta(\tau - nT).
 $$
 
-From (—), we can express the spectral density of the discrete sampled $x_t$ as
+From {eq}`eq-15-Rd`, we can express the spectral density of the discrete sampled $x_t$ as
 
 ```{math}
 :label: eq-15-1
@@ -69,15 +69,15 @@ $$
 \frac{1}{2\pi}\ \sum_{n=-\infty}^{\infty} R(\tau)\, \delta(\tau - nT) = \frac{1}{2\pi}\ R^d(\tau).
 $$
 
-It follows from (—) and (—) that the spectral density of the discrete process $x_j$
+It follows from {eq}`eq-15-1` and {eq}`eq-15-3` that the spectral density of the discrete process $x_j$
 satisfies
 
 $$
 S^d(w) = \frac{1}{T} \sum_{n=-\infty}^{\infty} S\!\left(w - n\, \frac{2\pi}{T}\right)
-$$
+$$ (eq-15-fold)
 
 where $S^d(w)$ is the spectral density of the discrete data and $S(w)$ is the spectral
-density of the continuous time data. Equation (—) is known as the *folding formula*.
+density of the continuous time data. Equation {eq}`eq-15-fold` is known as the *folding formula*.
 
 ## Exercises
 

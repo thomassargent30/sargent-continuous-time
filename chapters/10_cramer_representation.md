@@ -33,7 +33,7 @@ or
 x(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\lambda t}\, Z'(\lambda) d\lambda.
 ```
 
-To help motivate this representation, we use (—) to calculate $R(\tau) = Ex(t) x(t-\tau)$,
+To help motivate this representation, we use {eq}`eq-10-cramer` to calculate $R(\tau) = Ex(t) x(t-\tau)$,
 
 $$
 \begin{aligned}
@@ -50,15 +50,15 @@ $$
 R(\tau) = \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\mu \tau} S(\mu) d\mu.
 $$
 
-This is the inversion formula (—) for recovering the autocorrelation function from the spectral density.
+This is the inversion formula {eq}`eq-8-2` for recovering the autocorrelation function from the spectral density.
 
 There is a sense in which the random spectral measure can be defined formally as the Fourier transform of $x(t)$,
 
 $$
 Z'(\lambda,\, w) = \frac{1}{\sqrt{2\pi}}\, \int^\infty_{-\infty} e^{-i\lambda t}\, x(t,\, w) dt,
-$$
+$$ (eq-10-Zhat)
 
-provided that the integral is interpreted delicately. In (—), we have added the argument $w \in \Omega$ explicitly to emphasize the both $x(t,\, w)$ and $Z'(\lambda,\,w)$ are random processes defined on the same underlying probability space $(\Omega,\, \mathcal{F},\, P)$.
+provided that the integral is interpreted delicately. In {eq}`eq-10-Zhat`, we have added the argument $w \in \Omega$ explicitly to emphasize the both $x(t,\, w)$ and $Z'(\lambda,\,w)$ are random processes defined on the same underlying probability space $(\Omega,\, \mathcal{F},\, P)$.
 
 Differentiating {eq}`eq-10-cramer` formally with respect to time, we have that the mean square derivative of $x(t)$, if it exists, has Cramér representation
 
@@ -78,7 +78,7 @@ $$
 y(t) = \int^\infty_{-\infty} b(\tau) x(t - \tau) d\tau
 $$
 
-where $b(\tau) \in L_2\, (-\infty,\, \infty)$. Then using (—), we have
+where $b(\tau) \in L_2\, (-\infty,\, \infty)$. Then using {eq}`eq-10-cramer`, we have
 
 ```{math}
 :label: eq-10-1

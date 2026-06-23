@@ -178,7 +178,7 @@ $x(t)$ is mean square differentiable $n - 1 - m$ times, but no more.
 
 The following theorem pulls together a number of our earlier results.
 
-**Theorem:** Let $x(t)$ be a covariance stationary, zero mean, linearly indeterministic
+**Theorem 15.** Let $x(t)$ be a covariance stationary, zero mean, linearly indeterministic
 stochastic process, with Wold representation
 
 $$

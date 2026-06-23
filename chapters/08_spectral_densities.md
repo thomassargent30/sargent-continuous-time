@@ -240,7 +240,7 @@ Property:
 
 We now state a version of Wold's decomposition theorem in continuous time.
 
-**Theorem.** Let $x(t)$ be a covariance stationary stochastic process with autocovariance
+**Theorem 10.** Let $x(t)$ be a covariance stationary stochastic process with autocovariance
 function $R(\tau)$ and spectral density $S(w)$. Then $x(t)$ can be represented as
 
 ```{math}
@@ -290,7 +290,7 @@ frequencies. Therefore, the autocovariance function of $x^d (t)$ is given by
 R^d (\tau) = \sum_{j=1}^{\infty} a_j\ \cos\, (w_j \tau).
 ```
 
-It follows from {eq}`eq-8-a`, {eq}`eq-8-b` and the convolution property (—) that the
+It follows from {eq}`eq-8-a`, {eq}`eq-8-b` and the convolution property {eq}`eq-8-5` that the
 spectral density of $x(t)$ can be represented as
 
 $$
@@ -344,7 +344,7 @@ $$
 x(t) = \frac{D - b}{(D-\lambda_1)\ (D-\lambda_2)}\ v(t),\qquad &b > 0 \\
 &re (\lambda_j) < 0,\ j=1,\ 2
 \end{aligned}
-$$
+$$ (eq-8-nonfund)
 
 or
 
@@ -385,7 +385,7 @@ $$
 However, this is not the representation alluded to in the statement of Wold's theorem,
 because $\tilde R(s)$ has a zero at $s = b > 0$, which is in the right half plane. This
 reflects the fact that the space $H_v(- \infty, \, t)$ is strictly larger than
-$H_x(- \infty,\,t)$. To see this heuristically, attempt to invert (—), and to solve for
+$H_x(- \infty,\,t)$. To see this heuristically, attempt to invert {eq}`eq-8-nonfund`, and to solve for
 $v(t)$ as a function of the $x(t)$ process. This gives
 
 $$
@@ -437,7 +437,7 @@ on $[0,\, \infty)$. It follows that a Wold representation for $x(t)$ is
 
 $$
 x(t) = \int_0^{\infty} p(\tau) w(t-\tau)\, d\tau
-$$
+$$ (eq-8-wold)
 
 where $w(t)$ is a fundamental white noise for $x(t)$, and $p(\tau)$ is the inverse transform
 of $\tilde P (iw) = (iw+b)/(iw-\lambda_1)\ (iw-\lambda_2)$. By a partial fractions
@@ -450,7 +450,7 @@ $$
 where
 $g_j = \lim_{s\to \lambda_j}\ (s - \lambda_j)\ \frac{(s + b)}{(s - \lambda_1)\ (s - \lambda_2)}$.
 
-We invite the reader to demonstrate how (—) can be inverted to express $w(t)$ as a sum of
+We invite the reader to demonstrate how {eq}`eq-8-wold` can be inverted to express $w(t)$ as a sum of
 square summable integrals of past values of $x(t),\ Dx(t)$, and $D^2 x(t)$.
 
 ## Exercises

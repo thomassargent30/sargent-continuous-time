@@ -28,7 +28,8 @@ with $x(0)$ given and $t \geq 0$.
 
 Here $N(t)$ is a Poisson counting process with rate $\lambda > 0$, and $f(x,\, t)$ and $g(x,\,t)$ are continuous functions. (Add additional regularity conditions.) We now want to define what we mean by a solution to the differential equation {eq}`eq-5-1`.
 
-**Definition:** A stochastic process $x(t)$ is said to be a solution of the stochastic differential equation {eq}`eq-5-1` in the Ito sense if:
+(def-ito-solution)=
+**Definition 9.** A stochastic process $x(t)$ is said to be a solution of the stochastic differential equation {eq}`eq-5-1` in the Ito sense if:
 
 (i) on an interval where $N(t)$ is constant, $x(t)$ satisfies the ordinary differential equation $dx/dt = f(x,\,t)$;
 
@@ -156,16 +157,16 @@ $$
 
 where $f$: $R^n \to R^n,\ g_i$: $R^1 \to R^n$, and $N_1(t),\ \ldots,\ N_m(t)$ are statistically independent Poisson counting processes with rates $\lambda_1,\ \ldots,\ \lambda_m$. We consider a vector function $\Psi(x)$: $R^n \to R^k$.
 
-Then it follows immediately from definition (—) that $\Psi(x)$ satisfies the stochastic differential equation
+Then it follows immediately from {ref}`Definition 9 <def-ito-solution>` that $\Psi(x)$ satisfies the stochastic differential equation
 
 $$
 \begin{aligned}
 d\Psi(x) &= \left\langle \frac{\partial \Psi}{\partial x},\ f(x,\,t)\right\rangle\ dt \\[4pt]
 &+ \sum_{i=1}^{m}\ \bigl(\Psi(x + g_i(x,\, t)\bigr) - \Psi(x)\bigr) dN_i(t).
 \end{aligned}
-$$
+$$ (eq-5-rule1)
 
-Together with definition (—), equation (—) states that;
+Together with {ref}`Definition 9 <def-ito-solution>`, equation {eq}`eq-5-rule1` states that;
 
 (i) in intervals in which there are no arrivals, $\Psi(x)$ satisfies the ordinary differential equation $d\Psi(x)/dt = \left\langle \frac{\partial \Psi}{\partial x},\ f(x,\,t)\right\rangle\ dt$; (ii) at arrival times $t_j$ of any of the $N_i(t)$ processes
 
@@ -179,7 +180,7 @@ $$
 
 (iii) $\Psi(x(t))$ is continuous from the left.
 
-Notice that since $\lim_{t\downarrow t_j}\ x(t) = \lim_{t \uparrow t_j}\ (x(t) + g_i(x(t),\, t)))$, the rule (—) and its implication delivers the property that the solution $\Psi(x)$ is the desired function $\Psi(x)$ at all points, including the arrival times $t_j$, which are the discontinuities of $x(t)$.
+Notice that since $\lim_{t\downarrow t_j}\ x(t) = \lim_{t \uparrow t_j}\ (x(t) + g_i(x(t),\, t)))$, the rule {eq}`eq-5-rule1` and its implication delivers the property that the solution $\Psi(x)$ is the desired function $\Psi(x)$ at all points, including the arrival times $t_j$, which are the discontinuities of $x(t)$.
 
 As an example of the use of this rule, we desire to find a differential equation for
 
@@ -238,7 +239,7 @@ $$
 E\, \bigl(x(t + \Delta) - x(t)\bigr) &= E\, \int_t^{t + \Delta}\ f\bigl(x(s),\, s\bigr)ds \\
 &+ \sum_{i=1}^{m}\ E\ \int_t^{t+\Delta}\ g_i\, \bigl(x(s),\, s\bigr)dN_i(s)
 \end{aligned}
-$$
+$$ (eq-5-Eincr)
 
 We express the second integral using
 
@@ -247,19 +248,19 @@ $$
 \int_t^{t + \Delta} &\ g_i\, \bigl(x(s),\, s\bigr) dN_i(s) = E\, \int_t^{t + \Delta}\ g_i\, \bigl(x(s),\, s\bigr)\ (dN_i - \lambda_i\, ds) \\
 &+ E\, \int_t^{t + \Delta}\ \lambda_i\, g_i\, \bigl(x(s),\, s\bigr)ds.
 \end{aligned}
-$$
+$$ (eq-5-decomp)
 
 We now use the following two properties of the Poisson counter: (a) $E(N_i(t) - \lambda_i t) = 0$, (b) the probability that $N_i(t)$ jumps in $[t,\, t + \Delta]$ is independent of $x(t)$.
 
 These imply that $E \int_t^{t + \Delta}\, g_i\, (x(s),\, s)\ (dN_i - \lambda ds) = 0$.
 
-Using this result in (—) and (—), dividing by $\Delta$, and taking the limit as $\Delta \to 0$ gives
+Using this result in {eq}`eq-5-Eincr` and {eq}`eq-5-decomp`, dividing by $\Delta$, and taking the limit as $\Delta \to 0$ gives
 
 $$
 \frac{d}{dt}\ Ex(t) = Ef\,\bigl(x(t),\, t\bigr) + \sum_{i=1}^{m}\, E g_i\, \bigl(x(t),\, t\bigr)\, \lambda_i.
-$$
+$$ (eq-5-rule2)
 
-As an example of the use of (—), we reconsider the stochastic differential equation
+As an example of the use of {eq}`eq-5-rule2`, we reconsider the stochastic differential equation
 
 $$
 dx = -x(t) dt + dN_1 - dN_2
@@ -271,7 +272,7 @@ $$
 dx^2 = -2x^2 dt + (2x+1) dN_1 + (-2x+1)dN_2
 $$
 
-where $N_1$ and $N_2$ are independent Poisson counters with rates $\lambda_1$ and $\lambda_2$. Applying rule (—), we find that
+where $N_1$ and $N_2$ are independent Poisson counters with rates $\lambda_1$ and $\lambda_2$. Applying rule {eq}`eq-5-rule2`, we find that
 
 $$
 \begin{aligned}
@@ -316,7 +317,7 @@ $$
 dEx(t) x(\tau) = Ex(t) f\bigl(x(\tau),\, \tau\bigr) d\tau + E \sum_i x(t) g_i\, \bigl(x(\tau),\, \tau\bigr) dN_i(\tau)
 $$
 
-which implies, via our rule (—), that
+which implies, via our rule {eq}`eq-5-rule2`, that
 
 $$
 \begin{aligned}
@@ -333,7 +334,7 @@ $$
 &+ \sum_i\, Ex(t) g_i\, \bigl(x(t + \tau),\, t+ \tau\bigr) d\tau. \\
 &\ t > 0.
 \end{aligned}
-$$
+$$ (eq-5-rule3)
 
 As an example, consider the random telegraph wave, which is determined by the solution to the stochastic differential equation
 
@@ -397,7 +398,7 @@ $$
 dx(t) = -ax(t)dt + (dN_1 - dN_2),\ a > 0
 $$
 
-where $N_1$ and $N_2$ are two Poisson counters with identical rates $\lambda$. Applying (—), we find that
+where $N_1$ and $N_2$ are two Poisson counters with identical rates $\lambda$. Applying {eq}`eq-5-rule3`, we find that
 
 $$
 \frac{d}{d\tau}\ Ex(t) x(t+\tau) = -aEx(t) x(t+\tau),\ \tau > 0
@@ -415,7 +416,7 @@ $$
 dx = \frac{1}{\sqrt\lambda}\ (dN_1 - dN_2)
 $$
 
-with $x(0) = 0$, and where $N_1$ and $N_2$ are independent Poisson counting processes each with rate $\lambda/2$. Applying formulas (—), we find that
+with $x(0) = 0$, and where $N_1$ and $N_2$ are independent Poisson counting processes each with rate $\lambda/2$. Applying formulas {eq}`eq-5-rule2`, we find that
 
 $$
 \frac{d}{dt}\ Ex(t) = \frac{1}{\sqrt \lambda}\ (\lambda/2 - \lambda/2) = 0
@@ -427,7 +428,7 @@ $$
 Ex(t) = 0\ \text{ for all }\ t \geq 0.
 $$
 
-We use formula (—) to derive a differential equation for $x^2$, namely
+We use formula {eq}`eq-5-rule1` to derive a differential equation for $x^2$, namely
 
 $$
 \begin{aligned}
@@ -442,7 +443,7 @@ $$
 dx(t)^2 = \bigl[2x/\sqrt\lambda + 1/\lambda\bigr]\, dN_1 + \bigl[-2x/\sqrt\lambda + 1/\lambda\bigr]\, dN_2
 $$
 
-Applying formula (—) to the above equation, we find that
+Applying formula {eq}`eq-5-rule2` to the above equation, we find that
 
 $$
 \frac{d}{dt}\, Ex(t)^2 = \bigl[2\, Ex/\sqrt\lambda + 1/\lambda\bigr]\, \lambda/2 + \bigl[-2Ex/\sqrt\lambda + 1/\lambda\bigr]\,\lambda/2 = 1.
@@ -454,7 +455,7 @@ $$
 Ex(t)^2 = t.
 $$
 
-Finally, applying formula (—), we have that for $\tau > 0$
+Finally, applying formula {eq}`eq-5-rule3`, we have that for $\tau > 0$
 
 $$
 \frac{d}{d\tau}\ Ex(t) x(t +\tau) = Ex(t)\ \frac{1}{\sqrt \lambda}\ (\lambda/2 - \lambda/2) = 0.
@@ -490,7 +491,7 @@ or
 
 $$
 \frac{dy(t)}{dt}\ = \sum_{i=1}^{\infty}\ a(\tau_i)\, \delta(t - \tau_i)
-$$
+$$ (eq-5-dydt)
 
 where $\{t_i\}$ is the $i^{th}$ arrival time of a Poisson counter with rate $\lambda$. An alternative representation in terms of an Ito stochastic differential equation is
 
@@ -498,13 +499,13 @@ $$
 dy(t) = a(t)dN(t)
 $$
 
-where $N(t)$ is a Poisson counting process with rate $\lambda$ and where the normal random variate $a(t)$ plays the role of $g(x(t),\, t)$ in formula (—). Applying rule (—) to derive a differential equation for $y(t)^2$, we obtain
+where $N(t)$ is a Poisson counting process with rate $\lambda$ and where the normal random variate $a(t)$ plays the role of $g(x(t),\, t)$ in formula {eq}`eq-5-1`. Applying rule {eq}`eq-5-rule1` to derive a differential equation for $y(t)^2$, we obtain
 
 $$
 dy(t)^2 = \bigl[a(t)^2 + 2a(t) y(t)\bigr]\, dN(t).
 $$
 
-Since $a(t)$ is independent of $y(t)$, applying rule (—), we find
+Since $a(t)$ is independent of $y(t)$, applying rule {eq}`eq-5-rule2`, we find
 
 $$
 \frac{d}{dt}\ Ey(t)^2 = \sigma_a^2 \lambda.
@@ -522,7 +523,7 @@ $$
 \frac{d}{dt}\ Ey(t) = \lambda Ea(t) = 0.
 $$
 
-Finally, for $\tau > 0$, we have from rule (—) that
+Finally, for $\tau > 0$, we have from rule {eq}`eq-5-rule3` that
 
 $$
 dEy(t) y(t + \tau) = Ey(t) a(t + \tau) \cdot \lambda = 0.
@@ -534,19 +535,19 @@ $$
 Ey(t) y(t + \tau) = Ey(t)^2 = \sigma_a^2 \lambda t.
 $$
 
-Thus, the generalized Poisson process is a random walk. At the random arrival times $\tau_i$, the process $y(t)$ takes a jump of random size $a(\tau_i)$. Since the normal distribution that governs $a(\tau_i)$ is symmetric about zero, the process is as likely to jump upward as it is to jump downward. This is why the process has no "drift," i.e., it has zero mean for all $t$. The process is mean square continuous, but not mean square differentiable. The derivative $dy(t)/dt$ given by (—) exists in the sense of a generalized stochastic process. This derivative is an example of a *white noise*, its autocorrelation function being a delta function $\sigma_a^2 \lambda \delta(\tau)$. In our work below, such a white noise is a valid input into a linear system. For example, if we define
+Thus, the generalized Poisson process is a random walk. At the random arrival times $\tau_i$, the process $y(t)$ takes a jump of random size $a(\tau_i)$. Since the normal distribution that governs $a(\tau_i)$ is symmetric about zero, the process is as likely to jump upward as it is to jump downward. This is why the process has no "drift," i.e., it has zero mean for all $t$. The process is mean square continuous, but not mean square differentiable. The derivative $dy(t)/dt$ given by {eq}`eq-5-dydt` exists in the sense of a generalized stochastic process. This derivative is an example of a *white noise*, its autocorrelation function being a delta function $\sigma_a^2 \lambda \delta(\tau)$. In our work below, such a white noise is a valid input into a linear system. For example, if we define
 
 $$
 wt = \frac{dy(t)}{dt} = \sum_{i=1}^{\infty}\ a(\tau_i)\, \delta(t - \tau_i)
-$$
+$$ (eq-5-wt)
 
 we might be interested in the process,
 
 $$
 z(t) = \int_0^\infty h(\tau)\, w(t - \tau) d\tau
-$$
+$$ (eq-5-z)
 
-where $h(\tau)$ is a continuous function in $L_2\, [0,\, \infty]$. By substituting (—) into (—) and exchanging orders of integration and summation, we find that
+where $h(\tau)$ is a continuous function in $L_2\, [0,\, \infty]$. By substituting {eq}`eq-5-wt` into {eq}`eq-5-z` and exchanging orders of integration and summation, we find that
 
 $$
 z(t) = \sum_{i=1}^{\infty}\ a(\tau_i)\, h(t - \tau_i).

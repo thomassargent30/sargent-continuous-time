@@ -5,7 +5,7 @@ unpredictable" or is "locally like a martingale." Sims used the concept of
 local unpredictability in his work on asset prices, interest rates, and
 consumption. We use the following definition:
 
-**Definition:** A stochastic process $x(t)$ with finite second moments is said to
+**Definition 10.** A stochastic process $x(t)$ with finite second moments is said to
 be *locally unpredictable* if
 
 $$
@@ -21,7 +21,7 @@ $$
 
 We have the following theorem.
 
-**Theorem:** Let $x(t)$ be a linearly indeterministic covariance stationary
+**Theorem 16.** Let $x(t)$ be a linearly indeterministic covariance stationary
 stochastic process with Wold representation
 
 $$
@@ -59,13 +59,13 @@ Upon noting that $p(0) = 0$ if and only if $x(t)$ is mean square differentiable,
 we have the desired result that if $x(t)$ is not mean square differentiable,
 then $x(t)$ is locally unpredictable.
 
-Using the preceding theorem and our formulas (—), it is straightforward to
+Using the preceding theorem and our formula {eq}`eq-12-gen` for geometric distributed leads, it is straightforward to
 establish that if $x(t)$ is a covariance stationary stochastic process with Wold
 representation
 
 $$
 x(t) = \int^\infty_0 p(s)\, w(t-s)\, ds = \tilde P (D)\, w(t),
-$$
+$$ (eq-13-wold)
 
 then for any $\rho < 0$, the geometric sum of future expected $x$'s,
 
@@ -90,4 +90,4 @@ $$
 (Here we are using that $\lim_{s\to \infty} s\tilde P (s) = 0$ by the assumption
 of mean square differentiability of $x(t)$.) We know that $\tilde P (-\rho) \neq 0$
 because $\tilde P(s)$ has no zeroes in the right half plane, by the assumption
-that (—) is a Wold representation.
+that {eq}`eq-13-wold` is a Wold representation.

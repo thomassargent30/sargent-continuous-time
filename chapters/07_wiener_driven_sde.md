@@ -17,17 +17,17 @@ We wish to consider a class of stochastic differential equations driven by a Wie
 
 $$
 dx(t) = f\left(x(t),\, t\right) dt + g\left(x(t),\,t\right) dW(t).
-$$
+$$ (eq-7-sde)
 
-We shall derive rules for manipulating such equations by regarding (—) as the limit as $\lambda \to \infty$ of
+We shall derive rules for manipulating such equations by regarding {eq}`eq-7-sde` as the limit as $\lambda \to \infty$ of
 
 $$
 dx(t) = f\left(x(t),\, t\right) dt + \frac{1}{\sqrt\lambda}\ g\left(x(t),\, t\right)\ \left(dN_1(t) - dN_2(t)\right),
-$$
+$$ (eq-7-approx)
 
 where $N_1$ and $N_2$ are two independent Poisson counters with identical rates $\lambda/2$.
 
-The first rule we seek is the counterpart of rule (—). Where $\Psi(x)$ is a function of $x$, $\Psi(x)$ obeys the differential equation
+The first rule we seek is the counterpart of rule {eq}`eq-5-rule1`. Where $\Psi(x)$ is a function of $x$, $\Psi(x)$ obeys the differential equation
 
 $$
 \begin{aligned}
@@ -36,7 +36,7 @@ d\Psi(x) &= \left\langle \frac{\partial\Psi}{\partial x}\, , \ f\left(x(t),\, t\
 \end{aligned}
 $$
 
-To generate this rule, we use (—) for $\lambda > 0$ and using rule (—) to obtain
+To generate this rule, we use {eq}`eq-7-approx` for $\lambda > 0$ and using rule {eq}`eq-5-rule1` to obtain
 
 ```{math}
 :label: eq-7-1
@@ -135,7 +135,7 @@ Our second rule is
 
 $$
 \frac{d}{dt}\ E\Psi(x) = E\ \left\langle \frac{\partial\Psi}{\partial x}\, ,\ f(x,\, t)\right\rangle + \frac{1}{2}\, E\ \left\langle \frac{\partial^2\Psi}{\partial x^2}\, g,\, g\right\rangle.
-$$
+$$ (eq-7-rule2)
 
 This rule can be derived by the same limiting process. For $\lambda > 0$, we have
 
@@ -164,7 +164,7 @@ $$
 \end{aligned}
 $$
 
-Taking the limit as $\lambda \to \infty$ gives the desired result (—).
+Taking the limit as $\lambda \to \infty$ gives the desired result {eq}`eq-7-rule2`.
 
 The next result that we desire is for $\tau > 0$,
 

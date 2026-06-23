@@ -163,16 +163,16 @@ or
 
 $$
 R(t_1,\, t_2) = \lambda\, \min\, (t_1,\, t_2) + \lambda^2 t_1\, t_2.
-$$
+$$ (eq-3-R)
 
 Note that $\min\, (t_1,\, t_2)$ is the length of overlap of $N(t_2)$ and $N(t_1)$. It
-follows from (—) that
+follows from {eq}`eq-3-R` that
 
 $$
 C\, (t_1,\, t_2) = \lambda\, \min\, (t_1,\, t_2).
-$$
+$$ (eq-3-C)
 
-From (—) it follows that $N(t)$ is mean square continuous. (Why?) From {eq}`eq-3-1`, we
+From {eq}`eq-3-C` it follows that $N(t)$ is mean square continuous. (Why?) From {eq}`eq-3-1`, we
 also have that
 
 $$
@@ -183,14 +183,14 @@ or
 
 $$
 \frac{\partial R(t_1,\, t_2)}{\partial t_1}\ =\ \lambda u(t_2 - t_1) + \lambda^2 t_2
-$$
+$$ (eq-3-dR)
 
 where $u(t)$ is the Heaviside unit step function defined by $u(t) = 1$ for $t \geq 0,\
-u(t) = 0$ for $t < 0$. It follows from (—) that
+u(t) = 0$ for $t < 0$. It follows from {eq}`eq-3-dR` that
 
 $$
 \frac{\partial^2 R(t_1,\, t_2)}{\partial t_1 \partial t_2}\ =\ \lambda \delta(t_2 - t_1) + \lambda^2
-$$
+$$ (eq-3-d2R)
 
 where $\delta(\ \ )$ is the Dirac delta generalized function defined by
 
@@ -201,7 +201,7 @@ $$
 for all test functions $g(t)$ that are continuous at $t = 0$, and that go to zero
 sufficiently quickly as $|t| \to \infty$.
 
-Equation (—) states that $\partial^2 R(t_1,\, t_2)/\partial t_1 \partial t_2$ does not
+Equation {eq}`eq-3-d2R` states that $\partial^2 R(t_1,\, t_2)/\partial t_1 \partial t_2$ does not
 exist as an ordinary function, so that $R(t_1,\, t_2)$ is not twice differentiable. It
 follows that $N(t)$ is not mean square differentiable, so that $dN(t)/dt$ does not exist
 as an ordinary stochastic process.
@@ -306,11 +306,11 @@ Y(t) &= \int_0^{\infty} L(\tau) \sum_{i=1}^{\infty} \delta(t - t_i - \tau)\, d\t
 &= \sum_{i=1}^{\infty} \int_0^{\infty} L(\tau) \delta(t - t_i - \tau)\, d\tau \\
 Y(t) &= \sum_{i=1}^{\infty} L(t - t_i),\ t \geq 0 \\
 \end{aligned}
-$$
+$$ (eq-3-shot)
 
-The process $Y(t)$ defined by (—) is an ordinary stochastic process, consisting of a sum
+The process $Y(t)$ defined by {eq}`eq-3-shot` is an ordinary stochastic process, consisting of a sum
 of the function $L$ shifted by the random arrival times $t_i$. Such a process $Y(t)$ is
-called *shot noise*. In Section (—), we shall show how to calculate its first and second
+called *shot noise*. In Chapter 8, we shall show how to calculate its first and second
 order moments.
 
 ## Exercises

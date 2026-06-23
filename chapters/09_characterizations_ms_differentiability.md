@@ -2,7 +2,8 @@
 
 The following theorem is useful.
 
-**Theorem.** Let $x(t)$ be a linearly indeterministic covariance stationary process with moving average representation
+(thm-msd-representation)=
+**Theorem 11.** Let $x(t)$ be a linearly indeterministic covariance stationary process with moving average representation
 
 $$
 x(t) = \int_{0}^{\infty} p(\tau) w(t-\tau) \, d\tau
@@ -47,9 +48,10 @@ As established above, in order for $x(t)$ to be mean square differentiable, it i
 
 (Details to be filled in)
 
-The generalization of this theorem to higher order derivatives follows by repeated differentiation of (—):
+The generalization of this theorem to higher order derivatives follows by repeated differentiation of {eq}`eq-9-1`:
 
-**Theorem.** $D^n x(t)$ exists as an ordinary stochastic process only if $p(0) = Dp(0) = \ldots = D^{n-1} p(0) = 0$ and
+(thm-msd-higher-order)=
+**Theorem 12.** $D^n x(t)$ exists as an ordinary stochastic process only if $p(0) = Dp(0) = \ldots = D^{n-1} p(0) = 0$ and
 
 $$
 \int_{0}^{\infty} |D^j p(s)|^2 \, ds = 0
@@ -59,7 +61,7 @@ for $j = 0,\ 1,\, \ldots\, n$.
 
 We also have:
 
-**Theorem.** If $x(t)$ is mean square differentiable and linearly indeterministic with $x(t) = \tilde P(D) w(t)$ being its Wold representation, then
+**Theorem 13.** If $x(t)$ is mean square differentiable and linearly indeterministic with $x(t) = \tilde P(D) w(t)$ being its Wold representation, then
 
 $$
 Dx(t) = D \tilde P(D) w(t)
@@ -77,7 +79,7 @@ is a Wold representation for $Dx(t)$.
 
 The following proposition characterizes mean square continuity.
 
-**Theorem.** Let $x(t)$ be a linearly indeterministic covariance stationary stochastic process with Wold moving average representation $x(t) = \tilde P(D) w(t) = \int_{0}^{\infty} p(\tau) w(t-\tau) \, d\tau$. Then $x(t)$ is mean square continuous if and only if $p(\tau)$ is continuous almost everywhere.
+**Theorem 14.** Let $x(t)$ be a linearly indeterministic covariance stationary stochastic process with Wold moving average representation $x(t) = \tilde P(D) w(t) = \int_{0}^{\infty} p(\tau) w(t-\tau) \, d\tau$. Then $x(t)$ is mean square continuous if and only if $p(\tau)$ is continuous almost everywhere.
 
 **Proof.** We must verify that $\lim_{\epsilon \to 0} E\, [(x(t+\epsilon) - x(t))^2] = 0$
 
@@ -93,7 +95,7 @@ $$
 
 if and only if $p(s)$ is continuous almost everywhere.
 
-Together with results (—), the following characterization can provide a useful way of testing for mean square differentiability of various orders.
+Together with {ref}`Theorem 11 <thm-msd-representation>` and {ref}`Theorem 12 <thm-msd-higher-order>`, the following characterization can provide a useful way of testing for mean square differentiability of various orders.
 
 **Criterion (Initial value theorem).** Let $\tilde P(s) = \int_{0}^{\infty} e^{-st} p(t) \, dt$ be the Laplace transform of $p(t)$. Then
 

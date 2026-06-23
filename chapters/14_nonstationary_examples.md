@@ -4,7 +4,7 @@ We briefly consider an example of a nonstationary process, for which many of the
 
 $$
 x(t) = \int^\infty_0 p(\tau)\, w(t-\tau)\, d\tau
-$$
+$$ (eq-14-ma)
 
 where $w(t)$ is a nonstationary white noise with
 
@@ -21,7 +21,7 @@ $$
 \int^\infty_0 p(\tau)^2\, d\tau = +\infty.
 $$
 
-It follows from (—) that $x(t)$ can also be expressed as
+It follows from {eq}`eq-14-ma` that $x(t)$ can also be expressed as
 
 $$
 x(t) = \int^t_{-T} p(t-s)\, w(s)\, ds.
@@ -31,21 +31,21 @@ It then follows that for $\tau > 0$
 
 $$
 E x(t)\, x(t-\tau) = \int^{t-\tau}_{-T} p(t-s)\, p(t-\tau-s)\, ds.
-$$
+$$ (eq-14-acov)
 
-It can be verified from (—), using the criterion in theorem (—), that $x(t)$ is mean square differentiable if (a) $p(0) = 0$, and (b) $p(s)$ is twice differentiable. (Put proof in footnote.)
+It can be verified from {eq}`eq-14-acov`, using the criterion in Theorem 6 of Chapter 2, that $x(t)$ is mean square differentiable if (a) $p(0) = 0$, and (b) $p(s)$ is twice differentiable. (Put proof in footnote.)
 
 As an example, we take a nonstationary process governed by
 
 $$
 x(t) = \frac{\beta + D}{D^2}\, w(t) \qquad \beta > 0
-$$
+$$ (eq-14-proc)
 
 or
 
 $$
 x(t) = \int^{t+T}_0 (1 + \beta s)\, w(t-s)\, ds
-$$
+$$ (eq-14-procint)
 
 where
 
@@ -53,11 +53,11 @@ $$
 1 + \beta t \leftrightarrow \frac{\beta + iw}{(iw)^2}\,.
 $$
 
-Applying our prediction formula to (—), have that $\hat E_t\, x(t+v)$ is given by
+Applying our prediction formula to {eq}`eq-14-procint`, have that $\hat E_t\, x(t+v)$ is given by
 
 $$
 \hat E_t x(t+v) = \int^{t+T}_0 \left(1 + \beta (s+v)\right) w(t-s)\, ds, \qquad v > 0
-$$
+$$ (eq-14-forecast)
 
 Since for $E_t x(t+v)$, the "kernel" $p(s) = 1 + \beta (s+v)$ does not satisfy $p(0) = 0$, the process is not mean square differentiable (with respect to $t$). However, $d/dv\, E_t x(t+v)$ *does* exist as a mean square derivative. In particular, note that
 
@@ -75,15 +75,15 @@ This shows that
 \frac{d}{dv}\ E_t\, x(t+v) = \beta \int^\infty_0 w(t-\tau)\, d\tau,
 ```
 
-which is the expression for $d/dv\, E_t x(t+v)$ that is obtained by differentiating the right side (—) formally.
+which is the expression for $d/dv\, E_t x(t+v)$ that is obtained by differentiating the right side of {eq}`eq-14-forecast` formally.
 
 Equation {eq}`eq-14-1` can be expressed as
 
 $$
 \frac{d}{dv}\, E_t\, x(t+v) = \frac{\beta}{D}\, w(t).
-$$
+$$ (eq-14-dvD)
 
-Solving (—) formally for $w(t)$, and using the result in (—) gives
+Solving {eq}`eq-14-proc` formally for $w(t)$, and using the result in {eq}`eq-14-dvD` gives
 
 $$
 \begin{aligned}
@@ -103,4 +103,4 @@ $$
 \frac{d}{dv}\ E_t\, x(t+v) = \beta \int^{t+T}_0 e^{-\beta s}\, Dx(t-s)\, ds
 $$
 
-which formally expresses the mean square derivative $d/dv\ E_t x(t+v)$ as a geometric distributed lag of the "derivative" of $x(t)$, it being understood that the derivative of $x(t)$ exists only as a generalized stochastic process. Equation {eq}`eq-14-2` is a version of Cagan's adaptive expectations scheme in continuous time. Notice that the expected rate of change $d/dv\ E_t x(t+v)$ is independent of the value of $v$ at which it is evaluated. This is the counterpart in continuous time of the adaptive expectations scheme that was noted by Muth (—) in discrete time, namely, that the optimal forecast is independent of horizon. This is a special property of the stochastic process (—) for which adaptive expectations are optimal or rational.
+which formally expresses the mean square derivative $d/dv\ E_t x(t+v)$ as a geometric distributed lag of the "derivative" of $x(t)$, it being understood that the derivative of $x(t)$ exists only as a generalized stochastic process. Equation {eq}`eq-14-2` is a version of Cagan's adaptive expectations scheme in continuous time. Notice that the expected rate of change $d/dv\ E_t x(t+v)$ is independent of the value of $v$ at which it is evaluated. This is the counterpart in continuous time of the adaptive expectations scheme that was noted by Muth (1960) in discrete time, namely, that the optimal forecast is independent of horizon. This is a special property of the stochastic process {eq}`eq-14-proc` for which adaptive expectations are optimal or rational.
