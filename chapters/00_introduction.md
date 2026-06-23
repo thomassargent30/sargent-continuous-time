@@ -167,10 +167,12 @@ geometric-lead formula of Chapter 12. [Chapter 18](18_temporal_aggregation_strea
 relationship between the continuous and discrete Wold representations: how sampling and
 unit-averaging contaminate impulse responses, distort Granger-causality, and bias the
 apparent importance of variables, and in what sense finer sampling recovers the continuous
-model. Finally, [Chapter 19](19_appreciation_phillips.md) (Hansen and Sargent) steps back to
-survey the whole literature on aggregation over time, tracing it to A. W. Phillips's 1959
-paper and placing the preceding chapters within the program of identifying continuous-time
-rational expectations models from discrete data.
+model. Finally, [Chapter 19](19_phillips_continuous_time_estimation.md) presents A. W. Phillips's
+landmark 1959 paper on inferring a continuous-time system from discrete-time data — read as an
+application of the book's machinery and framed by an appreciation by Hansen and Sargent — and
+through it surveys the whole literature on aggregation over time, placing the preceding chapters
+within the program of identifying continuous-time rational expectations models from discrete
+data.
 
 ## Threads to follow
 

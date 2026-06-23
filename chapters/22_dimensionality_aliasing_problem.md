@@ -822,7 +822,7 @@ Models from Discrete Time Data. Unpublished manuscript.
 Kwakernaak, H., and R. Sivan (1972). *Linear Optimal Control Systems*. New York: Wiley.
 
 Phillips, A. W. (1959). The Estimation of Parameters in Systems of Stochastic Differential
-Equations. *Biometrika*, **46**, 67–76. (Reproduced as {doc}`20_phillips_1959_sde`.)
+Equations. *Biometrika*, **46**, 67–76. (Discussed in {doc}`19_phillips_continuous_time_estimation`.)
 
 Phillips, P. C. B. (1973). The Problem of Identification in Finite Parameter Continuous Time
 Models. *Journal of Econometrics*, **1**, 351–362.
