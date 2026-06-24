@@ -48,10 +48,10 @@ volume and are reproduced here for convenience.
 
 16. Time Aggregation (Hansen and Sargent, from *Two Difficulties in Interpreting Vector Autoregressions*, §2)
 17. Prediction Formulas for Continuous Time Linear Rational Expectations Models (Hansen and Sargent)
-18. Temporal Aggregation of Economic Time Series (Marcet)
-19. Inferring a Continuous-Time System from Discrete-Time Data: An Appreciation of A. W. Phillips (1959) (presenting Phillips, *Biometrika*, 1959, with Hansen and Sargent)
-21. Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in Continuous Time (Hansen and Sargent, *IER*, 1983)
-22. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities (Hansen and Sargent, *Econometrica*, 1983)
+18. Inferring a Continuous-Time System from Discrete-Time Data: An Appreciation of A. W. Phillips (1959) (presenting Phillips, *Biometrika*, 1959, with Hansen and Sargent)
+19. Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in Continuous Time (Hansen and Sargent, *IER*, 1983)
+20. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities (Hansen and Sargent, *Econometrica*, 1983)
+21. Temporal Aggregation of Economic Time Series (Marcet)
 
 ## Notation
 

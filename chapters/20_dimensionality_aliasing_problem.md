@@ -11,25 +11,24 @@ kernelspec:
   name: python3
 ---
 
-# 22. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities
-
-*by Lars Peter Hansen and Thomas J. Sargent*
+# 20. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities
 
 ```{note}
-This chapter reproduces Hansen and Sargent, "The Dimensionality of the Aliasing Problem in
-Models with Rational Spectral Densities," *Econometrica* **51** (1983), no. 2, pp. 377–387.
-The original section, equation, and theorem numbering is retained. The original paper
-contains no figures or tables; the first-order Markov results of {ref}`sec-22-4` are
-**illustrated numerically in Python** with a concrete worked example (in the spirit of the
-example in the companion Federal Reserve Bank of Minneapolis Staff Report No. 72).
+This chapter reports and paraphrases Lars Peter Hansen and Thomas J. Sargent, "The
+Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities,"
+*Econometrica* **51** (1983), no. 2, pp. 377–387. We retell the argument in the third person —
+"Hansen and Sargent show," "the authors" — while preserving the original section, equation, and
+theorem numbering. The original paper contains no figures or tables; the first-order Markov
+results of {ref}`sec-20-4` are **illustrated numerically in Python** with a concrete worked
+example (in the spirit of the one in the companion Federal Reserve Bank of Minneapolis Staff
+Report No. 72).
 ```
 
-This paper reconsiders the aliasing problem of identifying the parameters of a continuous
-time stochastic process from discrete time data. It analyzes the extent to which restricting
-attention to processes with rational spectral density matrices reduces the number of
-observationally equivalent models. It focuses on rational specifications of spectral density
-matrices since rational parameterizations are commonly employed in the analysis of time
-series data.
+In this paper Hansen and Sargent reconsider the aliasing problem of identifying the parameters
+of a continuous time stochastic process from discrete time data. They analyze the extent to
+which restricting attention to processes with rational spectral density matrices reduces the
+number of observationally equivalent models, focusing on rational specifications because they
+are commonly employed in the analysis of time series data.
 
 ## 1. Introduction
 
@@ -41,54 +40,52 @@ adopting a finite parameterization of the spectral density function. For instanc
 Phillips (1959) and Hansen and Sargent (1981) used continuous time models in which the
 continuous time spectral density function of the observable time series is a rational function.
 
-The purpose of this paper is to show that the specification of a rational spectral density
+The purpose of the paper is to show that the specification of a rational spectral density
 matrix in itself goes a significantly greater distance towards resolving the aliasing problem
-than has heretofore been recognized. For some subclasses of these models, it had previously been
-thought that there is a countably infinite number of observationally equivalent models (see
-P. C. B. Phillips (1973)). Here we show that in general there is only a *finite* number of
-observationally equivalent models, and furthermore that in certain regions of the parameter
-space, there may be no identification problem at all.
+than had previously been recognized. For some subclasses of these models, it had been thought
+that there is a countably infinite number of observationally equivalent models (see
+P. C. B. Phillips (1973)). Hansen and Sargent show that in general there is only a *finite*
+number of observationally equivalent models, and that in certain regions of the parameter
+space there may be no identification problem at all.
 
 In applications, additional prior economic restrictions can be imposed on the reduced form
 specifications considered here. It is important to know how large a role the particular finite
-parameter specification of the continuous time reduced form is playing relative to the
-additional structural restrictions implied by economic theory in achieving this identification.
-This paper clarifies the roles of these two sources of identification.
+parameter specification of the continuous time reduced form plays, relative to the additional
+structural restrictions implied by economic theory, in achieving identification; the paper
+clarifies the roles of these two sources of identification.
 
-Section 2 briefly describes the aliasing identification problem in the case of a general,
-indeterministic, covariance stationary continuous time vector stochastic process. It is remarked
-that in this general case the class of observationally equivalent continuous time models is
-uncountably infinite. Section 3 describes the identification problem for the more restricted
-case, usual in applications, of an assumed rational spectral density matrix. We briefly indicate
-a machinery for proving that the class of observationally equivalent continuous time models is
-in general finite. Section 4 then provides a more complete characterization of the situation in
-the special case studied by P. C. B. Phillips (1973), in which the true continuous time model is
-a first order vector Markov process. We show that there generally exists a discrete sampling
-interval sufficiently fine that the continuous time model is identified.
+Section 2 briefly describes the aliasing identification problem for a general, indeterministic,
+covariance stationary continuous time vector stochastic process; in this general case the class
+of observationally equivalent continuous time models is uncountably infinite. Section 3 takes up
+the more restricted case, usual in applications, of an assumed rational spectral density matrix,
+and indicates a machinery for proving that the class of observationally equivalent continuous
+time models is in general finite. Section 4 then characterizes more completely the special case
+studied by P. C. B. Phillips (1973), in which the true continuous time model is a first order
+vector Markov process; there, Hansen and Sargent show that there generally exists a discrete
+sampling interval fine enough for the continuous time model to be identified.
 
 ## 2. The aliasing problem under covariance stationarity
 
 Consider an $n$ dimensional continuous time stochastic process, $x$, that is covariance
-stationary and linearly regular. For simplicity we assume that the process has a moving average
+stationary and linearly regular. For simplicity the process is assumed to have a moving average
 representation
 
 ```{math}
-:label: eq-22-1
+:label: eq-20-1
 x(t) = \int_0^\infty c(\tau)\, w(t - \tau)\, d\tau
 ```
 
 where $w$ is an $n$ dimensional continuous time white noise process with intensity matrix $I$
-and where $c$ is an $(n \times n)$ matrix function whose elements are square integrable. We
-assume that the process $w$ is fundamental for $x$, which means that linear combinations of
-current and past $w$'s span the same space as linear combinations of current and past $x$'s.
-Under these assumptions, the matrix function $c$ is unique up to a post multiplication by an
-orthogonal matrix.
+and $c$ is an $(n \times n)$ matrix function whose elements are square integrable. The process
+$w$ is assumed fundamental for $x$, which means that linear combinations of current and past
+$w$'s span the same space as linear combinations of current and past $x$'s. Under these
+assumptions the matrix function $c$ is unique up to post-multiplication by an orthogonal matrix.
 
-Let $C(s) = \int_0^\infty c(t) e^{-st}\, dt$ be the Laplace transform of $c$. We adopt a
-convenient notation and write representation {eq}`eq-22-1` as
+Let $C(s) = \int_0^\infty c(t) e^{-st}\, dt$ be the Laplace transform of $c$. It is convenient to
+write representation {eq}`eq-20-1` as
 
 ```{math}
-:label: eq-22-2
+:label: eq-20-2
 x(t) = C(D)\, w(t)
 ```
 
@@ -99,7 +96,7 @@ matrix. The spectral density matrix $f$ is positive semidefinite at all frequenc
 is related to $C$ by
 
 ```{math}
-:label: eq-22-3
+:label: eq-20-3
 f(\omega) = C(i\omega) C(-i\omega)', \qquad -\infty < \omega < \infty.
 ```
 
@@ -107,7 +104,7 @@ Here the prime denotes transposition (but not conjugation). Since the $x$ proces
 function $f$ satisfies
 
 ```{math}
-:label: eq-22-4
+:label: eq-20-4
 f(\omega) = \bar f(-\omega) = \bar f(\omega)'
 ```
 
@@ -119,17 +116,17 @@ obtained by observing $x$ at integer points in time. It is known that $f$ and $F
 the following formula:
 
 ```{math}
-:label: eq-22-5
+:label: eq-20-5
 F(\omega) = \sum_{j=-\infty}^{+\infty} f(\omega + 2\pi j).
 ```
 
 Since $F$ completely summarizes the population covariance properties of $X$, formula
-{eq}`eq-22-5` implies that the function $f$ cannot be inferred from the discrete time data. This
+{eq}`eq-20-5` implies that the function $f$ cannot be inferred from the discrete time data. This
 can be seen by noting that alternative Hermitian, positive semidefinite matrix functions $f^*$
 can be constructed that satisfy
 
 ```{math}
-:label: eq-22-6
+:label: eq-20-6
 F(\omega) = \sum_{j=-\infty}^{+\infty} f^*(\omega + 2\pi j), \qquad f^*(\omega) = \bar f^*(-\omega),
 ```
 
@@ -141,24 +138,24 @@ C^*(D) w^*(t)$. Although the matrix function $c^*$ cannot be obtained from $c$ b
 multiplying $c$ by an orthogonal matrix, $c^*$ is observationally equivalent to $c$ with discrete
 time data. This is the conventional formulation of the aliasing problem in time series analysis.
 
-The models in {eq}`eq-22-1` are in general infinite parameter models, with the parameters in $c$
+The models in {eq}`eq-20-1` are in general infinite parameter models, with the parameters in $c$
 being the objects whose identification is sought. At this level of generality, the aliasing
-problem is a *local* identification problem in the sense that there are observationally
-equivalent parameters $c^*$ satisfying {eq}`eq-22-5` and {eq}`eq-22-6` that are arbitrarily close
-to the true parameter $c$. Here our measure of distance is the matrix $L_2$ norm
+problem is a *local* identification problem, in the sense that there are observationally
+equivalent parameters $c^*$ satisfying {eq}`eq-20-5` and {eq}`eq-20-6` that are arbitrarily close
+to the true parameter $c$. The relevant measure of distance is the matrix $L_2$ norm
 
 $$
 \int_0^\infty \operatorname{trace}\{[c(\tau) - c^*(\tau)][c(\tau) - c^*(\tau)]'\}\, d\tau.
 $$
 
 There is an overwhelming number of $c^*$'s that are observationally equivalent to $c$. In fact,
-this number is uncountable.[^fn22-1] Thus, at the general level of the model {eq}`eq-22-1`, the
+this number is uncountable.[^fn20-1] Thus, at the general level of the model {eq}`eq-20-1`, the
 dimensionality of the class of observationally equivalent models given equispaced discrete time
 observations is uncountable.
 
 ### Illustration: spectral folding and observational equivalence
 
-The folding formula {eq}`eq-22-5` is the engine of the aliasing problem. We illustrate it with
+The folding formula {eq}`eq-20-5` is the engine of the aliasing problem. We illustrate it with
 a scalar first order Markov process $Dx(t) = -a\, x(t) + \epsilon(t)$ (intensity $v$), whose
 continuous time spectral density is the Lorentzian $f(\omega) = v/(a^2 + \omega^2)$ — the same
 Ornstein–Uhlenbeck spectrum met in {doc}`08_spectral_densities` and {doc}`15_discrete_sampling_folding`.
@@ -206,9 +203,9 @@ ax2.legend(fontsize=9)
 plt.tight_layout(); plt.show()
 ```
 
-The folded sum reproduces the discrete AR(1) spectrum exactly, confirming {eq}`eq-22-5`. Now we
+The folded sum reproduces the discrete AR(1) spectrum exactly, confirming {eq}`eq-20-5`. Now we
 exhibit the non-identification directly: a *different* continuous spectral density $f^*$ that
-folds to the *same* $F$. Following the bandlimited construction of [^fn22-1] (with $\omega^* =
+folds to the *same* $F$. Following the bandlimited construction of [^fn20-1] (with $\omega^* =
 \pi$), put all of $f^*$'s power in the high-frequency band $\pi < |\omega| < 3\pi$, setting it
 equal to $\tfrac{1}{2} F$ there. Its fold onto $[-\pi, \pi]$ then equals $F$, so $x$ and $x^*$ are
 observationally indistinguishable from integer-sampled data even though their continuous time
@@ -261,24 +258,24 @@ convenient parameterization is to assume that $c$ has a rational Laplace transfo
 particular, suppose that
 
 ```{math}
-:label: eq-22-7
+:label: eq-20-7
 C(s) = \frac{(G_0 + G_1 s + \cdots + G_{q-1} s^{q-1})}{(s - \lambda_1)(s - \lambda_2) \cdots (s - \lambda_q)} = \frac{G(s)}{g(s)}
 ```
 
 where $G_0, G_1, \ldots, G_{q-1}$ are $(n \times n)$ matrices, $\lambda_1, \lambda_2, \ldots,
 \lambda_q$ are distinct complex numbers with nonzero real parts, and $g(s)$ is the lowest common
-denominator polynomial for the elements of $C(s)$. We assume that the zeroes of $\det G(s)$ have
-negative real parts and that for each $j$, $\lambda_j = \bar\lambda_{k}$ for some index $k$.
-Finally, we assume that any two $\lambda$'s with the same real part do not have imaginary parts
-that differ by an integer multiple of $2\pi i$. The $\lambda$'s are called the *poles* of the
-complex matrix function $C$.
+denominator polynomial for the elements of $C(s)$. The zeroes of $\det G(s)$ are assumed to have
+negative real parts, and for each $j$, $\lambda_j = \bar\lambda_{k}$ for some index $k$. Finally,
+any two $\lambda$'s with the same real part are assumed not to have imaginary parts that differ
+by an integer multiple of $2\pi i$. The $\lambda$'s are called the *poles* of the complex matrix
+function $C$.
 
-We proceed to examine the spectral density matrix of a process with a $C$ that satisfies
-specification {eq}`eq-22-7`. Following an approach that was used by A. W. Phillips (1959), we form
-the partial fractions representation of the matrix function $h$,
+Hansen and Sargent examine the spectral density matrix of a process with a $C$ that satisfies
+specification {eq}`eq-20-7`. Following an approach used by A. W. Phillips (1959), they form the
+partial fractions representation of the matrix function $h$,
 
 ```{math}
-:label: eq-22-8
+:label: eq-20-8
 h(s) = C(s) C(-s)' = \sum_{j=1}^q \left[ \frac{Q_j}{s - \lambda_j} + \frac{Q_j'}{-s - \lambda_j} \right]
 ```
 
@@ -295,22 +292,22 @@ complex conjugates of the elements of $Q_j$. The spectral density matrix of $x$ 
 h(i\omega)$, and the autocovariance function, which equals the Fourier transform of $f$, is
 
 ```{math}
-:label: eq-22-9
+:label: eq-20-9
 r(\tau) = \begin{cases} \displaystyle\sum_{j=1}^q Q_j\, e^{\lambda_j \tau} & \text{for } \tau \geq 0, \\[1ex] r(-\tau)' & \text{for } \tau < 0. \end{cases}
 ```
 
-Suppose that we wish to construct a function $r^*$ that is distinct from $r$ but can be written in
-the form given in {eq}`eq-22-9` and is equal to $r$ at integer values of $\tau$. Such a function
-$r^*$ is a candidate for a continuous time autocovariance function that is observationally
-equivalent to $r$. To generate such a family of $r^*$'s we use equation {eq}`eq-22-9` and the
-fact that $e^{2\pi i \tau} = 1$ for any integer $\tau$. Since the function $r$ at integer values
+Suppose one wishes to construct a function $r^*$ that is distinct from $r$ but can be written in
+the form {eq}`eq-20-9` and is equal to $r$ at integer values of $\tau$. Such an $r^*$ is a
+candidate for a continuous time autocovariance function that is observationally equivalent to
+$r$. To generate a family of such $r^*$'s, the authors use equation {eq}`eq-20-9` and the fact
+that $e^{2\pi i \tau} = 1$ for any integer $\tau$. Since the function $r$ at integer values
 of $\tau$ can be inferred from discrete time data, it is evident that the complex matrices $Q_j$
 and the complex numbers $\rho_j$ are identifiable from discrete time data where $\rho_j =
 e^{\lambda_j}$. It follows that the real parts of the poles $\lambda_j$ are just the real
 logarithms of $|\rho_j|$. Hence the real parts of the poles are identifiable from discrete time
 data. On the other hand, the imaginary parts of the poles are not necessarily identifiable. If at
-least one of the poles is complex, then we can construct a countable infinity of real matrix
-functions $r^*$ of the form given in {eq}`eq-22-9` that are equal to $r$ at integer values of
+least one of the poles is complex, then one can construct a countable infinity of real matrix
+functions $r^*$ of the form given in {eq}`eq-20-9` that are equal to $r$ at integer values of
 $\tau$. Thus, suppose that the first two $\lambda$'s form a complex conjugate pair. Let
 $\lambda_1^k = \lambda_1 + 2\pi i k$ and $\lambda_2^k = \lambda_2 - 2\pi i k$. Now form the
 functions
@@ -319,11 +316,11 @@ $$
 r_k(\tau) = \begin{cases} Q_1 e^{\lambda_1^k \tau} + Q_2 e^{\lambda_2^k \tau} + \displaystyle\sum_{j=3}^q Q_j e^{\lambda_j \tau} & \text{for } \tau \geq 0, \\[1ex] r_k(-\tau)' & \text{for } \tau < 0. \end{cases}
 $$
 
-The matrix functions $r_k$ are equal to $r$ at integer values of $\tau$. Therefore we have
-generated a countable sequence of candidates for autocovariance functions of observationally
-equivalent models. However, in order for these functions to be legitimate autocovariance
-functions of a continuous time process, it is necessary and sufficient that the continuous
-Fourier transforms of these functions be positive semidefinite at all frequencies. That is
+The matrix functions $r_k$ equal $r$ at integer values of $\tau$, so Hansen and Sargent have
+generated a countable sequence of candidate autocovariance functions for observationally
+equivalent models. However, for these functions to be legitimate autocovariance functions of a
+continuous time process, it is necessary and sufficient that their continuous Fourier transforms
+be positive semidefinite at all frequencies. That is,
 
 $$
 \begin{aligned}
@@ -333,72 +330,70 @@ f_k(\omega) &= \frac{Q_1}{i\omega - \lambda_1^k} + \frac{Q_1'}{-i\omega - \lambd
 $$
 
 must be positive semidefinite for all values of $\omega$. While this condition is met for $f$, it
-will *not* in general be satisfied for $f_k$. In fact, it turns out that except in singular cases,
-we can generate only a *finite* number of observationally equivalent models in this fashion. We
-state this result in the theorem provided below.
+will *not* in general be satisfied for $f_k$. In fact, except in singular cases, only a *finite*
+number of observationally equivalent models can be generated in this fashion, as the following
+theorem states.
 
 **Theorem 1.** *If $(Q_1 + Q_1')$ is not positive semidefinite, then there is a positive integer
 $k^*$ such that when $|k| \geq k^*$, $f_k$ is not a spectral density matrix for a continuous time
 process.*
 
 The condition that $(Q_1 + Q_1')$ be positive semidefinite will be met only for singular examples
-of the $C(s)$ as given by {eq}`eq-22-7`. Theorem 1 indicates the difficulty in generating a
+of the $C(s)$ as given by {eq}`eq-20-7`. Theorem 1 indicates the difficulty in generating a
 countable sequence of observationally equivalent continuous time models without violating the
 requirement that the implied continuous time spectral density matrix be positive semidefinite at
 all frequencies. When $C$ has only one complex conjugate pair of poles, this theorem implies that
 in general there will only be a finite number of observationally equivalent models. The strategy
 described above for constructing observationally equivalent continuous time models does not
-exhaust all possible ways of constructing such models when there are more than one complex
-conjugate pair of poles. Instead we present a comprehensive analysis of the dimensionality of the
-special case of {eq}`eq-22-7` that P. C. B. Phillips has studied. We turn to this analysis in the
-following section.
+exhaust all possible ways of constructing such models when there is more than one complex
+conjugate pair of poles. Instead, the authors present a comprehensive analysis of the
+dimensionality of the special case of {eq}`eq-20-7` studied by P. C. B. Phillips, which is taken
+up in the following section.
 
-(sec-22-4)=
+(sec-20-4)=
 ## 4. First order Markov models
 
-In this section we study identification of the parameters of continuous time first order Markov
-processes from discrete time data. We build upon and modify P. C. B. Phillips's (1973)
-characterization of the aliasing phenomenon in this class of models.
+Hansen and Sargent now study identification of the parameters of continuous time first order
+Markov processes from discrete time data, building upon and modifying P. C. B. Phillips's (1973)
+characterization of the aliasing phenomenon for this class of models.
 
 Consider an $x$ process that can be represented
 
 ```{math}
-:label: eq-22-10
+:label: eq-20-10
 Dx(t) = A_0\, x(t) + \epsilon(t),
 ```
 
 where $\epsilon$ is a continuous time vector white noise with intensity matrix $V_0$. The square
-matrix $A_0$ is real and has eigenvalues whose real parts are negative. From {eq}`eq-22-10` we can
-derive an expression for a fundamental moving average representation as follows. Assume that $V_0$
-has full rank and factor it according to $V_0 = U_0' U_0$. Solve {eq}`eq-22-10` for $x(t)$ to
-obtain
+matrix $A_0$ is real and has eigenvalues whose real parts are negative. From {eq}`eq-20-10` one
+can derive a fundamental moving average representation as follows. Assume $V_0$ has full rank and
+factor it as $V_0 = U_0' U_0$. Solving {eq}`eq-20-10` for $x(t)$ gives
 
 ```{math}
-:label: eq-22-11
+:label: eq-20-11
 x(t) = \frac{\operatorname{adj}[DI - A_0]\, U_0'}{\det[DI - A_0]}\, w(t),
 ```
 
-where $w(t) = U_0'^{-1} \epsilon(t)$ and adj denotes adjoint. We can rewrite {eq}`eq-22-11` as
+where $w(t) = U_0'^{-1} \epsilon(t)$ and adj denotes adjoint. Rewrite {eq}`eq-20-11` as
 $x(t) = C(D) w(t)$ where $C(D) = \dfrac{\operatorname{adj}[DI - A_0]}{\det[DI - A_0]} U_0'$. The
 white noise vector $w(t)$ has intensity matrix $I$, the poles of $C(s)$ are just the eigenvalues
 of $A_0$, and the $Q_j$ matrices in the matrix partial fractions decomposition of $h(s) =
-C(s) C(-s)'$ are rank one matrices formed from the eigenvectors of $A_0$. While we could proceed
-to discuss identification using the machinery of {ref}`sec-22-4`, it is more convenient to adopt
-an alternative machinery appropriate for these first order Markov models, one that was used by
-Phillips (1973).
+C(s) C(-s)'$ are rank one matrices formed from the eigenvectors of $A_0$. Rather than discuss
+identification with the machinery of Section 3, Hansen and Sargent adopt an alternative more
+convenient for these first order Markov models, one used by Phillips (1973).
 
 The discrete time process obtained by sampling $x$ at the integers has a first order
 autoregressive representation
 
 ```{math}
-:label: eq-22-12
+:label: eq-20-12
 X(t) = B_0\, X(t-1) + \eta(t)
 ```
 
 where
 
 ```{math}
-:label: eq-22-13
+:label: eq-20-13
 B_0 = \exp A_0, \qquad \eta(t) = \int_0^1 \exp(A_0 \tau)\, \epsilon(t - \tau)\, d\tau.
 ```
 
@@ -407,67 +402,67 @@ noise disturbance when sampled at the integers. The contemporaneous covariance m
 $\eta(t)$ is
 
 ```{math}
-:label: eq-22-14
+:label: eq-20-14
 W_0 = \int_0^1 \exp(A_0 \tau)\, V_0\, \exp(A_0' \tau)\, d\tau.
 ```
 
 As noted by Phillips (1973), the covariance properties of $x$ sampled at the integers are
 completely characterized by $(B_0, W_0)$. Given the pair $(B_0, W_0)$, which is estimable from
-discrete time data, our goal is to identify the covariance properties of the continuous time
+discrete time data, the goal is to identify the covariance properties of the continuous time
 process, which are completely characterized by $(A_0, V_0)$. The version of the aliasing
-phenomenon considered by Phillips (1973) is simply the fact that given $(B_0, W_0)$ one cannot in
-general solve uniquely for $(A_0, V_0)$ using equations {eq}`eq-22-13` and {eq}`eq-22-14`. We seek
-to characterize the dimensionality of the class of $(A_0, V_0)$ pairs consistent with a given
-$(B_0, W_0)$ pair.
+phenomenon considered by Phillips (1973) is simply that, given $(B_0, W_0)$, one cannot in
+general solve uniquely for $(A_0, V_0)$ using equations {eq}`eq-20-13` and {eq}`eq-20-14`. Hansen
+and Sargent seek to characterize the dimensionality of the class of $(A_0, V_0)$ pairs consistent
+with a given $(B_0, W_0)$.
 
-To begin, we consider equation {eq}`eq-22-13` and ask the question of whether the matrix equation
+To begin, consider equation {eq}`eq-20-13` and ask whether the matrix equation
 
 ```{math}
-:label: eq-22-15
+:label: eq-20-15
 \exp A^* = B_0 = \exp A_0
 ```
 
 implies that $A^* = A_0$. Without restrictions on the matrix $A^*$, the answer is in general no.
 If the matrix $A_0$ has complex eigenvalues, then there is a countable infinity of matrices $A^*$
-that satisfy {eq}`eq-22-15`. To see this, assume that the eigenvalues of $A_0$ are distinct and
+that satisfy {eq}`eq-20-15`. To see this, assume that the eigenvalues of $A_0$ are distinct and
 write the spectral decomposition of $A_0$,
 
 ```{math}
-:label: eq-22-16
+:label: eq-20-16
 A_0 = T \Lambda T^{-1},
 ```
 
 where $\Lambda$ is a diagonal matrix of eigenvalues of $A_0$ and $T$ is a matrix of eigenvectors
-of $A_0$. Without loss of generality, we are free to assume that the first $n - 2m$ diagonal
-elements are real and that the remainder occur in complex conjugate pairs as $\lambda_{n-2m+1},
+of $A_0$. Without loss of generality, the first $n - 2m$ diagonal elements may be taken real,
+with the remainder occurring in complex conjugate pairs as $\lambda_{n-2m+1},
 \ldots, \lambda_{n-m}, \lambda_{n-2m+1} = \bar\lambda_{n-m+1}, \ldots, \lambda_n = \bar\lambda_{n-m}$.
-We assume that the eigenvalues of $A_0$ do not differ by integer multiples of $2\pi i$. Following
-Phillips (1973) and Coddington and Levinson (1955), if a matrix $A^*$ satisfies {eq}`eq-22-15`,
+The eigenvalues of $A_0$ are assumed not to differ by integer multiples of $2\pi i$. Following
+Phillips (1973) and Coddington and Levinson (1955), if a matrix $A^*$ satisfies {eq}`eq-20-15`,
 then
 
 ```{math}
-:label: eq-22-17
+:label: eq-20-17
 A^* = A_0 + 2\pi i\, T \begin{bmatrix} 0 & 0 & 0 \\ 0 & P & 0 \\ 0 & 0 & -P \end{bmatrix} T^{-1}
 ```
 
 where $P$ is an $(m \times m)$ diagonal matrix of integers. Any choice of integers for the
-diagonal elements of $P$ will give rise to a solution of the matrix equation {eq}`eq-22-15`.
+diagonal elements of $P$ will give rise to a solution of the matrix equation {eq}`eq-20-15`.
 
 Phillips (1973) asserted that the pair $(A_0, V_0)$ is identifiable in $(B_0, W_0)$ if and only if
 the matrix $A_0$ is identifiable in $B_0$. This assertion would be true if, given a real valued
-matrix $A^*$ of the form specified in {eq}`eq-22-17`, it were possible to find a positive
+matrix $A^*$ of the form specified in {eq}`eq-20-17`, it were possible to find a positive
 semidefinite matrix $V^*$ such that
 
 ```{math}
-:label: eq-22-18
+:label: eq-20-18
 \int_0^1 \exp(A^* \tau)\, V^*\, \exp(A^{*\prime} \tau)\, d\tau = \int_0^1 \exp(A_0 \tau)\, V_0\, \exp(A_0' \tau)\, d\tau.
 ```
 
-Now Phillips's equation 4 shows how to compute a $V^*$ satisfying {eq}`eq-22-18` as a function of
+Now Phillips's equation 4 shows how to compute a $V^*$ satisfying {eq}`eq-20-18` as a function of
 $A^*$ and $W_0$. However, there is no guarantee that the resulting $V^*$ is positive semidefinite,
 and so it need not be a legitimate intensity matrix of a white noise process. This fact indicates
 the presence of extra identifying information about $A_0$ in the discrete innovation covariance
-matrix $W_0$, information summarized in equation {eq}`eq-22-14`.[^fn22-2] It follows that
+matrix $W_0$, information summarized in equation {eq}`eq-20-14`.[^fn20-2] It follows that
 Phillips's characterization of the identification problem must be modified to take account of the
 information about $A_0$ that is contained in $W_0$. The question of whether $V^*$ is positive
 semidefinite is equivalent to the question of whether the implied continuous time spectral density
@@ -477,19 +472,19 @@ Phillips asserted that if $A_0$ has complex eigenvalues, then without additional
 there is a countable infinity of pairs $\{(A_k, V_k)\}_{k=1}^\infty$ that are observationally
 equivalent to $(A_0, V_0)$ given discrete time data. Actually, however, the number of pairs
 $(A_k, V_k)$ that are observationally equivalent to $(A_0, V_0)$ is, except for singular cases,
-*at most finite* and in some cases is equal to one even if $A_0$ has complex eigenvalues. We
-proceed to substantiate this claim by stating four theorems.
+*at most finite*, and in some cases equal to one even if $A_0$ has complex eigenvalues. Hansen
+and Sargent substantiate this claim with four theorems.
 
 **Theorem 2.** *If there exists an $A^* \neq A_0$ such that (i) $\exp A^* = B_0$, (ii)
 $\int_0^1 \exp(A^* \tau) V_0 \exp(A^{*\prime} \tau)\, d\tau = W_0$, then there is an infinite
 sequence of distinct matrices $\{A_k\}_{k=1}^\infty$ that satisfy (i) and (ii).*
 
-Theorem 2 states that if we can find an $A^*$ of the form given in {eq}`eq-22-17` that also
-satisfies {eq}`eq-22-18` for $V^* = V_0$, then there exists a countable infinity of
-observationally equivalent pairs $\{(A_k, V_k)\}_{k=1}^\infty$ where $V_k = V_0$. That is, each of
-the $A_k$ matrices is associated with the same intensity matrix $V_0$. The key feature is that the
-intensity matrix remains unaltered as we entertain admissible alterations in the continuous time
-coefficient matrix.
+Theorem 2 states that if one can find an $A^*$ of the form given in {eq}`eq-20-17` that also
+satisfies {eq}`eq-20-18` for $V^* = V_0$, then there is a countable infinity of observationally
+equivalent pairs $\{(A_k, V_k)\}_{k=1}^\infty$ with $V_k = V_0$. That is, each of the $A_k$
+matrices is associated with the same intensity matrix $V_0$. The key feature is that the
+intensity matrix remains unaltered as one entertains admissible alterations of the continuous
+time coefficient matrix.
 
 Theorem 2 delineates one class of circumstances in which there is a countably infinite number of
 continuous time models that are consistent with the discrete time observations. It happens that
@@ -519,9 +514,9 @@ that are observationally equivalent to $(A_0, V_0)$ is singular. Only when $R_0$
 can this occur. Furthermore, there are many situations in which $R_0$ has zero elements and there
 is still only a finite number of observationally equivalent models.
 
-We now investigate the limiting behavior as one samples the continuous time process more
-frequently. Let $h$ denote the length of time between observations and suppose that $X(t) = x(ht)$
-for integer values of $t$. In this circumstance
+Hansen and Sargent now investigate the limiting behavior as the continuous time process is
+sampled more frequently. Let $h$ denote the length of time between observations, with
+$X(t) = x(ht)$ for integer values of $t$. In this circumstance
 
 $$
 B_0 = \exp(h A_0), \qquad W_0 = \int_0^h \exp(A_0 \tau)\, V_0\, \exp(A_0' \tau)\, d\tau.
@@ -540,11 +535,11 @@ continuous time process is *a priori* restricted only to be covariance stationar
 circumstance, there is an uncountable infinity of observationally equivalent models for *any*
 choice of $h$.
 
-Summarizing our results in this section, we have shown that even in cases in which $A_0$ has
-complex eigenvalues, equations {eq}`eq-22-15` and {eq}`eq-22-18` will in most circumstances have
-only a finite number of solutions and in many cases have only one solution. The upshot of this
-situation is that for many values of the continuous time parameters $(A_0, V_0)$, the
-identification problem is less extensive than was suggested by Phillips's characterization.
+To summarize, Hansen and Sargent show that even when $A_0$ has complex eigenvalues, equations
+{eq}`eq-20-15` and {eq}`eq-20-18` will in most circumstances have only a finite number of
+solutions, and in many cases only one. The upshot is that for many values of the continuous time
+parameters $(A_0, V_0)$ the identification problem is less extensive than Phillips's
+characterization suggested.
 
 ### A numerical illustration
 
@@ -569,7 +564,7 @@ satisfies $\exp(h A_k) = B_0$: at the level of the discrete autoregressive matri
 *countable infinity* of observationally equivalent continuous time coefficient matrices (Phillips's
 result). The Hansen–Sargent refinement is that each candidate $A_k$ must *also* reproduce the
 discrete innovation covariance $W_0$ through a *positive semidefinite* intensity matrix $V_k$
-solving {eq}`eq-22-18`. As we now compute, only finitely many $k$ pass this test.
+solving {eq}`eq-20-18`. As we now compute, only finitely many $k$ pass this test.
 
 ```{code-cell} ipython3
 import numpy as np
@@ -704,13 +699,13 @@ Phillips (1973) and Hansen and Sargent (1981).
 ## Exercises
 
 ```{exercise-start}
-:label: ex-22-1
+:label: ex-20-1
 ```
 
 The discrete autoregressive matrix $B_0 = \exp(A_0)$ on its own leaves a *countable infinity* of
 continuous time coefficient matrices undetermined; adding the discrete innovation covariance
 $W_0$ — and insisting that the implied intensity be positive semidefinite — cuts this down to a
-*finite* set. Make this contrast quantitative for the example of {ref}`sec-22-4`
+*finite* set. Make this contrast quantitative for the example of {ref}`sec-20-4`
 ($a = 0.2$, $\omega = 6$, $V_0 = \begin{bmatrix} 1 & 0.3 \\ 0.3 & 0.8 \end{bmatrix}$, $h = 1$):
 
 (a) Confirm that $\exp(A_k) = B_0$ for $k = -10, \ldots, 10$ (so the autoregressive matrix alone
@@ -722,7 +717,7 @@ the true model $k = 0$ is among them.
 ```{exercise-end}
 ```
 
-```{solution-start} ex-22-1
+```{solution-start} ex-20-1
 :class: dropdown
 ```
 
@@ -753,7 +748,7 @@ that $B_0$ alone does not, which is the central point of the paper.
 ```
 
 ```{exercise-start}
-:label: ex-22-2
+:label: ex-20-2
 ```
 
 Theorem 4 says the dimensionality is finite whenever $R_0 = T^{-1} V_0\, \bar T'^{-1}$ has no zero
@@ -771,7 +766,7 @@ observationally equivalent models all share $V_0 = I$.
 ```{exercise-end}
 ```
 
-```{solution-start} ex-22-2
+```{solution-start} ex-20-2
 :class: dropdown
 ```
 
@@ -822,7 +817,7 @@ Models from Discrete Time Data. Unpublished manuscript.
 Kwakernaak, H., and R. Sivan (1972). *Linear Optimal Control Systems*. New York: Wiley.
 
 Phillips, A. W. (1959). The Estimation of Parameters in Systems of Stochastic Differential
-Equations. *Biometrika*, **46**, 67–76. (Discussed in {doc}`19_phillips_continuous_time_estimation`.)
+Equations. *Biometrika*, **46**, 67–76. (Discussed in {doc}`18_phillips_continuous_time_estimation`.)
 
 Phillips, P. C. B. (1973). The Problem of Identification in Finite Parameter Continuous Time
 Models. *Journal of Econometrics*, **1**, 351–362.
@@ -832,14 +827,14 @@ Rozanov, Y. A. (1967). *Stationary Random Processes*. San Francisco: Holden-Day.
 Singer, B., and S. Spilerman (1976). The Representation of Social Processes by Markov Models.
 *American Journal of Sociology*, **82**, 1–54.
 
-[^fn22-1]: This can be proved directly by noting that for any $\omega^* > \pi$, it is possible to
+[^fn20-1]: This can be proved directly by noting that for any $\omega^* > \pi$, it is possible to
     construct a bandlimited continuous time process $x^*$, with its spectral density matrix zero
     for $|\omega| < \omega^*$. This process can be chosen to be observationally equivalent to $x$
     from discrete time data. Since $\{\omega^* > \pi\}$ is an uncountable set, the class of
     observationally equivalent $x^*$ processes is uncountably infinite.
 
-[^fn22-2]: P. C. B. Phillips has correctly pointed out to us that if $V_0$ is assumed to be
+[^fn20-2]: P. C. B. Phillips had pointed out to Hansen and Sargent that if $V_0$ is assumed to be
     singular, then when $W_0$ is positive definite there is extra identifying information about
-    $A_0$ contained in $W_0$. The argument in the text extends Phillips's point by establishing
+    $A_0$ contained in $W_0$. Their argument in the text extends Phillips's point by establishing
     that even if $V_0$ is permitted to be nonsingular, $W_0$ in general contains identifying
     information about $A_0$.

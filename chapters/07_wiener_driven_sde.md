@@ -36,6 +36,34 @@ d\Psi(x) &= \left\langle \frac{\partial\Psi}{\partial x}\, , \ f\left(x(t),\, t\
 \end{aligned}
 $$
 
+```{note}
+**The angle-bracket notation.** Throughout this chapter, $\langle u,\, v\rangle$ denotes the
+**Euclidean inner product** (dot product) of two vectors $u$ and $v$ in $\mathbb{R}^n$,
+
+$$
+\langle u,\, v\rangle = u^\top v = \sum_{i=1}^{n} u_i\, v_i .
+$$
+
+Here $x$ is in general a vector-valued state, $\Psi(x)$ is a scalar-valued function,
+$\dfrac{\partial\Psi}{\partial x}$ is its **gradient** (a column vector with entries
+$\partial\Psi/\partial x_i$), and $\dfrac{\partial^2\Psi}{\partial x^2}$ is its **Hessian**
+(the matrix of second partials $\partial^2\Psi/\partial x_i\,\partial x_j$). With this
+reading,
+
+- $\left\langle \dfrac{\partial\Psi}{\partial x}\, ,\ f\right\rangle
+  = \sum_i \dfrac{\partial\Psi}{\partial x_i}\, f_i$ pairs the gradient with the drift
+  vector $f$; and
+- $\left\langle \dfrac{\partial^2\Psi}{\partial x^2}\, g,\ g\right\rangle
+  = g^\top \dfrac{\partial^2\Psi}{\partial x^2}\, g
+  = \sum_{i,\,j} \dfrac{\partial^2\Psi}{\partial x_i\,\partial x_j}\, g_i\, g_j$
+  is the **quadratic form** in the diffusion vector $g$ (first the Hessian acts on $g$,
+  then we take the inner product with $g$ again).
+
+When $x$ is scalar, every inner product collapses to ordinary multiplication —
+$\langle \Psi', f\rangle = \Psi' f$ and $\langle \Psi'' g,\, g\rangle = \Psi'' g^2$ — which
+is the form used in the scalar example at the end of this chapter.
+```
+
 To generate this rule, we use {eq}`eq-7-approx` for $\lambda > 0$ and using rule {eq}`eq-5-rule1` to obtain
 
 ```{math}
