@@ -13,7 +13,7 @@ kernelspec:
 
 # 5. Stochastic Processes Driven by a Poisson Counting Process
 
-We now study a class of differential equations that are driven by the generalized derivative $dN/dt$ of a Poisson counting process. The equation that we study can be represented formally in the alternative ways.
+We now study a class of differential equations that are driven by the generalized derivative $dN/dt$ of a Poisson counting process — the white noise built in {doc}`03_poisson_counting_process`. The equation that we study can be represented formally in the alternative ways.
 
 ```{math}
 :label: eq-5-1
@@ -149,7 +149,7 @@ $$
 dx(t)/dt = \delta(t) + 2 \sum_{j=1}^{\infty}\, (-1)^j\, \delta(t-t_j).
 $$
 
-We now describe three useful rules for manipulating stochastic differential equations that are driven by Poisson counting processes. We consider an $n \times 1$ vector stochastic process $x(t)$ that is governed by
+We now describe three useful rules for manipulating stochastic differential equations that are driven by Poisson counting processes. In {doc}`07_wiener_driven_sde` the Wiener-driven analogues of these same three rules — Itô's rule among them — are obtained as the $\lambda \to \infty$ limit of the ones developed here. We consider an $n \times 1$ vector stochastic process $x(t)$ that is governed by
 
 $$
 dx(t) = f\bigl(x(t),\, t)\bigr) dt + \sum_{i=1}^{m}\, g_i\bigl(x(t),\,t\bigr) dN_i(t)
@@ -479,7 +479,7 @@ $$
 R(t,\, t + \tau) = \min\ (t, \, t + \tau).
 $$
 
-The process is mean square continuous, but not mean square differentiable. Its derivative exists only in the sense of a "generalized stochastic process."
+The process is mean square continuous, but not mean square differentiable. Its derivative exists only in the sense of a "generalized stochastic process." This random walk, taken to the limit $\lambda \to \infty$, is precisely the construction from which the Wiener process is obtained in {doc}`06_wiener_process`.
 
 As our next example, we give alternative representations of the "generalized Poisson process." Let $a(t)$ be a continuum of independent, identically distributed normal random variables each with mean zero and variance $\sigma_a^2$. A *generalized Poisson process* $y(t)$ can then be represented as
 

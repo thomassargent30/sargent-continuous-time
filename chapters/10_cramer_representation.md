@@ -20,7 +20,7 @@ $$
 E Z'(\lambda) \overline{Z'(\mu)} = S(\mu) \delta(\mu - \lambda),
 $$
 
-where the prime denotes the (possibly generalized) derivative of $Z(\lambda)$ with respect to $\lambda$. The process $Z(\lambda)$ is called the "random spectral measure" of the $x(t)$ process. In terms of this random process, the $x(t)$ process has the Cramér representation
+where the prime denotes the (possibly generalized) derivative of $Z(\lambda)$ with respect to $\lambda$. The process $Z(\lambda)$ is called the "random spectral measure" of the $x(t)$ process. This orthogonal-increments random measure reappears as the foundational object $W$ of the Hansen–Sargent prediction calculus in {doc}`19_prediction_formulas_continuous_time`. In terms of this random process, the $x(t)$ process has the Cramér representation
 
 $$
 x(t) = \frac{1}{\sqrt{2\pi}}\, \int^\infty_{-\infty} e^{i\lambda t} dZ(\lambda)

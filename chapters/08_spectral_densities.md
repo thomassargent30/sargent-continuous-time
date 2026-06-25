@@ -321,6 +321,13 @@ $x(t) = \int_0^{\infty} p(\tau) w(t-\tau)\, d\tau$ is fundamental for $x(t)$. Th
 $\tilde P(s)$ is the Laplace transform of $p(\tau)$. The Fourier transform $P(w)$ is related
 to $\tilde P(s)$ by $P(w) = \tilde P (iw)$.
 
+This factorization is the structural result on which much of the rest of the book leans. It
+furnishes the prediction formulas of {doc}`12_prediction`, acquires a time-domain,
+state-space counterpart in the Kalman–Bucy filter and Riccati equation of
+{doc}`13_kalman_filter_spectral_factorization` (solving the Riccati equation is the
+time-domain algorithm that performs this factorization), and is the object identified from
+discretely sampled data in {doc}`20_phillips_continuous_time_estimation`.
+
 Thus, we can represent a linearly indeterministic, covariance stationary process $x_t$ as
 
 $$
@@ -385,7 +392,11 @@ $$
 However, this is not the representation alluded to in the statement of Wold's theorem,
 because $\tilde R(s)$ has a zero at $s = b > 0$, which is in the right half plane. This
 reflects the fact that the space $H_v(- \infty, \, t)$ is strictly larger than
-$H_x(- \infty,\,t)$. To see this heuristically, attempt to invert {eq}`eq-8-nonfund`, and to solve for
+$H_x(- \infty,\,t)$. This right-half-plane zero is the continuous-time prototype of
+*non-fundamentalness* — the driving noise spanning a larger information space than the
+observable process — which returns as the central difficulty in interpreting vector
+autoregressions in {doc}`18_time_aggregation_var` and as the identification problem of
+{doc}`20_phillips_continuous_time_estimation`. To see this heuristically, attempt to invert {eq}`eq-8-nonfund`, and to solve for
 $v(t)$ as a function of the $x(t)$ process. This gives
 
 $$

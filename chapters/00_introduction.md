@@ -124,7 +124,7 @@ theorem $p(0)=\lim_{s\to\infty}s\tilde P(s)$ turns this into a transform computa
 process as an orthogonal superposition of random sinusoids across frequencies, and uses
 band-pass filtering to make the frequency decomposition of variance concrete.
 
-### IV. Linear models, prediction, and economics (Chapters 11–14)
+### IV. Linear models, prediction, state space, and equilibrium computation (Chapters 11–16)
 
 Now the machinery is aimed at economics. [Chapter 11](11_linear_sde.md) studies the
 workhorse class $\theta(D)x(t)=\psi(D)w(t)$ of linear constant-coefficient stochastic
@@ -141,64 +141,86 @@ E_t \int_0^\infty e^{\rho u}\, x(t+u)\, du,
 $$
 
 the present value that appears in every asset-pricing equation, permanent-income model, and
-quadratic-adjustment-cost Euler equation. [Chapter 13](13_locally_unpredictable.md) shows
+quadratic-adjustment-cost Euler equation.
+
+[Chapter 13](13_kalman_filter_spectral_factorization.md) recasts this prediction theory in
+*state-space* form. For processes with a rational spectral density, the Wold representation
+and the spectral factorization theorem of Chapter 8 acquire a finite-dimensional, time-domain
+counterpart: a linear state-space model $(A,B,C)$ together with the **Kalman–Bucy filter**,
+whose steady state solves an algebraic Riccati equation and delivers the **innovations
+representation** — the state-space realization of the Wold representation, with the Kalman
+gain in place of the moving-average kernel. Solving the Riccati equation is the time-domain
+algorithm behind spectral factorization. The same chapter introduces the **continuous-time
+linear regulator** and its Bellman equation, and the **duality** that makes optimal filtering
+and optimal control one Riccati equation read two ways — the estimation-and-control pairing
+that recurs throughout the Hansen–Sargent program.
+
+[Chapter 14](14_faster_methods_recursive_linear_models.md) (Hansen, Heaton, and Sargent) turns
+the linear regulator into a tool for *computing the equilibria* of dynamic linear-quadratic
+economies: a fictitious social planning problem whose solution is an optimal linear regulator,
+with Arrow–Debreu prices read off the gradient of the value function. It extends the Chapter-13
+machinery to nonautonomous forcing — so the decision rule *separates* into a feedback (control)
+part and a feedforward (prediction) part — and supplies fast Riccati solvers, the matrix sign
+algorithm, that scale to the large state vectors realistic economies demand.
+
+[Chapter 15](15_locally_unpredictable.md) shows
 that such present-value variables are *locally unpredictable* — locally martingales — even
 when the underlying $x$ is smooth, because the present-value operator forces the kernel to be
 nonzero at the origin. This is the formal counterpart of the observation, due to Sims and to
 Hall, that asset prices and consumption should look like martingales at high frequency.
-[Chapter 14](14_nonstationary_examples.md) extends the prediction calculus to nonstationary
+[Chapter 16](16_nonstationary_examples.md) extends the prediction calculus to nonstationary
 processes and shows that Cagan's adaptive expectations scheme is the *optimal* forecast for a
 particular process — a small but telling instance of the rational-expectations principle that
 expectations formulas are not free parameters but implications of the law of motion.
-[Chapter 19](19_aggregation_inverse_optimal_predictor.md) later develops this very example into
+[Chapter 21](21_aggregation_inverse_optimal_predictor.md) later develops this very example into
 a full account of what aggregation over time does to Cagan's scheme.
 
-### V. From continuous time to data: sampling, aggregation, and identification (Chapters 15–21)
+### V. From continuous time to data: sampling, aggregation, and identification (Chapters 17–23)
 
 The final movement confronts the gap between a continuous-time theory and discretely sampled,
-often time-averaged, data. [Chapter 15](15_discrete_sampling_folding.md) derives the
+often time-averaged, data. [Chapter 17](17_discrete_sampling_folding.md) derives the
 *folding formula*, which shows how sampling aliases high continuous-time frequencies into the
 discrete spectrum — the precise sense in which a sampling interval throws information away, and
-the engine of the aliasing problem taken up in Chapters 18 and 20.
+the engine of the aliasing problem taken up in Chapters 20 and 22.
 
 The companion papers that close the book apply the whole apparatus to the central problem of
 inference. In the versions presented here they are retold in the third person, as the present
 account of how each paper *uses* — and extends — the machinery built up above.
 
-[Chapter 16](16_time_aggregation_var.md) (Hansen and Sargent) asks when the discrete-time
+[Chapter 18](18_time_aggregation_var.md) (Hansen and Sargent) asks when the discrete-time
 moving-average coefficients of a sampled process resemble the continuous-time kernel $p(\tau)$,
 and exhibits the systematic ways in which vector autoregressions can mislead.
-[Chapter 17](17_prediction_formulas_continuous_time.md) (Hansen and Sargent) supplies the
+[Chapter 19](19_prediction_formulas_continuous_time.md) (Hansen and Sargent) supplies the
 general Laplace-transform prediction machinery — the analytic decomposition and annihilation
 operator — that solves continuous-time rational expectations models, generalizing the
-geometric-lead formula of Chapter 12.
+geometric-lead formula of Chapter 12 and computing the feedforward terms of Chapter 14.
 
 The next three companion chapters turn to *identification* — recovering the continuous-time
-primitive from its discrete shadow. [Chapter 18](18_phillips_continuous_time_estimation.md)
+primitive from its discrete shadow. [Chapter 20](20_phillips_continuous_time_estimation.md)
 retells A. W. Phillips's landmark 1959 paper, framed by an appreciation by Hansen and Sargent,
 as a synthesis of nearly everything the book has built: rational transfer functions and the
 spectral factorization theorem (Chapter 8), the sum-of-exponentials autocovariance of a
 rational process (Chapter 11), white noise as a physically unrealizable but admissible input
 (Chapter 4), and the sampling map $\mu = e^{\lambda}$ that turns the folding formula of
-Chapter 15 into the aliasing problem. [Chapter 19](19_aggregation_inverse_optimal_predictor.md)
-(Hansen and Sargent) is the natural sequel to Chapter 14: it constructs the continuous-time
+Chapter 17 into the aliasing problem. [Chapter 21](21_aggregation_inverse_optimal_predictor.md)
+(Hansen and Sargent) is the natural sequel to Chapter 16: it constructs the continuous-time
 money-creation/inflation process for which Cagan's adaptive expectations are *exactly* optimal
 — using the prediction calculus of Chapter 12 — and then samples it, showing how aggregation
 over time manufactures Granger causality from money to inflation that is wholly absent in
 continuous time, and gauging the bias in Cagan's $\lambda \approx e^{-\beta}$ approximation.
-[Chapter 20](20_dimensionality_aliasing_problem.md) (Hansen and Sargent) closes the loop on
+[Chapter 22](22_dimensionality_aliasing_problem.md) (Hansen and Sargent) closes the loop on
 aliasing: it *counts* the continuous-time models consistent with given discrete data and shows
 that the restriction to a rational spectral density (Chapters 8 and 11) collapses the
 uncountable ambiguity of the general covariance-stationary case — and even the countable
 ambiguity that A. W. Phillips and P. C. B. Phillips had identified — down to a *finite* set,
 often a single model, with fine enough sampling resolving it entirely.
 
-The book closes with [Chapter 21](21_temporal_aggregation_streamlined.md), an account of Albert
+The book closes with [Chapter 23](23_temporal_aggregation_streamlined.md), an account of Albert
 Marcet's work, which recasts the comparison of continuous and discrete Wold representations as
-an exercise in the $L^2$ projection of Chapter 17: the sampled moving-average kernel is
+an exercise in the $L^2$ projection of Chapter 19: the sampled moving-average kernel is
 *literally* the projection of the continuous kernel onto its own integer shifts. Marcet's
 central point is that *discontinuities* in the one-sided continuous kernel — the very feature
-that $p(0)\neq 0$ creates, and that Chapters 9 and 13 tie to local unpredictability — open up
+that $p(0)\neq 0$ creates, and that Chapters 9 and 15 tie to local unpredictability — open up
 possibilities for the sampled kernel (inflated leading coefficients, within-interval structure
 that becomes invisible, manufactured or destroyed Granger causality) that the smooth,
 two-sided distributed lags of Sims and Geweke never had.
@@ -210,41 +232,43 @@ Several ideas recur and are worth tracking deliberately across chapters.
 - **Fundamentalness (invertibility).** Introduced through the spectral factorization theorem
   in [Chapter 8](08_spectral_densities.md), the distinction between fundamental and
   non-fundamental white noise is the continuous-time root of the difficulties in interpreting
-  vector autoregressions taken up in [Chapter 16](16_time_aggregation_var.md) and
-  [Chapter 21](21_temporal_aggregation_streamlined.md). When agents see news the
+  vector autoregressions taken up in [Chapter 18](18_time_aggregation_var.md) and
+  [Chapter 23](23_temporal_aggregation_streamlined.md). When agents see news the
   econometrician cannot recover from the observables, the two readings of the Wold
   representation diverge. The same positive-semidefiniteness condition that singles out the
-  fundamental factor returns in [Chapter 20](20_dimensionality_aliasing_problem.md) as the test
+  fundamental factor returns in [Chapter 22](22_dimensionality_aliasing_problem.md) as the test
   that decides which aliased continuous-time models are admissible.
 
 - **Smoothness versus predictability.** The chain $R''(0)$ ([Chapter 2](02_mean_square_continuity_differentiability.md))
   $\to$ $p(0)$ ([Chapter 9](09_characterizations_ms_differentiability.md)) $\to$ local
-  unpredictability ([Chapter 13](13_locally_unpredictable.md)) is one continuous argument. It
+  unpredictability ([Chapter 15](15_locally_unpredictable.md)) is one continuous argument. It
   is what lets us say which economic variables should behave like martingales and which should
-  be smooth — and, in [Chapter 21](21_temporal_aggregation_streamlined.md), the same
+  be smooth — and, in [Chapter 23](23_temporal_aggregation_streamlined.md), the same
   kernel-at-the-origin condition governs how badly time aggregation distorts a model.
 
 - **Prediction as an operator.** The forecast is a projection, realized analytically by the
   annihilation operator $[\,\cdot\,]_+$ and the Laplace-transform decomposition. It appears
-  first in [Chapter 12](12_prediction.md), is generalized in
-  [Chapter 17](17_prediction_formulas_continuous_time.md), reappears as $L^2$ projection onto
-  the span of sampled kernels in [Chapter 21](21_temporal_aggregation_streamlined.md), and
-  underlies the optimal-forecast constructions of [Chapters 14](14_nonstationary_examples.md)
-  and [19](19_aggregation_inverse_optimal_predictor.md).
+  first in [Chapter 12](12_prediction.md), takes state-space form via the Kalman filter in
+  [Chapter 13](13_kalman_filter_spectral_factorization.md), drives the feedforward decision
+  rules of [Chapter 14](14_faster_methods_recursive_linear_models.md), is generalized in
+  [Chapter 19](19_prediction_formulas_continuous_time.md), reappears as $L^2$ projection onto
+  the span of sampled kernels in [Chapter 23](23_temporal_aggregation_streamlined.md), and
+  underlies the optimal-forecast constructions of [Chapters 16](16_nonstationary_examples.md)
+  and [21](21_aggregation_inverse_optimal_predictor.md).
 
-- **The continuous–discrete bridge.** [Chapters 15](15_discrete_sampling_folding.md),
-  [16](16_time_aggregation_var.md), and [21](21_temporal_aggregation_streamlined.md) are a
+- **The continuous–discrete bridge.** [Chapters 17](17_discrete_sampling_folding.md),
+  [18](18_time_aggregation_var.md), and [23](23_temporal_aggregation_streamlined.md) are a
   sustained argument that the continuous-time model is the primitive object and the
   discrete-time model a derived, lossy summary of it — and that recovering the primitive from
   the summary requires exactly the cross-equation restrictions a structural rational
   expectations model supplies.
 
 - **Aliasing and identification.** A second strand of that bridge asks whether the lost
-  information can be recovered at all. The folding formula ([Chapter 15](15_discrete_sampling_folding.md))
-  and Phillips's multivalued $\lambda = \log\mu$ ([Chapter 18](18_phillips_continuous_time_estimation.md))
-  pose the aliasing problem; [Chapter 20](20_dimensionality_aliasing_problem.md) counts its
+  information can be recovered at all. The folding formula ([Chapter 17](17_discrete_sampling_folding.md))
+  and Phillips's multivalued $\lambda = \log\mu$ ([Chapter 20](20_phillips_continuous_time_estimation.md))
+  pose the aliasing problem; [Chapter 22](22_dimensionality_aliasing_problem.md) counts its
   solutions and shows that the rational-spectral-density restriction makes them finite; and
-  [Chapter 19](19_aggregation_inverse_optimal_predictor.md) exhibits the complementary route by
+  [Chapter 21](21_aggregation_inverse_optimal_predictor.md) exhibits the complementary route by
   which a structural rational-expectations model's cross-equation restrictions pin the
   continuous-time model down.
 
@@ -253,14 +277,14 @@ Several ideas recur and are worth tracking deliberately across chapters.
 The chapters are cumulative, and a first reading is best done in order. Readers who want the
 shortest path to the economics can, after [Chapters 1–2](01_covariance_stationary_processes.md),
 proceed directly to the representation theory of [Chapter 8](08_spectral_densities.md) and then
-to prediction in [Chapters 11–13](11_linear_sde.md), treating the Poisson and Wiener
+to prediction in [Chapters 11–15](11_linear_sde.md), treating the Poisson and Wiener
 constructions of [Chapters 3–7](03_poisson_counting_process.md) as the source of the white
 noise that drives everything else. Readers primarily interested in econometric inference can
-read [Chapter 8](08_spectral_densities.md), then [Chapter 15](15_discrete_sampling_folding.md)
-and the companion papers, [Chapters 16–21](16_time_aggregation_var.md) — adding the prediction
-calculus of [Chapters 12–13](12_prediction.md) before the identification chapters
-[18](18_phillips_continuous_time_estimation.md), [19](19_aggregation_inverse_optimal_predictor.md),
-and [20](20_dimensionality_aliasing_problem.md). The companion papers are largely
+read [Chapter 8](08_spectral_densities.md), then [Chapter 17](17_discrete_sampling_folding.md)
+and the companion papers, [Chapters 18–23](18_time_aggregation_var.md) — adding the prediction
+calculus of [Chapters 12–15](12_prediction.md) before the identification chapters
+[20](20_phillips_continuous_time_estimation.md), [21](21_aggregation_inverse_optimal_predictor.md),
+and [22](22_dimensionality_aliasing_problem.md). The companion papers are largely
 self-contained but presuppose the Wold representation, spectral factorization, and the
 prediction calculus of the first part.
 

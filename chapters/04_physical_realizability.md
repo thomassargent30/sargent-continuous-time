@@ -29,7 +29,13 @@ can only be represented in terms of ideal "pulses" of zero width but positive "m
 this reason, a generalized stochastic process is said not to be "physically realizable."
 
 A generalized stochastic process is so erratic that it cannot be drawn. However, often
-there exists a moving average of a generalized stochastic that is physically realizable.
+there exists a moving average of a generalized stochastic process that is physically realizable.
+The shot-noise process $Y(t)$ of {doc}`03_poisson_counting_process`, formed by integrating
+the generalized white noise $dN/dt$ against a square-integrable kernel, is the prototype: the
+noise lives only under the integral sign, while $Y(t)$ itself is an ordinary process.
 In our economic models to be constructed below, generalized stochastic processes will
 appear only under integral signs. The economic models to be used always imply that the
-observable economic variables are physically realizable.
+observable economic variables are physically realizable. This is exactly the role white
+noise plays in the moving-average (Wold) representation of {doc}`08_spectral_densities`, and
+the admissibility of a physically unrealizable white-noise input recurs in the estimation
+problem of {doc}`20_phillips_continuous_time_estimation`.

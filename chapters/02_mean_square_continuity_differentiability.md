@@ -1,6 +1,9 @@
 # 2. Mean Square Continuity and Differentiability of a Stochastic Process
 
-We now define two notions of stochastic continuity. First, a stronger notion of
+Having characterized a process through its autocovariance function $R(\tau)$ in
+{doc}`01_covariance_stationary_processes`, we now ask how the smoothness of $R$ at the origin
+translates into the regularity — continuity and differentiability — of $x(t)$ itself. We
+begin by defining two notions of stochastic continuity. First, a stronger notion of
 continuity than we shall need is "continuity almost everywhere."
 
 **Definition 3.** The stochastic process $x_t = x(t,w)$ is said to be continuous almost
@@ -352,4 +355,8 @@ forecastable arbitrarily far into the future from values of $x$ and its mean squ
 derivatives at time $t$. In our work, we shall usually want to deal with stochastic
 processes that are only imperfectly forecastable from knowledge of the past. This means
 that we shall usually deal with processes for which the autocorrelation function $R(\tau)$
-is not analytic.
+is not analytic. The differentiability criteria of this chapter take a sharper, more usable
+form once a process is written in its moving-average (Wold) representation:
+{doc}`09_characterizations_ms_differentiability` shows that $x(t)$ is mean square
+differentiable precisely when the moving-average kernel satisfies $p(0) = 0$, and
+{doc}`15_locally_unpredictable` ties the failure of that condition to local unpredictability.

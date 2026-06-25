@@ -48,7 +48,11 @@ $$
 E\, [\, x(t+u) \mid x(v),\, v \leq t \,] = \int^\infty_{s=0} p(s+u)\, w(t-s)\, ds.
 $$ (eq-12-wk)
 
-Equation {eq}`eq-12-wk` is the continuous time Wiener–Kolmogorov formula.
+Equation {eq}`eq-12-wk` is the continuous time Wiener–Kolmogorov formula. It rests on the
+equality of the spaces spanned by past $x$'s and past fundamental innovations $w$'s established
+in Wold's theorem (Theorem 10 of {doc}`08_spectral_densities`);
+{doc}`13_kalman_filter_spectral_factorization` gives the equivalent state-space form, in which
+$w$ becomes the Kalman innovations process and this same forecast is computed recursively.
 
 Using operational calculus, the formula can be expressed as
 
@@ -87,6 +91,12 @@ E_t\, x(t+u) = e^{-au}\, x(t).
 $$ (eq-12-ar1pred)
 
 ## (b) A Formula for Predicting "Geometric Distributed Leads"
+
+Such geometric distributed leads are the present values that appear in every asset-pricing
+equation, permanent-income model, and quadratic-adjustment-cost Euler equation; they are also
+the continuous-time counterpart of the discounted expected sums that define the optimal
+feedforward decision rules of {doc}`14_faster_methods_recursive_linear_models`. Evaluating them
+is the central computational step in solving continuous-time rational expectations models.
 
 In linear rational expectation models, there often appear terms of the form
 
@@ -162,4 +172,5 @@ $$
 E_t \int^\infty_0 e^{\rho s}\, x(t+s)\, ds = \left[ \frac{-\tilde P(D) + \tilde P(-\rho)}{D+\rho} \right]\, w(t).
 $$ (eq-12-gen)
 
-This generalization of {eq}`eq-12-gen` will be established in Chapter 17.
+The general formula {eq}`eq-12-gen`, valid for any rational $\tilde P(D)$, is established in
+{doc}`19_prediction_formulas_continuous_time`.

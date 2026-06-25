@@ -1,6 +1,13 @@
 # 9. Characterizations of Mean Square Differentiability and Mean Square Continuity
 
-The following theorem is useful.
+{doc}`02_mean_square_continuity_differentiability` characterized mean square continuity and
+differentiability through the behavior of the autocovariance $R(\tau)$ near $\tau = 0$.
+
+We now restate those conditions directly in terms of the Wold moving average kernel $p(\tau)$
+of {doc}`08_spectral_densities` — a practical test that we shall apply repeatedly to the linear
+stochastic differential equations of {doc}`11_linear_sde`.
+
+
 
 (thm-msd-representation)=
 **Theorem 11.** Let $x(t)$ be a linearly indeterministic covariance stationary process with moving average representation
@@ -22,42 +29,75 @@ Then the mean square derivative $Dx(t)$ has representation
 Dx(t) = \int_{0}^{\infty} p'(\tau) w(t-\tau) \, d\tau + p(0)w(t) \qquad (+)
 ```
 
-or
+or, in operator form,
 
 $$
-Dx(t) = Dp(t) w(t) + p(0) w(t).
+Dx(t) = D\tilde P(D)\, w(t).
 $$
 
-It follows from {eq}`eq-9-1` that the mean square derivative exists as an ordinary stochastic process only if, (a) $p(0) = 0$, and (b) $\int_{0}^{\infty} |Dp(s)| \, ds < +\infty$.
+The Laplace symbol of $D\tilde P(D)$ is $s\tilde P(s) = [\,s\tilde P(s) - p(0)\,] + p(0)$, in which
+the bracketed term is the Laplace transform of $p'$ and the constant $p(0)$ is the transform of
+the impulse $p(0)\,\delta(\tau)$; this is exactly the split displayed in {eq}`eq-9-1`.
 
-Informal proof of $(+)$:
+Assume the kernel $p$ is absolutely continuous, so that its derivative $Dp = p'$ exists almost everywhere and $p(\tau) = p(0) + \int_0^\tau p'(u)\, du$. Then, by {eq}`eq-9-1`, the mean square derivative exists as an ordinary stochastic process if and only if (a) $p(0) = 0$, and (b) $\int_{0}^{\infty} |Dp(s)|^2 \, ds < +\infty$.
 
-Applying Leibniz's rule to differentiate with respect to $t$ the expression
-
-$$
-x(t) = \int_{0}^{\infty} p(t-s) w(s) \, ds.
-$$
-
-We can establish the preceding theorem rigorously as follows. From $x(t) = \int_{-\infty}^{t} p(t-s) w(s) \, ds$, we have that for $\tau > 0$,
+**Proof.** Write the moving average as  
 
 $$
-Ex(t) x(t-\tau) = \int_{-\infty}^{t} p(t-s) p(t-\tau-s) \, ds.
+x(t) = \int_{-\infty}^{t} p(t-s)\, w(s) \, ds, \qquad p(u) = 0 \ \text{ for } u < 0 .
 $$
 
-As established above, in order for $x(t)$ to be mean square differentiable, it is necessary that $\partial R(t, \, t-\tau)/ \partial t \, \partial \tau$ exist, and that it equals zero for $\tau = 0$.
+Here $t$ appears both in the integrand and in the upper limit of integration, so differentiating
+with respect to $t$ by Leibniz's rule produces one term from each:
 
-(Details to be filled in)
+$$
+Dx(t) = \underbrace{p(0)\, w(t)}_{\text{upper limit}} + \underbrace{\int_{-\infty}^{t} p'(t-s)\, w(s)\, ds}_{\text{integrand}} = p(0)\, w(t) + \int_{0}^{\infty} p'(\tau)\, w(t-\tau)\, d\tau ,
+$$
 
-The generalization of this theorem to higher order derivatives follows by repeated differentiation of {eq}`eq-9-1`:
+which is {eq}`eq-9-1`. The boundary term $p(0)w(t)$ is a white noise; since white noise is a
+generalized process with infinite instantaneous variance ({doc}`04_physical_realizability`),
+$Dx(t)$ is an ordinary, finite-variance process only if $p(0) = 0$. When $p(0) = 0$, the
+remaining moving average has variance $\int_{0}^{\infty} p'(\tau)^2\, d\tau$, so it is well
+defined as a mean square process precisely when $\int_{0}^{\infty} |p'(\tau)|^2\, d\tau < \infty$
+— conditions (a) and (b). Conversely, when (a) and (b) hold, the absolute continuity of $p$
+makes the difference quotients $[\,p(\cdot+\epsilon) - p(\cdot)\,]/\epsilon$ converge in $L^2$ to
+$p'$ (extend $p = 0$ on $(-\infty, 0)$; this extension is unbroken at the origin because
+$p(0) = 0$). Hence $[\,x(t+\epsilon) - x(t)\,]/\epsilon$ converges in mean square to
+$\int_0^\infty p'(\tau)\, w(t-\tau)\, d\tau$, and the mean square derivative exists. This
+establishes the equivalence.
+
+The necessity of $p(0) = 0$ can also be seen directly from the autocovariance. With
+$E\, w(s) w(s') = \delta(s-s')$, the moving average gives, for $\tau \geq 0$,
+
+$$
+R(\tau) = E\, x(t)\, x(t-\tau) = \int_{0}^{\infty} p(b)\, p(b+\tau)\, db .
+$$
+
+Differentiating and letting $\tau \downarrow 0$,
+
+$$
+R'(0^+) = \int_{0}^{\infty} p(b)\, p'(b)\, db = \tfrac{1}{2}\big[\, p(b)^2 \,\big]_{0}^{\infty} = -\tfrac{1}{2}\, p(0)^2 .
+$$
+
+Because $R$ is even, $R'(0^-) = +\tfrac{1}{2}\, p(0)^2$, so $R'$ has a jump of size $-p(0)^2$ at
+the origin unless $p(0) = 0$. Mean square differentiability requires $R$ to be twice
+differentiable at $\tau = 0$, hence $R'$ continuous there; this forces $p(0) = 0$, in agreement
+with condition (a).
+
+
+
+A generalization of Theorem 11 to higher order derivatives follows by applying it repeatedly to the successive derivatives of {eq}`eq-9-1`.
 
 (thm-msd-higher-order)=
-**Theorem 12.** $D^n x(t)$ exists as an ordinary stochastic process only if $p(0) = Dp(0) = \ldots = D^{n-1} p(0) = 0$ and
+**Theorem 12.** Assume $p$ is $n-1$ times differentiable with $D^{n-1} p$ absolutely continuous, so that $D^n p$ exists almost everywhere (for $n = 1$ this is the hypothesis of Theorem 11). Then $D^n x(t)$ exists as an ordinary stochastic process if and only if $p(0) = Dp(0) = \ldots = D^{n-1} p(0) = 0$ and
 
 $$
-\int_{0}^{\infty} |D^j p(s)|^2 \, ds = 0
+\int_{0}^{\infty} |D^j p(s)|^2 \, ds < +\infty
 $$
 
 for $j = 0,\ 1,\, \ldots\, n$.
+
+**Proof.** Argue by induction on $n$, applying {ref}`Theorem 11 <thm-msd-representation>` at each step. Suppose $p(0) = \ldots = D^{n-2} p(0) = 0$, so that the lower-order derivatives carry no impulse and $D^{n-1} x(t)$ has Wold kernel $D^{n-1} p$. Theorem 11 applied to $D^{n-1} x$ then says that $D^n x$ exists as an ordinary process if and only if $D^{n-1} p(0) = 0$ and $\int_0^\infty |D^n p(s)|^2\, ds < \infty$. Collecting these requirements across the induction gives the vanishing conditions $D^j p(0) = 0$ for $j = 0, \ldots, n-1$, together with $D^n p \in L^2$. The intermediate integrability conditions, $\int_0^\infty |D^j p|^2\, ds < \infty$ for $0 < j < n$, then follow from $p \in L^2$ and $D^n p \in L^2$ by interpolation.
 
 We also have:
 
@@ -75,25 +115,20 @@ $$
 
 is a Wold representation for $Dx(t)$.
 
-**Proof.** Note that if $\tilde P(s)$ has no zeroes in the right half of the complex plane, then neither does $s \tilde P(s)$. This is sufficient for the linear space spanned by $[Dx(v),\, v \leq t]$ to equal the linear space spanned by $[w(v),\, v \leq t]$.
+**Proof.** Since $x$ is mean square differentiable, $p(0) = 0$, so $D\tilde P(D)$ carries no impulse and $Dx(t) = \int_0^\infty p'(\tau)\, w(t-\tau)\, d\tau$. If $\tilde P(s)$ has no zeroes in the right half of the complex plane, then neither does $s \tilde P(s)$ — the extra factor $s$ contributes only a zero at the origin, which lies on the imaginary axis rather than in the open right half plane. This is sufficient for the linear space spanned by $[Dx(v),\, v \leq t]$ to equal the linear space spanned by $[w(v),\, v \leq t]$, i.e. for $w$ to be fundamental for $Dx$.
 
-The following proposition characterizes mean square continuity.
+We close with mean square continuity, which, in contrast to differentiability, imposes no
+condition on $p$ beyond the square integrability already assumed in the Wold representation.
 
-**Theorem 14.** Let $x(t)$ be a linearly indeterministic covariance stationary stochastic process with Wold moving average representation $x(t) = \tilde P(D) w(t) = \int_{0}^{\infty} p(\tau) w(t-\tau) \, d\tau$. Then $x(t)$ is mean square continuous if and only if $p(\tau)$ is continuous almost everywhere.
+**Theorem 14.** Let $x(t)$ be a linearly indeterministic covariance stationary stochastic process with Wold moving average representation $x(t) = \tilde P(D) w(t) = \int_{0}^{\infty} p(\tau) w(t-\tau) \, d\tau$, where $\int_{0}^{\infty} p(\tau)^2 \, d\tau < \infty$. Then $x(t)$ is mean square continuous.
 
-**Proof.** We must verify that $\lim_{\epsilon \to 0} E\, [(x(t+\epsilon) - x(t))^2] = 0$
-
-This limit equals
+**Proof.** Extending $p(s) = 0$ for $s < 0$ and using $E\, w(t-s) w(t-s') = \delta(s-s')$,
 
 $$
-\begin{aligned}
-\lim_{\epsilon \to 0}\ &\left[ \int_{-\epsilon}^{\infty} (p(s+\epsilon) - p(s)) w(t-s) \, ds\right]^2 \\
-&= \lim_{\epsilon \to 0} \int_{-\epsilon}^{\infty} |p(s+\epsilon) - p(s)|^2 \, ds \\
-&= 0
-\end{aligned}
+E\, [(x(t+\epsilon) - x(t))^2] = \int_{-\epsilon}^{\infty} |p(s+\epsilon) - p(s)|^2 \, ds = \big\| p(\cdot + \epsilon) - p \big\|_{L^2}^2 .
 $$
 
-if and only if $p(s)$ is continuous almost everywhere.
+Translation is continuous in $L^2$: $\| p(\cdot+\epsilon) - p \|_{L^2} \to 0$ as $\epsilon \to 0$ for every $p \in L^2$. Hence the right-hand side tends to $0$, and $x(t)$ is mean square continuous; equivalently, $R(\tau) = \int_{0}^{\infty} p(b)\, p(b+\tau)\, db$ is continuous at $\tau = 0$. Note that mean square continuity does *not* require $p$ to be pointwise continuous — a moving average against a kernel with jumps, such as the rectangular $p = \mathbf 1_{[0,1]}$, is mean square continuous all the same. Discontinuous kernels of just this kind are central to Marcet's analysis of temporal aggregation in {doc}`23_temporal_aggregation_streamlined`: a one-sided kernel with a jump at the origin, $p(0) \neq 0$, yields a process that is mean square continuous yet — failing condition (a) of {ref}`Theorem 11 <thm-msd-representation>` — *not* mean square differentiable, hence locally unpredictable ({doc}`15_locally_unpredictable`). It is exactly these discontinuities that generate the aggregation distortions studied there.
 
 Together with {ref}`Theorem 11 <thm-msd-representation>` and {ref}`Theorem 12 <thm-msd-higher-order>`, the following characterization can provide a useful way of testing for mean square differentiability of various orders.
 
@@ -110,3 +145,8 @@ $$
 $$
 
 As $s \to \infty$, the integral on the left approaches zero.
+
+This initial value theorem is exactly the tool used in {doc}`11_linear_sde` to count how many
+times the solution of an $n$-th order linear stochastic differential equation is mean square
+differentiable, and again in {doc}`15_locally_unpredictable`, where $p(0) \neq 0$ certifies
+that a process is locally unpredictable.

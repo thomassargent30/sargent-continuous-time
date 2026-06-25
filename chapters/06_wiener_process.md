@@ -122,7 +122,7 @@ The Wiener process $W(t)$ is characterized by the following properties.
 
 (iv) Sample paths or realizations of $W(t)$ are continuous with probability 1.
 
-Property (ii) is the *independent increments* property, and is inherited from the Poisson process of which $W(t)$ is the limit.
+Property (ii) is the *independent increments* property, and is inherited from the Poisson process of which $W(t)$ is the limit. Stochastic differential equations driven by this $W(t)$ — and Itô's rule for manipulating them — are the subject of {doc}`07_wiener_driven_sde`.
 
 ## Exercises
 

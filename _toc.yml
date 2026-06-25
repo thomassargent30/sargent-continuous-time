@@ -17,12 +17,14 @@ parts:
       - file: chapters/10_cramer_representation
       - file: chapters/11_linear_sde
       - file: chapters/12_prediction
-      - file: chapters/13_locally_unpredictable
-      - file: chapters/14_nonstationary_examples
-      - file: chapters/15_discrete_sampling_folding
-      - file: chapters/16_time_aggregation_var
-      - file: chapters/17_prediction_formulas_continuous_time
-      - file: chapters/18_phillips_continuous_time_estimation
-      - file: chapters/19_aggregation_inverse_optimal_predictor
-      - file: chapters/20_dimensionality_aliasing_problem
-      - file: chapters/21_temporal_aggregation_streamlined
+      - file: chapters/13_kalman_filter_spectral_factorization
+      - file: chapters/14_faster_methods_recursive_linear_models
+      - file: chapters/15_locally_unpredictable
+      - file: chapters/16_nonstationary_examples
+      - file: chapters/17_discrete_sampling_folding
+      - file: chapters/18_time_aggregation_var
+      - file: chapters/19_prediction_formulas_continuous_time
+      - file: chapters/20_phillips_continuous_time_estimation
+      - file: chapters/21_aggregation_inverse_optimal_predictor
+      - file: chapters/22_dimensionality_aliasing_problem
+      - file: chapters/23_temporal_aggregation_streamlined

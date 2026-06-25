@@ -35,9 +35,11 @@ Relative to the original typed manuscript, this MyST/Jupyter Book edition:
 10. The Cramér Representation
 11. Linear Stochastic Differential Equations
 12. Linear Least Squares Prediction (Wiener–Kolmogorov; Geometric Distributed Leads)
-13. Locally Unpredictable Stochastic Processes
-14. Examples of Nonstationary Processes
-15. Discrete Sampling: The Folding Formula
+13. State-Space Models, the Kalman Filter, and Spectral Factorization
+14. Faster Methods for Solving Recursive Linear Models of Dynamic Economies (Hansen, Heaton, and Sargent)
+15. Locally Unpredictable Stochastic Processes
+16. Examples of Nonstationary Processes
+17. Discrete Sampling: The Folding Formula
 
 ## Companion Papers
 
@@ -46,12 +48,12 @@ developed above to problems of time aggregation, prediction, and the relationshi
 continuous and discrete time models. They originally appeared as separate chapters of a related
 volume and are reproduced here for convenience.
 
-16. Time Aggregation (Hansen and Sargent, from *Two Difficulties in Interpreting Vector Autoregressions*, §2)
-17. Prediction Formulas for Continuous Time Linear Rational Expectations Models (Hansen and Sargent)
-18. Inferring a Continuous-Time System from Discrete-Time Data: An Appreciation of A. W. Phillips (1959) (presenting Phillips, *Biometrika*, 1959, with Hansen and Sargent)
-19. Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in Continuous Time (Hansen and Sargent, *IER*, 1983)
-20. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities (Hansen and Sargent, *Econometrica*, 1983)
-21. Temporal Aggregation of Economic Time Series (Marcet)
+18. Time Aggregation (Hansen and Sargent, from *Two Difficulties in Interpreting Vector Autoregressions*, §2)
+19. Prediction Formulas for Continuous Time Linear Rational Expectations Models (Hansen and Sargent)
+20. Inferring a Continuous-Time System from Discrete-Time Data: An Appreciation of A. W. Phillips (1959) (presenting Phillips, *Biometrika*, 1959, with Hansen and Sargent)
+21. Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in Continuous Time (Hansen and Sargent, *IER*, 1983)
+22. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities (Hansen and Sargent, *Econometrica*, 1983)
+23. Temporal Aggregation of Economic Time Series (Marcet)
 
 ## Notation
 

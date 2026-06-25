@@ -125,7 +125,7 @@ $n$, and every collection $(t_1, \ldots, t_n)$, the covariance matrix must be po
 semidefinite if the function $C(\tau)$ is to be positive semidefinite.
 
 Yet another way to characterize positive semidefiniteness of $C(\tau)$ can be given using
-concepts to be introduced in Section 8. It is true that $C(\tau)$ is positive
+concepts to be introduced in {doc}`08_spectral_densities`. It is true that $C(\tau)$ is positive
 semidefinite if and only if the function
 
 $$
@@ -147,3 +147,8 @@ $$
 $$
 
 Notice that strict stationarity implies covariance stationarity, but not *vice versa*.
+Throughout this book we work with the weaker, second-moment notion. The next chapter shows
+that the smoothness of the autocovariance function $R(\tau)$ at the origin governs the
+continuity and differentiability of $x(t)$ itself — the first appearance of a
+smoothness-versus-predictability theme that recurs in
+{doc}`09_characterizations_ms_differentiability` and {doc}`15_locally_unpredictable`.

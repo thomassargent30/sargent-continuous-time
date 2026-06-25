@@ -159,6 +159,10 @@ $$
 dx = f(x,\, t)dt + g(x,\, t)dW(t).
 $$
 
+Itô's rule is used repeatedly in what follows — for the linear constant-coefficient models of
+{doc}`11_linear_sde`, and in deriving the Riccati equation of the Kalman–Bucy filter in
+{doc}`13_kalman_filter_spectral_factorization`.
+
 Our second rule is
 
 $$
@@ -206,7 +210,9 @@ $$
 \frac{d}{d\tau}\ Ex(t) x(t+\tau) = Ex\, (t)f\left(x(t+\tau),\ t+\tau\right) + Ex\, (t)\ \left[\frac{1}{\sqrt\lambda}\ \left( \frac{\lambda}{2}\ - \ \frac{\lambda}{2}\right)\right].
 $$
 
-As an example of the use of these formulas, we take the linear stochastic differential equation
+As an example of the use of these formulas, we take the linear stochastic differential
+equation — the *Ornstein–Uhlenbeck process*, the simplest member of the constant-coefficient
+class studied systematically in {doc}`11_linear_sde`,
 
 $$
 dx(t) = -ax(t)dt + bdW(t),\ x(0) = 0,\ a,\ b > 0.

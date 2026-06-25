@@ -236,7 +236,11 @@ $$
 The zero mean generalized stochastic process $z(t) - \lambda$, which has autocorrelation
 function $\lambda \delta(t_1 - t_2)$ is an example of a *white noise*. Any stochastic
 process with an autocorrelation function proportional to $\delta(t_1 - t_2)$ is known as a
-white noise.
+white noise. White noise is the elementary building block from which the processes of this
+book are assembled: it drives the stochastic differential equations of
+{doc}`05_poisson_driven_processes`, reappears in the limit construction of the Wiener process
+in {doc}`06_wiener_process`, and is the *fundamental* input $w(t)$ of the Wold representation
+in {doc}`08_spectral_densities`.
 
 The process $z(t) = dN(t)/dt$ does not exist as an ordinary stochastic process, but can be
 regarded as a particular kind of limit point of a process that does exist as an ordinary
@@ -310,8 +314,10 @@ $$ (eq-3-shot)
 
 The process $Y(t)$ defined by {eq}`eq-3-shot` is an ordinary stochastic process, consisting of a sum
 of the function $L$ shifted by the random arrival times $t_i$. Such a process $Y(t)$ is
-called *shot noise*. In Chapter 8, we shall show how to calculate its first and second
-order moments.
+called *shot noise*. In {doc}`08_spectral_densities` we shall show how to calculate its
+first and second order moments. Shot noise is the prototype of the lesson made precise in
+{doc}`04_physical_realizability`: the generalized white noise $dN/dt$ lives only under the
+integral sign, while the integrated process $Y(t)$ is perfectly ordinary.
 
 ## Exercises
 
