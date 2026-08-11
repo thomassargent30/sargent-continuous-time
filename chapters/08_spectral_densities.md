@@ -184,7 +184,7 @@ The entries for $u(t)$ and $u(t)t$ are the transforms in the sense of generalize
 the $\delta$ terms record that these signals do not decay, and they carry all of the mass at
 $w = 0$. In every use we make of these entries — the operational calculus of
 {doc}`11_linear_sde` and {doc}`12_prediction`, and the nonstationary examples of
-{doc}`16_nonstationary_examples` — the operators $1/(iw)$ and $1/(iw)^2$ act on a noise that has
+{doc}`14_nonstationary_examples` — the operators $1/(iw)$ and $1/(iw)^2$ act on a noise that has
 no mass at the origin, so the $\delta$ terms may be, and are, dropped. Writers who work only
 with such operators often tabulate $u(t) \leftrightarrow 1/iw$ for that reason.
 
@@ -329,9 +329,9 @@ to $\tilde P(s)$ by $P(w) = \tilde P (iw)$.
 This factorization is the structural result on which much of the rest of the book leans. It
 furnishes the prediction formulas of {doc}`12_prediction`, acquires a time-domain,
 state-space counterpart in the Kalman–Bucy filter and Riccati equation of
-{doc}`13_kalman_filter_spectral_factorization` (solving the Riccati equation is the
+{doc}`15_kalman_filter_spectral_factorization` (solving the Riccati equation is the
 time-domain algorithm that performs this factorization), and is the object identified from
-discretely sampled data in {doc}`20_phillips_continuous_time_estimation`.
+discretely sampled data in {doc}`21_phillips_continuous_time_estimation`.
 
 Thus, we can represent a linearly indeterministic, covariance stationary process $x_t$ as
 
@@ -401,7 +401,7 @@ $H_x(- \infty,\,t)$. This right-half-plane zero is the continuous-time prototype
 *non-fundamentalness* — the driving noise spanning a larger information space than the
 observable process — which returns as the central difficulty in interpreting vector
 autoregressions in {doc}`18_time_aggregation_var` and as the identification problem of
-{doc}`20_phillips_continuous_time_estimation`. To see this heuristically, attempt to invert {eq}`eq-8-nonfund`, and to solve for
+{doc}`21_phillips_continuous_time_estimation`. To see this heuristically, attempt to invert {eq}`eq-8-nonfund`, and to solve for
 $v(t)$ as a function of the $x(t)$ process. This gives
 
 $$

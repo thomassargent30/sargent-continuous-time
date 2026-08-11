@@ -162,4 +162,4 @@ Throughout this book we work with the weaker, second-moment notion. The next cha
 that the smoothness of the autocovariance function $R(\tau)$ at the origin governs the
 continuity and differentiability of $x(t)$ itself — the first appearance of a
 smoothness-versus-predictability theme that recurs in
-{doc}`09_characterizations_ms_differentiability` and {doc}`15_locally_unpredictable`.
+{doc}`09_characterizations_ms_differentiability` and {doc}`13_locally_unpredictable`.

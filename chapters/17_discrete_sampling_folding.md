@@ -91,9 +91,19 @@ $$ (eq-17-fold)
 where $S^d(w)$ is the spectral density of the discrete data and $S(w)$ is the spectral
 density of the continuous time data. Equation {eq}`eq-17-fold` is known as the *folding formula*.
 
-The folding formula is the engine of the *aliasing problem*: because infinitely many
+The folding formula is best read through the Cramér representation of
+{doc}`10_cramer_representation`. There the process was exhibited as a superposition of
+mutually orthogonal frequency bands, the band $[c,\, d]$ contributing variance
+$\frac{1}{\pi}\int_c^d S(w)\, dw$. Sampling does not destroy those bands: it *wraps* them,
+translating each by a multiple of $w_0 = 2\pi/T$ onto the observable interval
+$[-\pi/T,\, \pi/T]$, where — because the bands were orthogonal — their variances simply add.
+Equation {eq}`eq-17-fold` is that addition. The frequency $\pi/T$, half the sampling rate, is
+the *Nyquist frequency*; everything above it is folded down on top of something below it.
+
+The folding formula is therefore the engine of the *aliasing problem*: because infinitely many
 continuous time frequencies fold onto the same discrete frequency, the sampled spectrum cannot
-by itself recover the continuous one. {doc}`20_phillips_continuous_time_estimation` shows this
+by itself recover the continuous one — the sampled data record only the *sum* of the folded
+bands, never the division of that sum among them. {doc}`21_phillips_continuous_time_estimation` shows this
 is the same phenomenon as the multivalued $\lambda = \log\mu$ in Phillips's estimation problem;
 {doc}`22_dimensionality_aliasing_problem` counts how many continuous time models survive the
 folding; and {doc}`23_temporal_aggregation_streamlined` takes up the related distortions caused

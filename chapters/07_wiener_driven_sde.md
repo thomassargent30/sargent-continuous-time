@@ -159,9 +159,22 @@ $$
 dx = f(x,\, t)dt + g(x,\, t)dW(t).
 $$
 
-Itô's rule is used repeatedly in what follows — for the linear constant-coefficient models of
-{doc}`11_linear_sde`, and in deriving the Riccati equation of the Kalman–Bucy filter in
-{doc}`13_kalman_filter_spectral_factorization`.
+A word about where Itô's rule is used later, since the answer is more selective than one might
+expect. The *linear* theory that occupies most of this book — the constant-coefficient models
+of {doc}`11_linear_sde`, the prediction formulas of {doc}`12_prediction`, and everything built
+on them — integrates white noise against a **deterministic** kernel $p(\tau)$. For such an
+integrand the second-order term above vanishes, and, as the note in {doc}`11_linear_sde`
+records, the Itô integral, the Stratonovich integral, and the ordinary mean square integral all
+coincide. The Itô correction is invisible there precisely because nothing is nonlinear.
+
+The correction does real work in one place: the derivation of the Riccati equation of the
+Kalman–Bucy filter in {doc}`15_kalman_filter_spectral_factorization`. There one applies the rule
+to the *quadratic* function $\Psi(e) = e\,e^\top$ of the estimation error, and the second-order
+term supplies exactly the noise-intensity terms $BB^\top + KRK^\top$ that the Riccati equation
+balances against the quadratic term $\Sigma C^\top R^{-1} C\,\Sigma$. Beyond that, the value of
+Chapters 5 through 7 for what follows is that they *construct* the white noise the linear theory
+takes as given, and show that the Poisson and Wiener cases are two faces of one limiting
+argument.
 
 Our second rule is
 
@@ -373,7 +386,7 @@ $R''(0)$ does not exist; by Theorem 4 of
 {doc}`02_mean_square_continuity_differentiability` the Ornstein–Uhlenbeck process is therefore,
 like the telegraph wave, mean square continuous but **not** mean square differentiable. In the language of
 {doc}`11_linear_sde` this is the case $n = 1$, $m = 0$, giving $n - 1 - m = 0$ derivatives; by
-{doc}`15_locally_unpredictable` such a process is locally unpredictable. The two processes
+{doc}`13_locally_unpredictable` such a process is locally unpredictable. The two processes
 differ in their sample paths — the diffusion is continuous, the telegraph wave jumps — but
 their second moments are alike in precisely this respect.
 

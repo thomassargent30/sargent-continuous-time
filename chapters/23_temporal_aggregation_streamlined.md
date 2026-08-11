@@ -22,7 +22,7 @@ his catalogue of simulations, and add a few numerical illustrations of our own. 
 twofold: to convey Marcet's results, and to exhibit them as a striking application of the
 machinery built up in the earlier chapters — the $L^2$ projection theory of Chapter 19, the
 sum-of-exponentials kernels of Chapter 11, the continuous-time prediction formulas of
-Chapter 12, and the local unpredictability of Chapter 15. Throughout, the substantive claims
+Chapter 12, and the local unpredictability of Chapter 13. Throughout, the substantive claims
 and constructions are Marcet's; the framing in terms of the earlier chapters is ours, and we
 use phrasings such as "Marcet shows" to keep the attribution clear.
 ```
@@ -143,7 +143,7 @@ the error in predicting the continuous forecast from the samples; the sampled in
 large, relative to the continuous one, precisely when the continuous-time forecast is hard to
 recover from samples.
 
-It is worth pausing on the first term through the lens of Chapter 15. There it was shown that a
+It is worth pausing on the first term through the lens of Chapter 13. There it was shown that a
 process fails to be mean square differentiable — and is then *locally unpredictable*, "locally
 like a martingale" — exactly when its Wold kernel does not vanish at the origin, $a(0)\neq 0$.
 The continuous one-step innovation $\int_0^1 a(u)\,\zeta(t-du)$ inherits its size from the
@@ -242,7 +242,7 @@ $\operatorname{var}(Y_i(t)-\eta(Y_i(t)\mid H_Y(t-\nu))) \ge \operatorname{var}(y
 which in the univariate case reads $\sigma_\epsilon^2\sum_{k=0}^{\nu-1}A_k^2 \ge \int_0^\nu a^2$.
 The discrete MAR must *pack* into a few coefficients the variance that the continuous MAR spreads
 over an interval, so its early coefficients are too large in absolute value. This is the mirror
-image of Chapter 15's lesson about packing: a continuous innovation with $a(0)\neq 0$ carries
+image of Chapter 13's lesson about packing: a continuous innovation with $a(0)\neq 0$ carries
 real one-step surprise, and the discrete representation has to absorb it up front.
 
 **Contamination.** Formula {eq}`eq-ta-Ak` also shows that the $i$-th row of $A_k$ depends, through
@@ -256,7 +256,7 @@ problems of Sims and Geweke. There the aggregating kernel is *two-sided and cont
 effect is to *shrink* the leading discrete coefficients. Marcet's weighting kernel $c$ is instead
 *one-sided* and, in general, *discontinuous*. To see the discontinuity, suppose $a$ is univariate
 and continuous except at the origin, with $a(0)\neq 0$ — exactly the locally-unpredictable case of
-Chapter 15. Since $c(u) = a(u) - \sum_{k\ge 1}\lambda_k\, a(u-k)$, at an integer $\nu$ the term
+Chapter 13. Since $c(u) = a(u) - \sum_{k\ge 1}\lambda_k\, a(u-k)$, at an integer $\nu$ the term
 $k=\nu$ contributes $\lambda_\nu\, a(0)$, a *jump*, because $a$ jumps at $0$; the remaining terms
 are continuous there, so $c$ inherits a jump at every integer. These jumps, and the
 one-sidedness, are exactly what give the sampled MAR possibilities the smooth distributed-lag
@@ -456,7 +456,7 @@ $\tilde a_{ij}\in C^{s+1}$.
 ```
 
 The proof is immediate: with $F(x)=\int_{-\infty}^x a_{ij}$, $\tilde a_{ij}(u)=F(u)-F(u-1)$. In
-particular $\tilde a(0)=0$ always. Through the eyes of Chapter 15, averaging turns a possibly
+particular $\tilde a(0)=0$ always. Through the eyes of Chapter 13, averaging turns a possibly
 locally-unpredictable process ($a(0)\neq 0$) into a mean square *continuous*, more predictable one
 ($\tilde a(0)=0$). But as Example 3.2 warned, kernels with $a(0)=0$ tend to produce distorted
 discrete MARs — the projection $h(u)\approx\mu\,a(u-1)$ leaves a large residual on $[1,2)$
@@ -507,7 +507,7 @@ $\delta\downarrow 0$.
 The argument rests on a mean-square continuity lemma — $E(y(t)-y(t+s))^2 \to 0$ as $s\to 0$,
 because each square-integrable $a_{ij}$ satisfies $\int|a_{ij}(u)-a_{ij}(u+s)|^2 \to 0$ — together
 with the law of iterated projections. Convergence of the *coefficients*, however, is delicate and
-turns on the normalization, a point that bears directly on Chapter 15. If one insists that
+turns on the normalization, a point that bears directly on Chapter 13. If one insists that
 $\epsilon^\delta$ be the one-step innovation, then $A_0^\delta = I$ for every $\delta$ and the
 discrete MAR cannot converge to $a$; if one normalizes the innovation to unit variance, the
 coefficients collapse to zero, since the innovation over a vanishing interval carries vanishing
@@ -532,7 +532,7 @@ $\delta\downarrow 0$.
 
 So the impulse responses to innovations over a fixed interval of *real* time are recovered by fine
 sampling. But Marcet closes with a cautionary negative result that is, in effect, a restatement of
-Chapter 15's local unpredictability.
+Chapter 13's local unpredictability.
 
 ```{admonition} Proposition 8 (Marcet)
 :class: note
@@ -544,7 +544,7 @@ $\delta\downarrow 0$.
 
 This class is exactly the one that averaging produces (Proposition 5 gives $\tilde a(0)=0$), so the
 common practice of reading the one-step innovation as "the continuous-time shock over a short
-interval" can mislead however finely one samples. In the language of Chapter 15: when the kernel
+interval" can mislead however finely one samples. In the language of Chapter 13: when the kernel
 is smooth at the origin the process is *not* locally unpredictable, the one-step innovation is not
 dominated by a fresh continuous-time surprise, and no amount of fine sampling makes it so.
 

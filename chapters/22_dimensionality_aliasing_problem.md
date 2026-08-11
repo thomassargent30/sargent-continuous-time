@@ -25,7 +25,7 @@ Report No. 72).
 
 Because the paper's own numbering is retained, Theorems 1–5 below are *the paper's* theorems.
 They are unrelated to the book's running sequence of Theorems 1–16, which ends with Theorem 16
-of {doc}`15_locally_unpredictable`.
+of {doc}`13_locally_unpredictable`.
 ```
 
 In this paper Hansen and Sargent reconsider the aliasing problem of identifying the parameters
@@ -216,6 +216,15 @@ observationally indistinguishable from integer-sampled data even though their co
 spectra could hardly be more different — one a smooth low-frequency Lorentzian, the other
 concentrated entirely at high frequencies.
 
+The device that manufactures $x^*$ is the band-pass window $B_{cd}(w)$ of
+{doc}`10_cramer_representation`, applied at frequencies above the Nyquist rate. There it was
+used to *decompose* a process into orthogonal frequency bands, each carrying its own share of
+the variance; here it is used in reverse, to *assemble* a process whose entire variance sits in
+bands that sampling folds down on top of the observable one. That the two processes have the
+same total power — the variance printed below is $v/2a$ for both — is no accident: folding
+preserves the sum of the band variances and destroys only the information about how the sum was
+divided among them.
+
 ```{code-cell} ipython3
 def f_star(w):
     w = np.atleast_1d(w).astype(float); out = np.zeros_like(w)
@@ -405,7 +414,10 @@ B_0 = \exp A_0, \qquad \eta(t) = \int_0^1 \exp(A_0 \tau)\, \epsilon(t - \tau)\, 
 ```
 
 By the white noise nature of $\epsilon$, it follows that $\eta$ is a discrete time vector white
-noise disturbance when sampled at the integers. The contemporaneous covariance matrix of
+noise disturbance when sampled at the integers. This $\eta$ is the discrete-time innovation of
+{doc}`15_kalman_filter_spectral_factorization` for the special case in which the state is
+observed without measurement error, so that the filter is exact and the innovation is simply the
+accumulated process noise over one sampling interval. The contemporaneous covariance matrix of
 $\eta(t)$ is
 
 ```{math}
@@ -824,7 +836,7 @@ Models from Discrete Time Data. Unpublished manuscript.
 Kwakernaak, H., and R. Sivan (1972). *Linear Optimal Control Systems*. New York: Wiley.
 
 Phillips, A. W. (1959). The Estimation of Parameters in Systems of Stochastic Differential
-Equations. *Biometrika*, **46**, 67–76. (Discussed in {doc}`20_phillips_continuous_time_estimation`.)
+Equations. *Biometrika*, **46**, 67–76. (Discussed in {doc}`21_phillips_continuous_time_estimation`.)
 
 Phillips, P. C. B. (1973). The Problem of Identification in Finite Parameter Continuous Time
 Models. *Journal of Econometrics*, **1**, 351–362.

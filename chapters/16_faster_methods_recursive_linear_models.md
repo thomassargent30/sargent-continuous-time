@@ -11,9 +11,9 @@ kernelspec:
   name: python3
 ---
 
-# 14. Faster Methods for Solving Recursive Linear Models of Dynamic Economies
+# 16. Faster Methods for Solving Recursive Linear Models of Dynamic Economies
 
-*An application and extension of the continuous-time linear regulator of {doc}`13_kalman_filter_spectral_factorization`.*
+*An application and extension of the continuous-time linear regulator of {doc}`15_kalman_filter_spectral_factorization`.*
 
 ```{note}
 This chapter paraphrases and streamlines Lars Peter Hansen, John Heaton, and Thomas J.
@@ -21,10 +21,10 @@ Sargent, "Faster Methods for Solving Continuous Time Recursive Linear Models of 
 Economies," Chapter 7 of *Rational Expectations Econometrics* (L. P. Hansen and T. J.
 Sargent, eds., Westview Press, Underground Classics in Economics). It is presented here as an
 application of the optimal linear regulator and algebraic Riccati equation introduced in
-{doc}`13_kalman_filter_spectral_factorization`.
+{doc}`15_kalman_filter_spectral_factorization`.
 ```
 
-Section (d) of {doc}`13_kalman_filter_spectral_factorization` posed the continuous-time linear
+Section (d) of {doc}`15_kalman_filter_spectral_factorization` posed the continuous-time linear
 regulator — minimize $\int_0^\infty (x^\top Q x + u^\top R u)\, dt$ subject to
 $\dot x = A x + B u$ — and solved it through an algebraic Riccati equation. That regulator is
 not merely a control problem: it is the **computational engine for the equilibria of a large
@@ -60,7 +60,7 @@ A representative household has time-separable preferences over an $n_s$-vector $
 *services*,
 
 ```{math}
-:label: eq-14-pref
+:label: eq-16-pref
 -\tfrac12 \int_0^\infty e^{-\rho t}\, [s(t) - b(t)]^\top [s(t) - b(t)]\, dt, \qquad \rho > 0,
 ```
 
@@ -69,7 +69,7 @@ discount rate. Services are produced from a stock of *household capital* $h(t)$ 
 *consumption goods* $c(t)$,
 
 ```{math}
-:label: eq-14-services
+:label: eq-16-services
 s(t) = \Lambda\, h(t) + \Pi\, c(t),
 ```
 
@@ -77,7 +77,7 @@ and the two capital stocks — household capital $h(t)$ and physical capital $k(
 according to linear laws of motion driven by consumption and by investment $i(t)$:
 
 ```{math}
-:label: eq-14-capital
+:label: eq-16-capital
 D h(t) = \Delta_h\, h(t) + \Theta_h\, c(t), \qquad
 D k(t) = \Delta_k\, k(t) + \Theta_k\, i(t),
 ```
@@ -87,7 +87,7 @@ capital and an endowment $f(t)$ and split between consumption and investment thr
 constraint
 
 ```{math}
-:label: eq-14-resource
+:label: eq-16-resource
 \Phi_c\, c(t) + \Phi_i\, i(t) = \Gamma\, k(t) + f(t).
 ```
 
@@ -98,26 +98,26 @@ and durability. The endowment and bliss shocks are linear images of an $n_z$-vec
 process $\hat z(t)$,
 
 ```{math}
-:label: eq-14-forcing
+:label: eq-16-forcing
 f(t) = \Xi_f\, \hat z(t), \qquad b(t) = \Xi_b\, \hat z(t).
 ```
 
 Stacking the capital stocks into a composite state $\hat x(t) = [\,h(t)^\top\ k(t)^\top\,]^\top$
 and taking investment as the control $\hat u(t) = i(t)$, the laws of motion
-{eq}`eq-14-capital` together with the resource constraint {eq}`eq-14-resource` collapse to a
+{eq}`eq-16-capital` together with the resource constraint {eq}`eq-16-resource` collapse to a
 single **linear state-space system** of exactly the form met in
-{doc}`13_kalman_filter_spectral_factorization`,
+{doc}`15_kalman_filter_spectral_factorization`,
 
 ```{math}
-:label: eq-14-statehat
+:label: eq-16-statehat
 D \hat x(t) = \hat A\, \hat x(t) + B_u\, \hat u(t) + B_z\, \hat z(t), \qquad \hat x(0) = \mu,
 ```
 
-and the preference criterion {eq}`eq-14-pref`, after substituting out $s(t) - b(t)$, becomes a
+and the preference criterion {eq}`eq-16-pref`, after substituting out $s(t) - b(t)$, becomes a
 quadratic form in $(\hat u, \hat x, \hat z)$,
 
 ```{math}
-:label: eq-14-objhat
+:label: eq-16-objhat
 -\tfrac12 \int_0^\infty e^{-\rho t}\,
 \begin{bmatrix} \hat u \\ \hat x \\ \hat z \end{bmatrix}^\top
 \Omega
@@ -125,9 +125,9 @@ quadratic form in $(\hat u, \hat x, \hat z)$,
 \qquad \Omega \succeq 0 .
 ```
 
-The planning problem is to choose $\{\hat u(t)\}$ to maximize {eq}`eq-14-objhat` subject to
-{eq}`eq-14-statehat`. This is a discounted optimal linear regulator with an exogenous forcing
-term $B_z \hat z$ — the regulator of Chapter 13 augmented by a forcing process.
+The planning problem is to choose $\{\hat u(t)\}$ to maximize {eq}`eq-16-objhat` subject to
+{eq}`eq-16-statehat`. This is a discounted optimal linear regulator with an exogenous forcing
+term $B_z \hat z$ — the regulator of Chapter 15 augmented by a forcing process.
 
 ## (b) Removing the discount
 
@@ -135,23 +135,23 @@ The discount factor is absorbed into the state by a change of variables. With $\
 define the deflated variables
 
 ```{math}
-:label: eq-14-deflate
+:label: eq-16-deflate
 x(t) = e^{-\epsilon t}\, \hat x(t), \qquad u(t) = e^{-\epsilon t}\, \hat u(t), \qquad
 z(t) = e^{-\epsilon t}\, \hat z(t).
 ```
 
-Because $D x = -\epsilon x + e^{-\epsilon t} D\hat x$, the state equation {eq}`eq-14-statehat`
+Because $D x = -\epsilon x + e^{-\epsilon t} D\hat x$, the state equation {eq}`eq-16-statehat`
 becomes the **undiscounted** system
 
 ```{math}
-:label: eq-14-state
+:label: eq-16-state
 D x(t) = A\, x(t) + B_u\, u(t) + B_z\, z(t), \qquad A \equiv \hat A - \epsilon I, \quad x(0) = \mu,
 ```
 
-and the criterion {eq}`eq-14-objhat` becomes the undiscounted quadratic form
+and the criterion {eq}`eq-16-objhat` becomes the undiscounted quadratic form
 
 ```{math}
-:label: eq-14-obj
+:label: eq-16-obj
 -\tfrac12 \int_0^\infty
 \begin{bmatrix} u \\ x \\ z \end{bmatrix}^\top \Omega
 \begin{bmatrix} u \\ x \\ z \end{bmatrix} dt .
@@ -161,25 +161,25 @@ Deflation has simply shifted every eigenvalue of the transition matrix left by $
 provided the original capital-depreciation matrices have eigenvalues with real parts below
 $\epsilon$, the deflated transition matrix $A$ is a stability matrix and the deflated stocks are
 square integrable. We have reduced the economy to a **standard undiscounted optimal linear
-regulator with forcing** — the problem of Chapter 13, Section (d), but with the forcing term
+regulator with forcing** — the problem of Chapter 15, Section (d), but with the forcing term
 $B_z z$ and a general cross-penalized criterion $\Omega$.
 
 ## (c) The optimal linear regulator and its Hamiltonian
 
 Partition $\Omega$ conformably with $(u, x, z)$ into blocks $\Omega_{uu}, \Omega_{ux}, \ldots$
-The regulator differs from the textbook problem of Chapter 13 in two ways that the economic
+The regulator differs from the textbook problem of Chapter 15 in two ways that the economic
 application forces upon us. First, the forcing $z(t)$ is allowed to be *any* square-integrable
 function — it need **not** solve a differential equation, so the constraints are nonautonomous.
 Second, stability of $x$ is imposed as an explicit constraint rather than emerging
 automatically, because with general $z$ a stable state path is not guaranteed.
 
 Attaching a co-state (Lagrange multiplier) process $\lambda(t)$ to the state equation
-{eq}`eq-14-state` and forming the Lagrangian, the first-order conditions in $u$ and $x$, after
+{eq}`eq-16-state` and forming the Lagrangian, the first-order conditions in $u$ and $x$, after
 eliminating the control, combine the state and co-state into a single first-order system
 governed by a **Hamiltonian matrix** $H$:
 
 ```{math}
-:label: eq-14-ham
+:label: eq-16-ham
 \begin{bmatrix} D x_s(t) \\ D x_c(t) \end{bmatrix}
 = H \begin{bmatrix} x_s(t) \\ x_c(t) \end{bmatrix} + K\, z(t),
 \qquad
@@ -204,7 +204,7 @@ Stability of the deflated state requires the solution to lie in the **stable inv
 subspace** of $H$, which forces the co-state to be a linear function of the state,
 
 ```{math}
-:label: eq-14-Mx
+:label: eq-16-Mx
 x_c(t) = M_x\, x_s(t), \qquad M_x = E_{21} E_{11}^{-1},
 ```
 
@@ -214,21 +214,21 @@ Riccati equation** — the same object as the cost-to-go matrix $P$ of the regul
 13. It satisfies
 
 ```{math}
-:label: eq-14-riccati
+:label: eq-16-riccati
 [\,-M_x \quad I\,]\; H \begin{bmatrix} I \\ M_x \end{bmatrix} = 0 ,
 ```
 
-which is the Riccati equation {eq}`eq-13-careg` written in Hamiltonian form. The optimal value
+which is the Riccati equation {eq}`eq-15-careg` written in Hamiltonian form. The optimal value
 of the planning criterion, as a function of the initial condition, is the quadratic
 $-\tfrac12\, \mu^\top M_x\, \mu$ — and its gradient $-M_x \mu$ delivers the supporting
 Arrow–Debreu prices.
 
-**The feedback–feedforward decomposition.** Substituting {eq}`eq-14-Mx` back into the
-Hamiltonian system {eq}`eq-14-ham` gives a recursive law of motion for the optimally controlled
+**The feedback–feedforward decomposition.** Substituting {eq}`eq-16-Mx` back into the
+Hamiltonian system {eq}`eq-16-ham` gives a recursive law of motion for the optimally controlled
 state,
 
 ```{math}
-:label: eq-14-decision
+:label: eq-16-decision
 D x_s(t) = \underbrace{(H_{11} + H_{12} M_x)\, x_s(t)}_{\text{feedback (control)}}
 \; + \; \underbrace{H_{12}\, w(t) + K_1\, z(t)}_{\text{feedforward (prediction)}} .
 ```
@@ -251,7 +251,7 @@ iteration that never forms the eigenvectors.
 For any matrix $G$ with no purely imaginary eigenvalues, the iteration
 
 ```{math}
-:label: eq-14-sign
+:label: eq-16-sign
 \mathcal{R}(G) = \tfrac12\big(G + G^{-1}\big)
 ```
 
@@ -262,17 +262,17 @@ solution is recovered algebraically; equivalently, $M_x$ is the least-squares so
 overdetermined system
 
 ```{math}
-:label: eq-14-signextract
+:label: eq-16-signextract
 \begin{bmatrix} H^\infty_{12} \\ H^\infty_{22} + I \end{bmatrix} M_x
 = - \begin{bmatrix} H^\infty_{11} + I \\ H^\infty_{21} \end{bmatrix}.
 ```
 
 Anderson (1978) observed that the Hamiltonian structure ($H_{22} = -H_{11}^\top$) is *preserved*
-by the iteration {eq}`eq-14-sign`, so the algorithm can be carried out on the half-size blocks,
+by the iteration {eq}`eq-16-sign`, so the algorithm can be carried out on the half-size blocks,
 roughly halving the work. The matrix sign algorithm is the continuous-time analogue of the
 doubling algorithms used for discrete-time quadratic control. It solves the *same* algebraic
-Riccati equation as `scipy`'s `solve_continuous_are` used in Chapter 13, but by an iteration that
-scales gracefully — the point of the paper. {ref}`ex-14-1` implements it and checks it against
+Riccati equation as `scipy`'s `solve_continuous_are` used in Chapter 15, but by an iteration that
+scales gracefully — the point of the paper. {ref}`ex-16-1` implements it and checks it against
 the Chapter-13 solver.
 
 **The feedforward as prediction.** It remains to compute the feedforward process $w(t)$. When
@@ -281,7 +281,7 @@ collapses to a linear function $w(t) = M_z z(t)$, where $M_z$ solves a Sylvester
 in its entries,
 
 ```{math}
-:label: eq-14-sylvester
+:label: eq-16-sylvester
 (H_{12} M_x + H_{11})^\top M_z + M_z A_{zz} = K_2 - M_x K_1 ,
 ```
 
@@ -290,21 +290,21 @@ composite system. For *general* (nonautonomous) $z$, the feedforward is a **forw
 — a present value of the expected future forcing,
 
 ```{math}
-:label: eq-14-forward
+:label: eq-16-forward
 w(t) = \int_0^\infty \exp\!\big[(H_{11} + H_{12} M_x)^\top \tau\big]\,(K_2 - M_x K_1)\, z(t+\tau)\, d\tau ,
 ```
 
 in which the *transpose of the stable feedback matrix* governs the decay of the weights on
-future shocks. (Equation {eq}`eq-14-forward` is written for a $z$ path known at $t$ — the
+future shocks. (Equation {eq}`eq-16-forward` is written for a $z$ path known at $t$ — the
 perfect-foresight, or deterministic, case. When $z$ is stochastic, $z(t+\tau)$ is replaced
 throughout by its least squares forecast $\hat E_t\, z(t+\tau)$; certainty equivalence, which
 holds because the criterion is quadratic and the constraints linear, is what makes this
 substitution legitimate and leaves the feedback matrix $H_{11} + H_{12}M_x$ unchanged.)
-Equation {eq}`eq-14-forward` is exactly a **geometric distributed lead** of the
+Equation {eq}`eq-16-forward` is exactly a **geometric distributed lead** of the
 kind introduced in {doc}`12_prediction`: the optimal control today responds to a discounted
 integral of expected future shocks. Evaluating it for a general forcing process is the task of
 the companion {doc}`19_prediction_formulas_continuous_time`, which supplies the Laplace-transform
-prediction calculus that turns {eq}`eq-14-forward` into a finite matrix computation.
+prediction calculus that turns {eq}`eq-16-forward` into a finite matrix computation.
 
 ## (e) Spectral factorization in the Euler equations
 
@@ -332,13 +332,13 @@ with $\hat P$ nonsingular in the left half plane. The stable factor furnishes a 
 forward inverse, and a matrix partial-fractions expansion of it yields the decision rule. Thus
 the regulator solution of Section (c) and the spectral-factorization route of this section are
 two faces of the same computation — the time-domain Riccati equation and the frequency-domain
-factorization that Chapter 13 already showed to be equivalent.
+factorization that Chapter 15 already showed to be equivalent.
 
 A particularly clean instance is Heaton's (1989) model of consumer durables, in which household
 capital is the only endogenous state and the optimal net investment in the durable stock obeys
 
 ```{math}
-:label: eq-14-heaton
+:label: eq-16-heaton
 D k(t) = [\,f(t) - b(t)\,] - \rho \int_0^\infty e^{-\rho\tau}\, [\,f(t+\tau) - b(t+\tau)\,]\, d\tau .
 ```
 
@@ -346,7 +346,7 @@ Net investment compares the *current* endowment-relative-to-bliss gap with a $\r
 **present value of the future** gaps — a permanent-income logic in which the durable stock is
 accumulated whenever the present is favorable relative to what is expected to come. The present
 value on the right is, once again, the geometric distributed lead of {doc}`12_prediction`.
-{ref}`ex-14-2` works this rule out for an autoregressive forcing process.
+{ref}`ex-16-2` works this rule out for an autoregressive forcing process.
 
 ## Exercises
 
@@ -357,11 +357,11 @@ import matplotlib.pyplot as plt
 ```
 
 ```{exercise-start}
-:label: ex-14-1
+:label: ex-16-1
 ```
 
 **The matrix sign algorithm for the algebraic Riccati equation.** Implement the iteration
-{eq}`eq-14-sign` and use it to solve the regulator algebraic Riccati equation
+{eq}`eq-16-sign` and use it to solve the regulator algebraic Riccati equation
 $A^\top X + X A - X B R^{-1} B^\top X + Q = 0$ for the system
 
 $$
@@ -372,17 +372,17 @@ R = [\,1\,] .
 $$
 
 (a) Form the Hamiltonian $H = \begin{bmatrix} A & -BR^{-1}B^\top \\ -Q & -A^\top \end{bmatrix}$,
-iterate {eq}`eq-14-sign` to the matrix sign function, and extract $M_x$ from
-{eq}`eq-14-signextract`.
+iterate {eq}`eq-16-sign` to the matrix sign function, and extract $M_x$ from
+{eq}`eq-16-signextract`.
 
-(b) Confirm that $M_x$ equals the solution returned by Chapter 13's `solve_continuous_are`, that
+(b) Confirm that $M_x$ equals the solution returned by Chapter 15's `solve_continuous_are`, that
 it satisfies the Riccati equation to machine precision, and that the closed loop $A - BR^{-1}B^\top M_x$
 is stable. Observe the **quadratic convergence** of the iteration.
 
 ```{exercise-end}
 ```
 
-```{solution-start} ex-14-1
+```{solution-start} ex-16-1
 :class: dropdown
 ```
 
@@ -412,12 +412,12 @@ n = A.shape[0]
 S11, S12 = Hinf[:n, :n], Hinf[:n, n:]
 S21, S22 = Hinf[n:, :n], Hinf[n:, n:]
 
-# Extract M_x as the least-squares solution of (5.6)-(5.8) / eq-14-signextract
+# Extract M_x as the least-squares solution of (5.6)-(5.8) / eq-16-signextract
 lhs = np.vstack([S12, S22 + np.eye(n)])
 rhs = -np.vstack([S11 + np.eye(n), S21])
 M_x, *_ = np.linalg.lstsq(lhs, rhs, rcond=None)
 
-P = solve_continuous_are(A, B, Q, R)        # Chapter 13 solver
+P = solve_continuous_are(A, B, Q, R)        # Chapter 15 solver
 residual = A.T @ M_x + M_x @ A - M_x @ G @ M_x + Q
 
 print("‖M_x - P‖              =", np.linalg.norm(M_x - P))
@@ -435,7 +435,7 @@ the matrix sign algorithm fast.
 ```
 
 ```{exercise-start}
-:label: ex-14-2
+:label: ex-16-2
 ```
 
 **Feedforward as a present value: Heaton's durable-stock rule.** Let the endowment-minus-bliss
@@ -443,7 +443,7 @@ gap $g(t) \equiv f(t) - b(t)$ follow the autoregression $D g(t) = -a\, g(t)$ wit
 that $E_t\, g(t+\tau) = e^{-a\tau} g(t)$.
 
 (a) Using the prediction formula of {doc}`12_prediction`, show that the present value in
-Heaton's rule {eq}`eq-14-heaton` is $\rho\int_0^\infty e^{-\rho\tau} E_t g(t+\tau)\, d\tau
+Heaton's rule {eq}`eq-16-heaton` is $\rho\int_0^\infty e^{-\rho\tau} E_t g(t+\tau)\, d\tau
 = \dfrac{\rho}{\rho + a}\, g(t)$, so that net investment is
 $D k(t) = \dfrac{a}{\rho + a}\, g(t)$.
 
@@ -453,7 +453,7 @@ display the implied net-investment path.
 ```{exercise-end}
 ```
 
-```{solution-start} ex-14-2
+```{solution-start} ex-16-2
 :class: dropdown
 ```
 

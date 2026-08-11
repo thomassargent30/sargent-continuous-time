@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 10. The Cramér Representation
 
 The spectral density accomplishes an orthogonal decomposition by frequency of the variance of a covariance stationary stochastic process. The Cramér representation exhibits this decomposition in a general way.
@@ -234,3 +247,98 @@ $E\,[a(\lambda)^2 + b(\lambda)^2] = E\,|Z'(\lambda)|^2 = S(\lambda)\,\delta(0)$,
 the statement that has ordinary meaning is the one about *increments*, namely that the
 variance contributed by the frequency band $[c,\, d]$ is $\frac{1}{\pi}\int_c^d S(\lambda)\,
 d\lambda$ — which is exactly what the band-pass construction above computed.
+
+## The band decomposition and sampling
+
+The picture built here — a process as a superposition of mutually orthogonal frequency bands,
+each carrying a definite share of the variance — is the right one to keep in mind when reading
+{doc}`17_discrete_sampling_folding`. Sampling at interval $T$ does not destroy the bands; it
+*wraps* them. Every band is translated by a multiple of $2\pi/T$ onto the observable interval
+$[-\pi/T,\, \pi/T]$ and there added to whatever was already present, which is precisely what the
+folding formula asserts. Because the bands were orthogonal to begin with, their variances simply
+add, and the discrete spectrum at a given frequency is the total variance of all the continuous
+bands that fold onto it. Nothing tells the observer how that total was divided among them.
+
+That last sentence is the aliasing problem, and {doc}`22_dimensionality_aliasing_problem` turns
+it into a construction: given any continuous spectral density, one can build a *different* one,
+supported entirely on high-frequency bands, that folds onto the same discrete spectrum. The
+alternative process is manufactured with exactly the band-pass window $B_{cd}(w)$ of this
+chapter, applied at frequencies above the Nyquist rate. Two processes that could hardly look
+less alike in continuous time — one concentrated at low frequencies, the other carrying all of
+its power above $\pi$ — are then indistinguishable in the sampled data.
+
+## Exercises
+
+```{code-cell} ipython3
+import numpy as np
+from scipy.integrate import quad
+```
+
+```{exercise-start}
+:label: cramer_ex1
+```
+
+**Variance by frequency band, and what sampling does to it.** Take the Ornstein–Uhlenbeck
+process of {doc}`07_wiener_driven_sde` with $a = 1$, $b = 0.7$, whose spectral density is
+$S(w) = b^2/(a^2+w^2)$.
+
+(a) Verify that the band variances add up: partition $[0,\infty)$ into bands and check that
+$\sum_{\text{bands}} \frac{1}{\pi}\int_c^d S(w)\, dw = R(0) = b^2/(2a)$, which is property (iii)
+of {doc}`08_spectral_densities`.
+
+(b) Report the share of the variance lying *above* the Nyquist frequency $\pi/T$ for
+$T = 0.5$, $1$ and $3$. This is the power that sampling at interval $T$ folds back into the
+observable band rather than discarding — the quantity that governs how badly
+{doc}`17_discrete_sampling_folding`'s formula distorts the spectrum.
+
+(c) Confirm the orthogonality claim of the text numerically in the frequency domain: for
+disjoint bands, $\int B_{cd}(w)\,B_{ef}(w)\,S(w)\,dw = 0$, so the band-pass filtered series are
+uncorrelated at all leads and lags.
+
+```{exercise-end}
+```
+
+```{solution-start} cramer_ex1
+:class: dropdown
+```
+
+```{code-cell} ipython3
+a, b = 1.0, 0.7
+S = lambda w: b**2/(a**2 + w**2)
+band_var = lambda c, d: quad(S, c, d, limit=200)[0]/np.pi     # variance in [c,d] and [-d,-c]
+
+edges = [0, 0.5, 1, 2, 4, 8, 16, np.inf]
+tot = 0.0
+print("   band            variance     share")
+for c, d in zip(edges[:-1], edges[1:]):
+    v = band_var(c, d); tot += v
+    print(f"  [{c:5.1f},{d:6.1f}]   {v:10.6f}   {v/(b**2/(2*a)):7.3%}")
+print(f"\n  total = {tot:.8f},   R(0) = b^2/2a = {b**2/(2*a):.8f}")
+```
+
+```{code-cell} ipython3
+# (b) share of variance above the Nyquist frequency pi/T
+for T in [0.5, 1.0, 3.0]:
+    nyq = np.pi/T
+    print(f"T={T:4.1f}:  Nyquist = {nyq:5.3f},  share of variance above it = "
+          f"{band_var(nyq, np.inf)/(b**2/(2*a)):6.2%}")
+```
+
+```{code-cell} ipython3
+# (c) disjoint bands are orthogonal
+B = lambda w, c, d: 1.0 if c <= w <= d else 0.0
+cross = quad(lambda w: B(w,0.5,1.0)*B(w,2.0,4.0)*S(w), 0, 8, limit=400)[0]
+print(f"cross term for disjoint bands [0.5,1] and [2,4]: {cross:.3e}")
+```
+
+The band variances sum to $R(0)$, and disjoint bands contribute nothing to each other. Part (b)
+is the quantitative form of the warning in {doc}`17_discrete_sampling_folding`: at $T = 0.5$
+about a tenth of the variance sits above the Nyquist frequency, so the folded spectrum departs
+from the continuous one only modestly; by $T = 3$ nearly half of it does, and the discrete
+spectrum is visibly inflated. Note how slowly the share falls — the Lorentzian tail decays only
+as $w^{-2}$, so halving the sampling interval does not come close to halving the aliased power. {doc}`22_dimensionality_aliasing_problem` pushes this to its extreme by
+building a process whose variance lies *entirely* above the Nyquist frequency, yet which is
+indistinguishable from this one in sampled data.
+
+```{solution-end}
+```

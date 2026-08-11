@@ -362,4 +362,4 @@ is not analytic. The differentiability criteria of this chapter take a sharper, 
 form once a process is written in its moving-average (Wold) representation:
 {doc}`09_characterizations_ms_differentiability` shows that $x(t)$ is mean square
 differentiable precisely when the moving-average kernel satisfies $p(0) = 0$, and
-{doc}`15_locally_unpredictable` ties the failure of that condition to local unpredictability.
+{doc}`13_locally_unpredictable` ties the failure of that condition to local unpredictability.

@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 9. Characterizations of Mean Square Differentiability and Mean Square Continuity
 
 {doc}`02_mean_square_continuity_differentiability` characterized mean square continuity and
@@ -128,7 +141,7 @@ $$
 E\, [(x(t+\epsilon) - x(t))^2] = \int_{-\epsilon}^{\infty} |p(s+\epsilon) - p(s)|^2 \, ds = \big\| p(\cdot + \epsilon) - p \big\|_{L^2}^2 .
 $$
 
-Translation is continuous in $L^2$: $\| p(\cdot+\epsilon) - p \|_{L^2} \to 0$ as $\epsilon \to 0$ for every $p \in L^2$. Hence the right-hand side tends to $0$, and $x(t)$ is mean square continuous; equivalently, $R(\tau) = \int_{0}^{\infty} p(b)\, p(b+\tau)\, db$ is continuous at $\tau = 0$. Note that mean square continuity does *not* require $p$ to be pointwise continuous — a moving average against a kernel with jumps, such as the rectangular $p = \mathbf 1_{[0,1]}$, is mean square continuous all the same. Discontinuous kernels of just this kind are central to Marcet's analysis of temporal aggregation in {doc}`23_temporal_aggregation_streamlined`: a one-sided kernel with a jump at the origin, $p(0) \neq 0$, yields a process that is mean square continuous yet — failing condition (a) of {ref}`Theorem 11 <thm-msd-representation>` — *not* mean square differentiable, hence locally unpredictable ({doc}`15_locally_unpredictable`). It is exactly these discontinuities that generate the aggregation distortions studied there.
+Translation is continuous in $L^2$: $\| p(\cdot+\epsilon) - p \|_{L^2} \to 0$ as $\epsilon \to 0$ for every $p \in L^2$. Hence the right-hand side tends to $0$, and $x(t)$ is mean square continuous; equivalently, $R(\tau) = \int_{0}^{\infty} p(b)\, p(b+\tau)\, db$ is continuous at $\tau = 0$. Note that mean square continuity does *not* require $p$ to be pointwise continuous — a moving average against a kernel with jumps, such as the rectangular $p = \mathbf 1_{[0,1]}$, is mean square continuous all the same. Discontinuous kernels of just this kind are central to Marcet's analysis of temporal aggregation in {doc}`23_temporal_aggregation_streamlined`: a one-sided kernel with a jump at the origin, $p(0) \neq 0$, yields a process that is mean square continuous yet — failing condition (a) of {ref}`Theorem 11 <thm-msd-representation>` — *not* mean square differentiable, hence locally unpredictable ({doc}`13_locally_unpredictable`). It is exactly these discontinuities that generate the aggregation distortions studied there.
 
 Together with {ref}`Theorem 11 <thm-msd-representation>` and {ref}`Theorem 12 <thm-msd-higher-order>`, the following characterization can provide a useful way of testing for mean square differentiability of various orders.
 
@@ -148,5 +161,71 @@ As $s \to \infty$, the integral on the left approaches zero.
 
 This initial value theorem is exactly the tool used in {doc}`11_linear_sde` to count how many
 times the solution of an $n$-th order linear stochastic differential equation is mean square
-differentiable, and again in {doc}`15_locally_unpredictable`, where $p(0) \neq 0$ certifies
+differentiable, and again in {doc}`13_locally_unpredictable`, where $p(0) \neq 0$ certifies
 that a process is locally unpredictable.
+
+## Exercises
+
+```{code-cell} ipython3
+import numpy as np
+from scipy.integrate import quad
+```
+
+```{exercise-start}
+:label: msd_ex1
+```
+
+**Three routes to $p(0)$.** Theorem 11 gives the condition $p(0)=0$ for mean square
+differentiability; the initial value theorem evaluates $p(0)$ from the transform; and the
+autocovariance argument in the proof shows that $R'(0^+) = -\tfrac12 p(0)^2$. Check that the
+three agree for the kernels
+
+$$
+p_a(\tau) = b\, e^{-a\tau}, \qquad p_b(\tau) = \tau\, e^{-a\tau},
+$$
+
+with $a = 1$, $b = 0.7$. For each, compute
+
+(i) $p(0)$ directly;
+(ii) $\lim_{s\to\infty} s\tilde P(s)$, using $\tilde P_a(s) = b/(s+a)$ and
+$\tilde P_b(s) = (s+a)^{-2}$;
+(iii) $R'(0^+)$ by numerically differentiating
+$R(\tau) = \int_0^\infty p(u)p(u+\tau)\,du$, and compare with $-\tfrac12 p(0)^2$.
+
+Which of the two processes is mean square differentiable? Confirm that $p_a$ is the
+Ornstein–Uhlenbeck kernel of {doc}`07_wiener_driven_sde`, whose autocovariance
+$R(\tau) = \frac{b^2}{2a}e^{-a|\tau|}$ has the kink discussed there.
+
+```{exercise-end}
+```
+
+```{solution-start} msd_ex1
+:class: dropdown
+```
+
+```{code-cell} ipython3
+a, b = 1.0, 0.7
+kernels = {
+    "p_a = b e^{-a t}":  (lambda t: b*np.exp(-a*t),  lambda s: b/(s+a)),
+    "p_b = t e^{-a t}":  (lambda t: t*np.exp(-a*t),  lambda s: 1.0/(s+a)**2),
+}
+
+for name, (p, P) in kernels.items():
+    R    = lambda tau: quad(lambda u: p(u)*p(u+tau), 0, 200, limit=400)[0]
+    h    = 1e-6
+    Rp0  = (R(h) - R(0.0))/h                      # one-sided derivative R'(0+)
+    print(f"{name}")
+    print(f"   (i)   p(0)                = {p(0.0):+.8f}")
+    print(f"   (ii)  s P(s) at s=1e8     = {1e8*P(1e8):+.8f}")
+    print(f"   (iii) R'(0+)              = {Rp0:+.8f}   vs  -p(0)^2/2 = {-0.5*p(0.0)**2:+.8f}")
+    print(f"   mean square differentiable: {abs(p(0.0)) < 1e-12}\n")
+```
+
+All three routes agree. For $p_a$ the kernel does not vanish at the origin, $R'$ jumps there by
+$-p(0)^2$, and the process is not mean square differentiable — the Ornstein–Uhlenbeck case, with
+$-\tfrac12 p(0)^2 = -b^2/2 = -aR(0)$ as the kink in $R(\tau) = \frac{b^2}{2a}e^{-a|\tau|}$
+requires. For $p_b$ the kernel vanishes at the origin, $R'(0^+) = 0$, $R$ is smooth there, and
+the process is once mean square differentiable.
+
+```{solution-end}
+```

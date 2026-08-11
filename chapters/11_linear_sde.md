@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # 11. Linear Stochastic Differential Equations
 
 We now consider a class of higher order stochastic differential equations that are formed
@@ -129,7 +142,7 @@ $$
 
 This equation is said to represent the *stationary solution* of the stochastic differential
 equation. These rational-spectral-density processes are precisely the ones that admit a
-finite-dimensional state-space realization; {doc}`13_kalman_filter_spectral_factorization`
+finite-dimensional state-space realization; {doc}`15_kalman_filter_spectral_factorization`
 recasts their Wold representation and spectral factorization as the time-domain output of the
 Kalman–Bucy filter.
 
@@ -229,7 +242,7 @@ one-sided kernels that are *discontinuous*, the leading case being a jump at the
 $p(0) \neq 0$. Such a process is still mean square continuous — Theorem 14 of
 {doc}`09_characterizations_ms_differentiability` requires only square integrability of the
 kernel, not its continuity — yet it is no longer mean square differentiable, and so is *locally
-unpredictable* in the sense of {doc}`15_locally_unpredictable`. It is exactly these
+unpredictable* in the sense of {doc}`13_locally_unpredictable`. It is exactly these
 discontinuities, and the jumps they force on the sampled discrete-time kernel at every integer,
 that drive the aliasing and the manufactured-or-destroyed Granger causality analyzed there.
 ```
@@ -305,4 +318,92 @@ yet is not identically zero, so it is *not* analytic at the origin. Mere smoothn
 would therefore permit a nonzero kernel all of whose derivatives vanish at $\tau = 0$; it is the
 assumed *analyticity* of $R$ — inherited by $p$ — that upgrades $p^{(n)}(0) = 0$ for all $n$ into
 $p \equiv 0$, and hence into the degenerate conclusion $x(t) \equiv 0$.
+```
+
+## Exercises
+
+```{code-cell} ipython3
+import numpy as np
+```
+
+```{exercise-start}
+:label: lsde_ex1
+```
+
+**The differentiability count.** The text shows that $\theta(D)x = \psi(D)w$ delivers a process
+that is mean square differentiable exactly $n - 1 - m$ times, where $n = \deg\theta$ and
+$m = \deg\psi$. Verify this two ways for the third-order system
+
+$$
+(D^3 + .6D^2 + .4D + .2)\, x(t) = w(t), \qquad n = 3,\ m = 0,
+$$
+
+which is the numerical example of {doc}`18_time_aggregation_var`, Table 1.
+
+(a) Compute the roots $\lambda_j$ of $\theta$, form the residues
+$g_j = \lim_{s\to\lambda_j}(s-\lambda_j)\tilde P(s)$, and build
+$p(\tau) = \sum_j g_j e^{\lambda_j\tau}$. Confirm numerically that
+$p(0) = p'(0) = 0$ while $p''(0) \neq 0$ — so the process is twice but not three times mean
+square differentiable, i.e. $n-1-m = 2$.
+
+(b) Confirm the same count with the initial value theorem of
+{doc}`09_characterizations_ms_differentiability`, by evaluating $s^j \tilde P(s)$ at large
+real $s$ for $j = 1, 2, 3$ and seeing which limits vanish.
+
+(c) Now put a numerator of degree $m = 2$ on the same denominator, say
+$\psi(s) = 1 + s + s^2$. Show that $p(0) \neq 0$: the process is differentiable
+$n - 1 - m = 0$ times, and is therefore locally unpredictable in the sense of
+{doc}`13_locally_unpredictable`.
+
+```{exercise-end}
+```
+
+```{solution-start} lsde_ex1
+:class: dropdown
+```
+
+```{code-cell} ipython3
+theta = np.array([1, .6, .4, .2])          # s^3 + .6 s^2 + .4 s + .2
+lam = np.roots(theta)
+print("roots of theta:", np.round(lam, 6))
+
+def residues(lam, psi=np.array([1.0])):
+    """g_j = psi(lam_j) / prod_{k != j} (lam_j - lam_k)."""
+    g = []
+    for j, lj in enumerate(lam):
+        denom = np.prod([lj - lk for k, lk in enumerate(lam) if k != j])
+        g.append(np.polyval(psi, lj) / denom)
+    return np.array(g)
+
+g = residues(lam)
+# derivatives of p at 0:  p^(r)(0) = sum_j g_j lam_j^r
+for r in range(4):
+    val = np.sum(g * lam**r)
+    print(f"p^({r})(0) = {val.real:+.10f}  (imag {val.imag:+.1e})")
+```
+
+```{code-cell} ipython3
+# (b) initial value theorem: p^{(j-1)}(0) = lim_{s->inf} s^j P(s)
+Ptil = lambda s: 1.0/np.polyval(theta, s)
+for j in [1, 2, 3]:
+    print(f"j={j}:  s^{j} P(s) at s=1e6 -> {1e6**j * Ptil(1e6):.6e}")
+```
+
+```{code-cell} ipython3
+# (c) numerator of degree m = 2 on the same denominator
+psi = np.array([1.0, 1.0, 1.0])            # s^2 + s + 1
+g2 = residues(lam, psi)
+print(f"with m=2:  p(0) = {np.sum(g2).real:+.6f}   (n-1-m = 0 derivatives)")
+print(f"check by initial value theorem: s*P(s) at s=1e6 -> "
+      f"{1e6*np.polyval(psi,1e6)/np.polyval(theta,1e6):.6f}")
+```
+
+Both routes agree. With $\psi = 1$ the first two derivatives of $p$ vanish at the origin and the
+third does not, so $x$ is twice mean square differentiable — which is why
+{doc}`18_time_aggregation_var` finds the sampled moving-average coefficients of this process so
+badly behaved: the kernel is *too smooth* near zero for the discrete innovation to resemble the
+continuous one. Raising the numerator degree to $m = n-1 = 2$ moves the process to the other
+side of the dividing line, where $p(0)\neq 0$ and local unpredictability sets in.
+
+```{solution-end}
 ```

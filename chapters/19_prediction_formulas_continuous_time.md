@@ -11,8 +11,8 @@ geometric distributed leads did in Hansen and Sargent (1980a). Within this book,
 the continuous time geometric-distributed-lead forecast of {doc}`12_prediction` from
 first-order Markov forcing to the full class of rational (and nonstationary) processes — making
 good the promise of equation {eq}`eq-12-gen` there — and they supply the prediction calculus
-that {doc}`14_faster_methods_recursive_linear_models` invokes to evaluate the optimal feedforward
-{eq}`eq-14-forward`.
+that {doc}`16_faster_methods_recursive_linear_models` invokes to evaluate the optimal feedforward
+{eq}`eq-16-forward`.
 
 ## 1. Convolutions and Prediction
 
@@ -313,8 +313,8 @@ Therefore,
 
 Formula {eq}`eq-19-3-4` is the continuous time counterpart to formula (5) in Hansen and Sargent
 (1980a). It is the operator that evaluates the geometric distributed lead {eq}`eq-12-glead` of
-{doc}`12_prediction` and the optimal feedforward {eq}`eq-14-forward` of
-{doc}`14_faster_methods_recursive_linear_models`. Indeed, the $\gamma$ of {eq}`eq-19-3-3`
+{doc}`12_prediction` and the optimal feedforward {eq}`eq-16-forward` of
+{doc}`16_faster_methods_recursive_linear_models`. Indeed, the $\gamma$ of {eq}`eq-19-3-3`
 generates precisely the geometric distributed lead of {doc}`12_prediction`: substituting
 $u = -\tau$ in {eq}`eq-19-3-1` gives
 $x(t) = \int_0^\infty e^{-\delta u} y(t+u)\, du$, so that $\delta = -\rho$ in the notation

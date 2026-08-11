@@ -36,12 +36,12 @@ to specifying that {eq}`eq-18-2-1` is a Wold representation for $z(t)$.
 
 A variety of continuous time stochastic linear rational expectations models have equilibria that
 assume the form of the representations {eq}`eq-18-2-1` or {eq}`eq-18-2-2`; the methods of
-{doc}`14_faster_methods_recursive_linear_models` compute them. Hansen and Sargent
+{doc}`16_faster_methods_recursive_linear_models` compute them. Hansen and Sargent
 (1981d) provide some examples. The continuous-to-discrete sampling map exploited throughout this
 chapter is the same one analyzed from the identification side by
-{doc}`20_phillips_continuous_time_estimation` and {doc}`22_dimensionality_aliasing_problem`,
+{doc}`21_phillips_continuous_time_estimation` and {doc}`22_dimensionality_aliasing_problem`,
 while the closely related Cagan inverse-optimal-predictor construction is taken up in
-{doc}`21_aggregation_inverse_optimal_predictor`. In these examples, the continuous time white noises $w(t)$ often
+{doc}`20_aggregation_inverse_optimal_predictor`. In these examples, the continuous time white noises $w(t)$ often
 have interpretations as innovations in the uncontrollable processes that agents care about
 forecasting, and which stochastically drive the model. These include processes that are imagined
 to be observable to both the econometrician and the private agent (e.g., various relative prices
@@ -644,6 +644,20 @@ The residues of the continuous time kernel $p(\tau) = \sum_j \delta_j e^{\lambda
 
 ## (a) Locally Unpredictable Processes and Linear Quadratic Models
 
+```{note}
+This section reproves, in the notation of the original paper, results the book has already
+established. Its condition $p(0) = p'(0) = \cdots = p^{(j-1)}(0) = 0$ for $j$-fold mean square
+differentiability is Theorem 12 of {doc}`09_characterizations_ms_differentiability`; its
+definition {eq}`eq-18-2-25` of local unpredictability is Definition 10 of
+{doc}`13_locally_unpredictable`; and its computation $g(0) = \lim_{s\to\infty} sG(s) = P(-\rho)$
+is the calculation performed there. The citations to "Sargent (1983)" in the text below are the
+original paper's; within this book they point to Chapters 9 and 13. What is *new* here, and not
+in those chapters, is {eq}`eq-18-2-26` — the bridge from local unpredictability to the
+behaviour of the *sampled* forecast error as the sampling interval shrinks — and the
+observation that adjustment-cost models smooth $x^*(t)$ back into mean square differentiability,
+so that the difficulty cannot be escaped by appealing to that limit.
+```
+
 The stochastic process $z(t)$ in Table 1 is mean square differentiable,[^fn18-4] as evidenced by the
 fact that $p(0) = 0$. A stochastic process of the form {eq}`eq-18-2-1` can be shown to be $j$ times
 mean square differentiable if $p(0) = p'(0) = p''(0) = \ldots = p^{(j-1)}(0) = 0$ (see Sargent (1983)
@@ -655,7 +669,7 @@ $p(\tau)$, and that makes $a(t)$ a poor estimator of $\int_0^1 p(\tau)w(t-\tau)\
 Sims (1984) argued that there is a class of economic variables that are best modeled as failing to
 be mean square differentiable. For these processes, $p(0) \neq 0$. Processes of the form
 {eq}`eq-18-2-1` in which $p(0) \neq 0$ are said to be *locally unpredictable* (the subject of
-{doc}`15_locally_unpredictable`) because if $p(0) \neq 0$, then
+{doc}`13_locally_unpredictable`) because if $p(0) \neq 0$, then
 
 ```{math}
 :label: eq-18-2-25

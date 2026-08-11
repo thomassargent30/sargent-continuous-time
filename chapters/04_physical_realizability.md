@@ -38,4 +38,4 @@ appear only under integral signs. The economic models to be used always imply th
 observable economic variables are physically realizable. This is exactly the role white
 noise plays in the moving-average (Wold) representation of {doc}`08_spectral_densities`, and
 the admissibility of a physically unrealizable white-noise input recurs in the estimation
-problem of {doc}`20_phillips_continuous_time_estimation`.
+problem of {doc}`21_phillips_continuous_time_estimation`.
