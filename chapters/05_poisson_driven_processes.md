@@ -43,6 +43,21 @@ and
 
 (iii) $x(t)$ is continuous from the left.
 
+```{note}
+**A word on the continuity convention.** {doc}`03_poisson_counting_process` drew $N(t)$ as
+*right* continuous — at an arrival time it has already jumped — whereas part (iii) makes the
+solution $x(t)$ *left* continuous, so that at an arrival time $t_i$ the value $x(t_i)$ is still
+the pre-jump one. The two conventions are deliberate and they work together. Making $x$ left
+continuous is what makes the integrand in $\int g(x(s),\, s)\, dN(s)$ depend only on the
+history *strictly before* each arrival, hence statistically independent of whether the counter
+jumps at that instant. That independence is precisely property (b) invoked below in deriving
+rule {eq}`eq-5-rule2`, and it is what the term "in the Ito sense" refers to in Definition 9:
+the integrand is evaluated at the left limit. Readers who prefer the now more common càdlàg
+convention may take $x$ right continuous instead, replacing the left limits in (ii) by right
+limits throughout; every moment formula below is unaffected, since the two versions of $x$
+differ only on the countable set of arrival times, a set of Lebesgue measure zero.
+```
+
 The solution concept is illustrated in {numref}`fig-5-1`.
 
 ```{figure} figures/fig-5-1_solution_concept.png
@@ -203,7 +218,7 @@ $$
 or
 
 $$
-dx^2 = -2x^2\, dt + (2x+1) dN + (-2x+1) dN_2.
+dx^2 = -2x^2\, dt + (2x+1) dN_1 + (-2x+1) dN_2.
 $$
 
 As a second example, take the differential equation that generates the random telegraph wave,
@@ -276,7 +291,7 @@ where $N_1$ and $N_2$ are independent Poisson counters with rates $\lambda_1$ an
 
 $$
 \begin{aligned}
-\frac{d}{dt}\ Ex(t) &= -Ex(t) + \lambda_1 + \lambda_2. \\[4pt]
+\frac{d}{dt}\ Ex(t) &= -Ex(t) + \lambda_1 - \lambda_2. \\[4pt]
 \frac{d}{dt}\ Ex(t)^2 &= -2Ex^2 + E(2x + 1)\, \lambda_1 + E\, (-2x + 1)\, \lambda_2.
 \end{aligned}
 $$
@@ -331,8 +346,8 @@ Equivalently, we can express this rule as
 $$
 \begin{aligned}
 \frac{d}{d\tau}\ Ex(t) x(t + \tau) &= Ex(t) f\bigl(x(t + \tau),\, t+ \tau\bigr) \\
-&+ \sum_i\, Ex(t) g_i\, \bigl(x(t + \tau),\, t+ \tau\bigr) d\tau. \\
-&\ t > 0.
+&+ \sum_i\, Ex(t) g_i\, \bigl(x(t + \tau),\, t+ \tau\bigr)\, \lambda_i. \\
+&\ \tau > 0.
 \end{aligned}
 $$ (eq-5-rule3)
 
@@ -351,13 +366,13 @@ $$
 This implies that
 
 $$
-\frac{d}{dt}\ Ex(t) x(t + \tau) = -2\lambda\, Ex(t) x(t + \tau),\ t > 0
+\frac{d}{d\tau}\ Ex(t) x(t + \tau) = -2\lambda\, Ex(t) x(t + \tau),\ \tau > 0
 $$
 
 or
 
 $$
-\frac{d}{dt}\ R\, (t,\, t+\tau) = -2\lambda\, R(t,\, t+\tau),\ t > 0
+\frac{d}{d\tau}\ R\, (t,\, t+\tau) = -2\lambda\, R(t,\, t+\tau),\ \tau > 0
 $$
 
 The solution of this differential equation in $\tau$ is

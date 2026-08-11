@@ -288,7 +288,7 @@ p(\tau) = \sum_{j=1}^{r} \delta_j\, e^{\lambda_j \tau}.
 
 Thus, the weighting function $p(\tau)$ in the continuous time moving-average representation is a sum
 of $r$ exponentially decaying functions. Our object will now be to get an analogous expression to
-{eq}`eq-18-2-17` for the discrete time coefficients $B_k$.
+{eq}`eq-18-2-17` for the discrete time coefficients $C_k$.
 
 It is known that the discrete time process $z_t$ implied by {eq}`eq-18-2-13` is an $r^{\text{th}}$
 order autoregressive, $(r-1)$ order moving average process. Let this be
@@ -381,16 +381,16 @@ It can be shown directly by using {eq}`eq-18-2-17` and {eq}`eq-18-2-24` in {eq}`
 {eq}`eq-18-2-8` that this condition will not be met for any $r \geq 2$. Thus, only if $z(t)$ is a
 first-order autoregressive process does $C_k$ turn out to be a sampled version of $p(\tau)$.
 
-```{figure} figures/fig-16-5_ma_kernels.png
-:name: fig-16-5
+```{figure} figures/fig-18-5_ma_kernels.png
+:name: fig-18-5
 :width: 90%
 :align: center
 
 Figure 5. Continuous time and discrete time moving-average kernels for the example of Table 1. The solid curve is the continuous time kernel $p(\tau) = \sum_{j=1}^{3} \delta_j e^{\lambda_j \tau}$ (markers show its integer samples $p(j)$); the dashed line is the discrete time kernel $C_k$. The two kernels share the roots $\lambda_j$ but have different residues, so $C_k$ is *not* a sampled version of $p(\tau)$.
 ```
 
-```{figure} figures/fig-16-6_f_function.png
-:name: fig-16-6
+```{figure} figures/fig-18-6_f_function.png
+:name: fig-18-6
 :width: 75%
 :align: center
 
@@ -399,13 +399,13 @@ Figure 6. The aggregation kernel $f(\tau)$ of {eq}`eq-18-2-7` for the example of
 
 Table 1 and Figure 5 present a numerical example that illustrates the preceeding ideas. For the
 univariate process $(D^3 + .6D^2 + .4D + .2)\, z(t) = w(t)$, we have calculated $p(\tau)$, $f(\tau)$,
-$c(L)$, $d(L)$, $B(L) = c(L)/d(L)$, $\delta_j$, $\gamma_j$ for $j = 1, 2, 3$. In this example, we
+$c(L)$, $d(L)$, $C(L) = c(L)/d(L)$, $\delta_j$, $\gamma_j$ for $j = 1, 2, 3$. In this example, we
 have that $\gamma_j/\gamma_1 \neq \delta_j/\delta_1$ for $j \geq 2$, so that the shapes of the moving
 averages in continuous and discrete time, $p(\tau)$ and $C_k$, respectively, are different. We plot
 $C_k$ and $p(\tau)$ for integer values of $\tau$ in Figure 5. We also plot $f(\tau)$ in Figure 6.
 Notice that $f(\tau) \neq 0$ for some $\tau$'s greater than 1. In particular, notice that $f(\tau)$
 is larger in absolute value over most of the interval $[1, 2]$ than it is over the interval
-$[0, 1]$. The failure of $f(\tau)$ to be concentrated on $[0, 1]$ and the failure of $B_k$ to
+$[0, 1]$. The failure of $f(\tau)$ to be concentrated on $[0, 1]$ and the failure of $C_k$ to
 resemble a sampled version of $p(\tau)$ are both consequences of the fact that this is a third order
 autoregressive system in continuous time, rather than a first order one.
 
@@ -434,13 +434,13 @@ $$
 d(L) = 1 - 2.1779L + 1.8722L^2 - .5485L^3, \qquad c(L) = 1 + .4800L + .0192L^2 ,
 $$
 
-with the zeroes of the numerator spectral factor $c(L)$ located at $-.0441$ and $-.4359$ (both real, with moduli $.044$ and $.436$).
+The zeroes of the numerator spectral factor $c(z) = 1 + .4800z + .0192z^2$ are real and equal to $-2.294$ and $-22.706$; they lie outside the unit circle, as the side condition on {eq}`eq-18-2-18` requires. (Equivalently, writing $c(z) = \prod_k (1 - \beta_k z)$, the reciprocal roots are $\beta_1 = -.4359$ and $\beta_2 = -.0441$, both of modulus less than one.)
 
-The residues of the continuous time kernel $p(\tau) = \sum_j \delta_j e^{\lambda_j \tau}$ and of the discrete time kernel $C_k = \sum_j \gamma_j e^{\lambda_j k}$ are reported below. Because $\gamma_j/\gamma_1 \neq \delta_j/\delta_1$ for $j \geq 2$, the discrete time kernel $C_k$ is not a sampled version of $p(\tau)$ ({numref}`fig-16-5`).
+The residues of the continuous time kernel $p(\tau) = \sum_j \delta_j e^{\lambda_j \tau}$ and of the discrete time kernel $C_k = \sum_j \gamma_j e^{\lambda_j k}$ are reported below. Because $\gamma_j/\gamma_1 \neq \delta_j/\delta_1$ for $j \geq 2$, the discrete time kernel $C_k$ is not a sampled version of $p(\tau)$ ({numref}`fig-18-5`).
 
 ```{list-table} Residues $\delta_j$ (kernel $p$) and $\gamma_j$ (kernel $C$) in the partial-fraction expansions of $\psi(D)/\theta(D)$ and $C(L)$.
 :header-rows: 1
-:name: tbl-16-1-residues
+:name: tbl-18-1-residues
 
 * - $j$
   - $\operatorname{Re}\delta_j$
@@ -472,11 +472,11 @@ The residues of the continuous time kernel $p(\tau) = \sum_j \delta_j e^{\lambda
   - $-.222 - 1.129\,i$
 ```
 
-*Panel A — the kernels at integer lags $k = 0, 1, \ldots, 20$* (plotted in {numref}`fig-16-5`). The column $f(k)$ shows how rapidly the aggregation kernel $f$ of {eq}`eq-18-2-7` decays once $\tau$ exceeds $1$.
+*Panel A — the kernels at integer lags $k = 0, 1, \ldots, 20$* (plotted in {numref}`fig-18-5`). The column $f(k)$ shows how rapidly the aggregation kernel $f$ of {eq}`eq-18-2-7` decays once $\tau$ exceeds $1$.
 
 ```{list-table}
 :header-rows: 1
-:name: tbl-16-1-integers
+:name: tbl-18-1-integers
 
 * - $k$
   - $p(k)$
@@ -568,11 +568,11 @@ The residues of the continuous time kernel $p(\tau) = \sum_j \delta_j e^{\lambda
   - $.000000$
 ```
 
-*Panel B — the aggregation kernel $f(\tau)$ on $[0,2]$* (plotted in {numref}`fig-16-6`). On $[0,1]$, $f(\tau) = p(\tau)$; the two diverge for $\tau > 1$.
+*Panel B — the aggregation kernel $f(\tau)$ on $[0,2]$* (plotted in {numref}`fig-18-6`). On $[0,1]$, $f(\tau) = p(\tau)$; the two diverge for $\tau > 1$.
 
 ```{list-table}
 :header-rows: 1
-:name: tbl-16-1-fine
+:name: tbl-18-1-fine
 
 * - $\tau$
   - $f(\tau)$
@@ -719,7 +719,9 @@ for $z(t)$.) Therefore, even if $p(0) = 0$, $g(0) \neq 0$, so that the geometric
 variable $x^*(t)$ fails to be mean square differentiable and therefore is locally unpredictable. For
 such expectational variables, {eq}`eq-18-2-26` holds. Therefore, for such variables, for small
 enough sampling interval $\delta$, the discrete time innovation $a(t)$ corresponding to
-{eq}`eq-18-2-21` is close to $\int_0^{\delta} p(s)w(t-s)\, ds$ in the mean squared sense.
+{eq}`eq-18-2-21` is close to $\int_0^{\delta} g(s)w(t-s)\, ds$ in the mean squared sense —
+where $g$, not $p$, is the relevant kernel, since it is $x^*$ rather than $z$ that is being
+sampled, and it is $g(0) = P(-\rho) \neq 0$ that makes the approximation work.
 
 These results imply that for a variable $x^*(t)$ and sufficiently small sampling interval $\delta$,
 the situation is not as bad as is depicted by the example in Table 1. As Sims has pointed out, there
@@ -736,14 +738,18 @@ $x^*(t)$, not by $x^*(t)$ alone. For example, the stochastic Euler equation for 
 adjustment cost problem is
 
 $$
-(D - \rho)\, k(t) = E_t \left( \frac{1}{D + \rho} \right) z(t)
+(D - \rho)\, k(t) = -\, E_t \left( \frac{1}{D + \rho} \right) z(t)
 $$
 
-where $\rho > 0$, or
+where $\rho < 0$ as in {eq}`eq-18-2-27`, so that $D - \rho$ is a stable operator, or
+equivalently
 
 $$
-(D - \rho)\, k(t) = x^*(t).
+(D - \rho)\, k(t) = x^*(t),
 $$
+
+since $-1/(\rho + D)$ applied to $z$ is precisely the geometric distributed lead
+$\int_0^\infty e^{\rho s} z(t+s)\, ds$ of {doc}`12_prediction`.
 
 Here $k(t)$ is *capital*. The solution for capital is then
 

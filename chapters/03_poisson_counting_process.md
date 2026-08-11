@@ -172,7 +172,7 @@ $$
 C\, (t_1,\, t_2) = \lambda\, \min\, (t_1,\, t_2).
 $$ (eq-3-C)
 
-From {eq}`eq-3-C` it follows that $N(t)$ is mean square continuous. (Why?) From {eq}`eq-3-1`, we
+From {eq}`eq-3-C` it follows that $N(t)$ is mean square continuous. (Why?) From {eq}`eq-3-R`, we
 also have that
 
 $$

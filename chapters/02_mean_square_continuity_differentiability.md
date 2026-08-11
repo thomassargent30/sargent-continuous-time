@@ -138,8 +138,11 @@ for the limit on the left exists by the assumption of mean square differentiabil
 We also have a converse of the above theorem:
 
 **Theorem 5.** Let $x(t,w)$ be a covariance stationary process with autocorrelation
-function $R(\tau)$. If $R(\tau)$ has derivatives up to order two, then $x(t,w)$ is mean
-square differentiable.
+function $R(\tau)$. If $R''(0)$ exists, then $x(t,w)$ is mean square differentiable.
+
+Theorems 4 and 5 together say that, for a covariance stationary process, mean square
+differentiability is *equivalent* to the existence of $R''(0)$. Nothing more than the second
+derivative *at the origin* is required; the proof below uses only that.
 
 **Proof.** To apply the Cauchy criterion, we shall need to evaluate
 

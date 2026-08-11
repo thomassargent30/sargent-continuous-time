@@ -115,7 +115,7 @@ $$
 We also find that
 
 $$
-\frac{d}{dt}\ Ez(t)^2 = 2Ez + 2/\lambda,
+\frac{d}{dt}\ Ez(t)^2 = 2Ez + 1/\lambda,
 $$
 
 so that as $\lambda \to \infty$
@@ -183,18 +183,24 @@ which implies that
 $$
 \begin{aligned}
 \frac{d}{dt}\ E\Psi(x) &= E\, \left\langle \frac{\partial\Psi}{\partial x}\, ,\ f(x,\, t)\right\rangle + E\, \left[\Psi(x + \frac{1}{\sqrt\lambda}\ g(x,\, t)) \right. \\
-&+ \left. \Psi\left( x - \frac{1}{\sqrt\lambda}\ g(x,\, t) \right) - 2\ \Psi(x) \right]\lambda.
+&+ \left. \Psi\left( x - \frac{1}{\sqrt\lambda}\ g(x,\, t) \right) - 2\ \Psi(x) \right]\frac{\lambda}{2},
 \end{aligned}
 $$
+
+the factor $\lambda/2$ being the common rate of each of the two counters.
 
 Now take Taylor series expansions of $\Psi\, (x \pm\, \frac{1}{\sqrt\lambda}\ g(x,\, t))$ about $x$ to get
 
 $$
 \begin{aligned}
 \frac{d}{dt}\ E\Psi(x) &= E\, \left\langle \frac{\partial\Psi}{\partial x}\, ,\ f(x,\, t)\right\rangle + E\, \left\langle \frac{\partial\Psi}{\partial x}\, ,\ \frac{1}{\sqrt\lambda}\ \left(g(x,\, t) - g(x,\, t)\right)\right\rangle \\
-&+ \frac{1}{2}\ \left\langle \frac{\partial^2\Psi}{\partial x^2}\, ,\ g^2\right\rangle\ \frac{1}{\lambda} \cdot \lambda + 0(\lambda^{-1/2}).
+&+ E\, \left\langle \frac{\partial^2\Psi}{\partial x^2}\, g,\ g\right\rangle\ \frac{1}{\lambda} \cdot \frac{\lambda}{2} + 0(\lambda^{-1/2}).
 \end{aligned}
 $$
+
+The first-order terms cancel between the two counters; the two second-order terms are
+identical, so together they contribute $(1/\lambda)\langle \Psi_{xx} g,\, g\rangle$, which the
+rate $\lambda/2$ converts into $\tfrac12 \langle \Psi_{xx} g,\, g\rangle$.
 
 Taking the limit as $\lambda \to \infty$ gives the desired result {eq}`eq-7-rule2`.
 
@@ -360,9 +366,16 @@ ax.legend()
 plt.show()
 ```
 
-The estimated autocovariance tracks $e^{-a\tau}$. Unlike the telegraph wave of Chapter 5,
-$R(\tau)$ is smooth at $\tau = 0$; this reflects the fact that the OU process driven by
-$b\,dW$ is mean square continuous (though still not mean square differentiable).
+The estimated autocovariance tracks $e^{-a\tau}$. Note that $R(\tau) = R(0)e^{-a|\tau|}$ has a
+kink at $\tau = 0$ — exactly like the $e^{-2\lambda|\tau|}$ of the telegraph wave of Chapter 5,
+and for the same reason. The kink means that $R'(0^+) = -aR(0)$ while $R'(0^-) = +aR(0)$, so
+$R''(0)$ does not exist; by Theorem 4 of
+{doc}`02_mean_square_continuity_differentiability` the Ornstein–Uhlenbeck process is therefore,
+like the telegraph wave, mean square continuous but **not** mean square differentiable. In the language of
+{doc}`11_linear_sde` this is the case $n = 1$, $m = 0$, giving $n - 1 - m = 0$ derivatives; by
+{doc}`15_locally_unpredictable` such a process is locally unpredictable. The two processes
+differ in their sample paths — the diffusion is continuous, the telegraph wave jumps — but
+their second moments are alike in precisely this respect.
 
 ```{solution-end}
 ```

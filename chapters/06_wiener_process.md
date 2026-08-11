@@ -50,7 +50,7 @@ It follows from rule {eq}`eq-5-rule2` that
 
 $$
 \begin{aligned}
-\frac{d}{dt}\ E x^p &= \binom{p}{2}\ \left(\frac{1}{\lambda}\right)\ E x^{p-2}\, \lambda + \binom{p}{4}\ \left(\frac{1}{\lambda}\right)^2\ E x^{p-4}\, \lambda + \cdots + \left(\frac{1}{\sqrt\lambda}\right)^{p-1}\, \lambda \\
+\frac{d}{dt}\ E x^p &= \binom{p}{2}\ \left(\frac{1}{\lambda}\right)\ E x^{p-2}\, \lambda + \binom{p}{4}\ \left(\frac{1}{\lambda}\right)^2\ E x^{p-4}\, \lambda + \cdots + \left(\frac{1}{\sqrt\lambda}\right)^{p}\, \lambda \\
 p\ &\text{ even, }\ p \geq 2
 \end{aligned}
 $$ (eq-6-even)
@@ -118,7 +118,7 @@ The Wiener process $W(t)$ is characterized by the following properties.
 
 (ii) $W(t_1) - W(t_2)$ and $W(t_3) - W(t_4)$ are independent if $[t_1,\, t_2]$ and $[t_3,\, t_4]$ are disjoint intervals.
 
-(iii) $E(W(t) - W(\tau))^2 = t - \tau$.
+(iii) $E(W(t) - W(\tau))^2 = |t - \tau|$.
 
 (iv) Sample paths or realizations of $W(t)$ are continuous with probability 1.
 

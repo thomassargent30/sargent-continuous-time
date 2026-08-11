@@ -66,7 +66,7 @@ $$
 x'(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} i\, \lambda\, e^{i\lambda t}\, Z'(\lambda) d\lambda.
 $$
 
-The derivative of the random spectral measure associated with $x'(t)$ is thus $\lambda Z'(\lambda)$, which being proportional to $Z'(\lambda)$ is itself the derivative of a process with independent increments and obeys
+The derivative of the random spectral measure associated with $x'(t)$ is thus $\lambda Z'(\lambda)$, which being proportional to $Z'(\lambda)$ is itself the derivative of a process with orthogonal increments and obeys
 
 $$
 E \lambda Z'(\lambda)\ \overline{\mu Z'(\mu)} = \mu^2 S(\mu) \delta(\mu - \lambda).
@@ -193,7 +193,7 @@ Then it is straightforward to derive the Cramér representation in the forms
 
 ```{math}
 :label: eq-10-3
-x(t) = \frac{1}{\pi} \int^\infty_0\ a(\lambda)\ \cos\ \lambda t d\lambda \ - \ \frac{1}{\pi} \int^\infty_0 b(\lambda)\ \sin\ \lambda t d\lambda
+x(t) = \sqrt{\frac{2}{\pi}} \int^\infty_0\ a(\lambda)\ \cos\ \lambda t\, d\lambda \ - \ \sqrt{\frac{2}{\pi}} \int^\infty_0 b(\lambda)\ \sin\ \lambda t\, d\lambda
 ```
 
 where
@@ -206,7 +206,7 @@ and
 
 ```{math}
 :label: eq-10-4
-x(t) = \frac{1}{\pi} \int^\infty_0 r(\lambda)\ \cos\ (\lambda t + \theta(\lambda)) d\lambda
+x(t) = \sqrt{\frac{2}{\pi}} \int^\infty_0 r(\lambda)\ \cos\ (\lambda t + \theta(\lambda)) d\lambda
 ```
 
 where
@@ -215,13 +215,22 @@ $$
 Er(\lambda) e^{i\theta(\lambda)}\, r(\mu) e^{-i\theta(\mu)} = S(\mu) \delta(\mu - \lambda).
 $$
 
+The factor $\sqrt{2/\pi}$ arises because the conjugate symmetry (ii) makes the negative
+frequencies duplicate the positive ones: $x(t) = (2/\sqrt{2\pi})\,\operatorname{Re}
+\int_0^\infty e^{i\lambda t} Z'(\lambda)\, d\lambda$, and $2/\sqrt{2\pi} = \sqrt{2/\pi}$.
+
 Representation {eq}`eq-10-3` expresses $x(t)$ as a weighted sum of cosine and sine waves, with the weights being random processes $a(\lambda)$ and $b(\lambda)$. Equation {eq}`eq-10-4` represents $x(t)$ as a sum of cosine waves with amplitude $r(\lambda)$ and phase $\theta(\lambda)$ being governed by random processes.
 
-Using representation {eq}`eq-10-4`, it is possible to show that
+Using representation {eq}`eq-10-3`, it is possible to show that
 
 $$
-\begin{aligned}
-Ex(t)^2 &= \frac{1}{\pi} \int^\infty_0 (a(\lambda)^2 + b(\lambda)^2) d\lambda \\
-&= \frac{1}{2\pi} \int^\infty_{-\infty} S(\lambda) d\lambda.
-\end{aligned}
+Ex(t)^2 = \frac{1}{2\pi} \int^\infty_{-\infty} S(\lambda)\, d\lambda
+= \frac{1}{\pi} \int^\infty_0 S(\lambda)\, d\lambda ,
 $$
+
+the last equality using $S(\lambda) = S(-\lambda)$. Formally
+$E\,[a(\lambda)^2 + b(\lambda)^2] = E\,|Z'(\lambda)|^2 = S(\lambda)\,\delta(0)$, so the
+"random amplitudes" $a(\lambda),\ b(\lambda)$ are, like $Z'$ itself, generalized processes:
+the statement that has ordinary meaning is the one about *increments*, namely that the
+variance contributed by the frequency band $[c,\, d]$ is $\frac{1}{\pi}\int_c^d S(\lambda)\,
+d\lambda$ — which is exactly what the band-pass construction above computed.

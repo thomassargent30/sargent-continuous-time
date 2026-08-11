@@ -26,7 +26,7 @@ Then the mean square derivative $Dx(t)$ has representation
 
 ```{math}
 :label: eq-9-1
-Dx(t) = \int_{0}^{\infty} p'(\tau) w(t-\tau) \, d\tau + p(0)w(t) \qquad (+)
+Dx(t) = \int_{0}^{\infty} p'(\tau) w(t-\tau) \, d\tau + p(0)w(t)
 ```
 
 or, in operator form,

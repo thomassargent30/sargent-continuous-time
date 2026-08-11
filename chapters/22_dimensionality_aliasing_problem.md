@@ -22,6 +22,10 @@ theorem numbering. The original paper contains no figures or tables; the first-o
 results of {ref}`sec-22-4` are **illustrated numerically in Python** with a concrete worked
 example (in the spirit of the one in the companion Federal Reserve Bank of Minneapolis Staff
 Report No. 72).
+
+Because the paper's own numbering is retained, Theorems 1–5 below are *the paper's* theorems.
+They are unrelated to the book's running sequence of Theorems 1–16, which ends with Theorem 16
+of {doc}`15_locally_unpredictable`.
 ```
 
 In this paper Hansen and Sargent reconsider the aliasing problem of identifying the parameters
@@ -291,7 +295,8 @@ $$
 
 Note that if $\lambda_k$ is the complex conjugate of $\lambda_j$, then the elements of $Q_k$ are
 complex conjugates of the elements of $Q_j$. The spectral density matrix of $x$ is $f(\omega) =
-h(i\omega)$, and the autocovariance function, which equals the Fourier transform of $f$, is
+h(i\omega)$, and the autocovariance function, which equals the inverse Fourier transform of
+$f$, is
 
 ```{math}
 :label: eq-22-9

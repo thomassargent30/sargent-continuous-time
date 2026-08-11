@@ -187,7 +187,7 @@ H = \begin{bmatrix} H_{11} & H_{12} \\ H_{21} & H_{22} \end{bmatrix},
 ```
 
 where $x_c$ is the (transformed) co-state. The blocks are built from $A$, $B_u$ and the
-partitions of $\Omega$ — for instance $H_{11} = A - B_u \Omega_{uu}^{-1}\Omega_{xu}$ and
+partitions of $\Omega$ — for instance $H_{11} = A - B_u \Omega_{uu}^{-1}\Omega_{ux}$ and
 $H_{12} = -B_u \Omega_{uu}^{-1} B_u^\top$ — and $H$ has the defining **Hamiltonian symmetries**
 
 $$
@@ -295,7 +295,12 @@ w(t) = \int_0^\infty \exp\!\big[(H_{11} + H_{12} M_x)^\top \tau\big]\,(K_2 - M_x
 ```
 
 in which the *transpose of the stable feedback matrix* governs the decay of the weights on
-future shocks. Equation {eq}`eq-14-forward` is exactly a **geometric distributed lead** of the
+future shocks. (Equation {eq}`eq-14-forward` is written for a $z$ path known at $t$ — the
+perfect-foresight, or deterministic, case. When $z$ is stochastic, $z(t+\tau)$ is replaced
+throughout by its least squares forecast $\hat E_t\, z(t+\tau)$; certainty equivalence, which
+holds because the criterion is quadratic and the constraints linear, is what makes this
+substitution legitimate and leaves the feedback matrix $H_{11} + H_{12}M_x$ unchanged.)
+Equation {eq}`eq-14-forward` is exactly a **geometric distributed lead** of the
 kind introduced in {doc}`12_prediction`: the optimal control today responds to a discounted
 integral of expected future shocks. Evaluating it for a general forcing process is the task of
 the companion {doc}`19_prediction_formulas_continuous_time`, which supplies the Laplace-transform

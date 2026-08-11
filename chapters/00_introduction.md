@@ -98,7 +98,8 @@ equations driven by Poisson noise — the jump analogue of Itô's rule — and w
 telegraph wave and the generalized Poisson process.
 
 [Chapter 6](06_wiener_process.md) then obtains the Wiener process (Brownian motion) as the
-limit of scaled, compensated Poisson differences as the arrival rate goes to infinity:
+limit of scaled differences of two independent Poisson counters as the arrival rate goes to
+infinity:
 jumps shrink, arrivals proliferate, and a Gaussian, continuous-but-nowhere-differentiable
 process emerges. [Chapter 7](07_wiener_driven_sde.md) derives Itô's rule and the
 moment-recursion formulas for Wiener-driven stochastic differential equations by the same
@@ -212,8 +213,8 @@ continuous time, and gauging the bias in Cagan's $\lambda \approx e^{-\beta}$ ap
 aliasing: it *counts* the continuous-time models consistent with given discrete data and shows
 that the restriction to a rational spectral density (Chapters 8 and 11) collapses the
 uncountable ambiguity of the general covariance-stationary case — and even the countable
-ambiguity that A. W. Phillips and P. C. B. Phillips had identified — down to a *finite* set,
-often a single model, with fine enough sampling resolving it entirely.
+ambiguity that P. C. B. Phillips (1973) had identified in the first-order Markov case — down to
+a *finite* set, often a single model, with fine enough sampling resolving it entirely.
 
 The book closes with [Chapter 23](23_temporal_aggregation_streamlined.md), an account of Albert
 Marcet's work, which recasts the comparison of continuous and discrete Wold representations as
@@ -235,9 +236,13 @@ Several ideas recur and are worth tracking deliberately across chapters.
   vector autoregressions taken up in [Chapter 18](18_time_aggregation_var.md) and
   [Chapter 23](23_temporal_aggregation_streamlined.md). When agents see news the
   econometrician cannot recover from the observables, the two readings of the Wold
-  representation diverge. The same positive-semidefiniteness condition that singles out the
-  fundamental factor returns in [Chapter 22](22_dimensionality_aliasing_problem.md) as the test
-  that decides which aliased continuous-time models are admissible.
+  representation diverge. Two distinct conditions do the work here and are worth keeping
+  apart: *positive semidefiniteness* of the spectral density is what permits a factorization
+  at all, while the absence of *right-half-plane zeros* is what picks out the fundamental
+  factor from among the many. It is the first of these that returns in
+  [Chapter 22](22_dimensionality_aliasing_problem.md) — imposed there on the *implied
+  continuous-time* spectral density, or equivalently on the intensity matrix $V_k$ — as the
+  test deciding which aliased continuous-time models are admissible at all.
 
 - **Smoothness versus predictability.** The chain $R''(0)$ ([Chapter 2](02_mean_square_continuity_differentiability.md))
   $\to$ $p(0)$ ([Chapter 9](09_characterizations_ms_differentiability.md)) $\to$ local

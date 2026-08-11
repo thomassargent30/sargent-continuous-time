@@ -1,300 +1,154 @@
 """
-Clean redraws of the eight hand-drawn figures used in the streamlined
-chapter 18 (Marcet, "Temporal Aggregation of Economic Time Series").
+Reconstruct Figures 5 and 6 of Chapter 18 (Hansen-Sargent, "Two Difficulties
+in Interpreting Vector Autoregressions"), from the parameters of the numerical
+example in Table 1.  The figures keep the numbering of the original paper --
+they are its Figures 5 and 6 -- while the file names carry the book's chapter
+number, hence fig-18-5_ma_kernels.png and fig-18-6_f_function.png.
 
-The kernel/projection figures are *computed*, not sketched: given a continuous
-moving-average kernel a(u), we form the L^2 projection h = eta(a | A) of a onto
-the closed span of its integer shifts {a(u-k), k>=1} (Proposition 1), the
-residual c = a - h (the weighting kernel of the sampled innovation), and the
-discrete MAR coefficients A_k via Proposition 3,
+Continuous time univariate process:
 
-    A_k = [\int a(u+k) c(u) du] / [\int c(u)^2 du].
+    (D^3 + .6 D^2 + .4 D + .2) z(t) = w(t),      psi(D) = 1.
 
-Run:  python3 make_fig_18.py
+Roots of theta(s) = s^3 + .6 s^2 + .4 s + .2:
+
+    lambda_1 = -.5424,   lambda_{2,3} = -.0288 +/- .6066 i.
+
+Continuous-time MA kernel        p(tau) = sum_j delta_j e^{lambda_j tau}.
+Discrete-time MA kernel          C_k    = MA coefficients of c(L)/d(L).
+"Aggregation" kernel             f(tau) = sum_j V_j p(tau - j),  V(L)=d(L)/c(L).
+
+The discrete-time AR/MA polynomials produced by the spectral factorization
+(reported in Table 1) are
+
+    d(L) = 1 - 2.1779 L + 1.8722 L^2 - .5485 L^3,
+    c(L) = 1 +  .4800 L +  .0192 L^2.
+
+Run:  python3 make_fig_16.py
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-BLUE, RED, GREY = "C0", "C3", "0.55"
+# ---------------------------------------------------------------- continuous time
+# roots of theta(s) (given in Table 1)
+lam = np.array([-0.5424,
+                -0.0288 + 0.6066j,
+                -0.0288 - 0.6066j])
 
-# ---------------------------------------------------------------- grid + tools
-du = 0.005
-u = np.arange(0.0, 14.0, du)
+
+def partial_fraction_residues(roots):
+    """delta_j = 1 / prod_{k!=j}(lambda_j - lambda_k)  for P(s)=1/theta(s)."""
+    d = np.empty(len(roots), dtype=complex)
+    for j in range(len(roots)):
+        prod = 1.0 + 0j
+        for k in range(len(roots)):
+            if k != j:
+                prod *= (roots[j] - roots[k])
+        d[j] = 1.0 / prod
+    return d
 
 
-def shift(vals, k):
-    """Return a(u-k) on the grid (zero where u-k < 0)."""
-    s = int(round(k / du))
-    out = np.zeros_like(vals)
-    if s < len(vals):
-        out[s:] = vals[: len(vals) - s]
+delta = partial_fraction_residues(lam)
+
+
+def p_of(tau):
+    """Continuous-time moving-average kernel p(tau) (real)."""
+    tau = np.asarray(tau, dtype=float)
+    out = np.zeros_like(tau, dtype=complex)
+    for dj, lj in zip(delta, lam):
+        out += dj * np.exp(lj * tau)
+    return out.real
+
+
+# ---------------------------------------------------------------- discrete time
+# AR and MA polynomials from the spectral factorization (Table 1)
+d_poly = np.array([1.0, -2.1779, 1.8722, -0.5485])   # d_0..d_3
+c_poly = np.array([1.0,  0.4800, 0.0192])            # c_0..c_2
+
+
+def ma_coeffs(num, den, n):
+    """MA coefficients C_0..C_{n} of the rational filter num(L)/den(L)."""
+    C = np.zeros(n + 1)
+    for k in range(n + 1):
+        val = num[k] if k < len(num) else 0.0
+        for i in range(1, min(k, len(den) - 1) + 1):
+            val -= den[i] * C[k - i]
+        C[k] = val            # den[0] == 1
+    return C
+
+
+KMAX = 20
+C = ma_coeffs(c_poly, d_poly, KMAX)                  # discrete-time kernel C_k
+
+# V(L) = d(L)/c(L) = C(L)^{-1};  needed for f(tau) = sum_j V_j p(tau-j)
+V = ma_coeffs(d_poly, c_poly, 40)
+
+
+def f_of(tau):
+    """Aggregation kernel f(tau) = sum_{j>=0} V_j p(tau-j), p(s)=0 for s<0."""
+    tau = np.asarray(tau, dtype=float)
+    out = np.zeros_like(tau, dtype=float)
+    for j, Vj in enumerate(V):
+        s = tau - j
+        out += Vj * np.where(s >= 0, p_of(np.maximum(s, 0.0)), 0.0)
     return out
 
 
-def project_onto_shifts(a, K=10):
-    """h = eta(a | span{a(u-k), k=1..K}) in L^2; returns h, residual c, coeffs."""
-    B = np.column_stack([shift(a, k) for k in range(1, K + 1)])
-    G = (B.T @ B) * du
-    rhs = (B.T @ a) * du
-    lam = np.linalg.solve(G + 1e-10 * np.eye(K), rhs)
-    h = B @ lam
-    return h, a - h, lam
+# ---------------------------------------------------------------- sanity check
+print("delta_j (residues of 1/theta):")
+for j, dj in enumerate(delta, 1):
+    print(f"  j={j}: {dj.real:+.4f} {dj.imag:+.4f}i")
+print("\n  tau     p(tau)        f(tau)        C_k")
+ints = list(range(0, 21))
+for k in ints:
+    cval = f"{C[k]:+.6f}"
+    print(f"  {k:2d}   {p_of(k):+.6f}   {f_of(k):+.6f}   {cval}")
 
+# ---------------------------------------------------------------- Figure 5
+tau_fine = np.linspace(0, KMAX, 1000)
+p_fine = p_of(tau_fine)
+k = np.arange(0, KMAX + 1)
+p_int = p_of(k)
 
-def discrete_mar(a, c, kmax):
-    """A_k = [\int a(u+k)c du] / [\int c^2 du], k = 0..kmax."""
-    denom = np.sum(c * c) * du
-    A = []
-    for k in range(kmax + 1):
-        num = np.sum(shift(a, -k) * c) * du if False else np.sum(a[int(round(k/du)):] * c[:len(a) - int(round(k/du))]) * du
-        A.append(num / denom)
-    return np.array(A)
+fig, ax = plt.subplots(figsize=(8.5, 5.0))
 
+ax.plot(tau_fine, p_fine, color="C0", lw=2.0, zorder=2,
+        label=r"$p(\tau)$  (continuous time)")
+ax.plot(k, p_int, "o", color="C0", ms=5, zorder=3)
 
-def clean(ax):
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
+ax.plot(k, C, "--", color="C3", lw=1.6, zorder=2,
+        label=r"$C_k$  (discrete time)")
+ax.plot(k, C, "s", color="C3", ms=4.5, zorder=3)
 
-
-# ================================================================ Figure 1: c
-# A kernel close to a continuous AR(1), so that c is small on [1, infinity).
-a1 = np.exp(-0.7 * u) + 0.28 * np.exp(-2.2 * u)
-h1, c1, _ = project_onto_shifts(a1)
-ratio = np.sum(c1[u >= 1] ** 2) / np.sum(c1[u < 1] ** 2)
-print(f"fig-ta-c:  integral c^2 on [1,inf) / [0,1) = {ratio:.3f}")
-
-fig, ax = plt.subplots(figsize=(8.5, 4.6))
-m = u <= 4.6
-ax.plot(u[m], c1[m], color=BLUE, lw=2.0)
 ax.axhline(0, color="0.6", lw=0.8)
-for x in range(1, 5):
-    ax.axvline(x, color="0.8", lw=0.8, ls=(0, (3, 3)))
-ax.annotate(r"$c = a$ on $[0,1)$", xy=(0.45, c1[u <= 0.45][-1]),
-            xytext=(1.4, 0.85 * c1.max()), fontsize=12,
-            arrowprops=dict(arrowstyle="->", color="0.4", lw=1.0))
-ax.annotate("small on $[1,\\infty)$", xy=(2.3, c1[u <= 2.3][-1]),
-            xytext=(2.7, 0.45 * c1.max()), fontsize=12,
-            arrowprops=dict(arrowstyle="->", color="0.4", lw=1.0))
-ax.set_xlim(-0.15, 4.7)
-ax.set_xticks(range(0, 5))
-ax.set_xlabel("$u$", fontsize=13)
-ax.set_ylabel("$c_{ij}(u)$", fontsize=13)
-clean(ax)
+ax.set_xlim(-0.3, KMAX + 0.3)
+ax.set_xticks(range(0, KMAX + 1, 2))
+ax.set_xlabel(r"$j$", fontsize=13)
+ax.set_ylabel(r"kernel", fontsize=12)
+ax.legend(frameon=False, fontsize=12, loc="upper right")
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
 fig.tight_layout()
-fig.savefig("fig-18-1.png", dpi=160, bbox_inches="tight")
-print("wrote fig-18-1.png")
+fig.savefig("fig-18-5_ma_kernels.png", dpi=160, bbox_inches="tight")
+print("\nwrote fig-18-5_ma_kernels.png")
 
-# ================================================================ Figure 2: bias
-# Continuous MAR a vs discrete MAR coefficients A_k (step levels).
-a2 = np.exp(-0.55 * u) + 0.45 * np.exp(-0.18 * u)
-a2 = a2 / a2[0]                       # normalize a(0) = 1
-h2, c2, _ = project_onto_shifts(a2, K=12)
-A = discrete_mar(a2, c2, kmax=5)
-V = np.sum(c2 * c2) * du
-print(f"fig-ta-bias: A_0={A[0]:.3f}, a(0)=1.0 ; sum A_k^2 * V = {np.sum(A**2)*V:.3f}, "
-      f"int a^2 = {np.sum(a2**2)*du:.3f}")
+# ---------------------------------------------------------------- Figure 6
+tau6 = np.linspace(0, 2, 600)
+f6 = f_of(tau6)
+tau6_pts = np.round(np.arange(0, 2.0001, 0.1), 3)
+f6_pts = f_of(tau6_pts)
 
-fig, ax = plt.subplots(figsize=(8.5, 4.8))
-m = u <= 6
-ax.plot(u[m], a2[m], color=BLUE, lw=2.0, label=r"continuous MAR $a(u)$")
-for k in range(6):
-    ax.hlines(A[k], k, k + 1, color=RED, lw=2.4,
-              label=(r"discrete MAR coefficients $A_k$" if k == 0 else None))
-    if k > 0:
-        ax.plot([k, k], [A[k - 1], A[k]], color=RED, lw=1.0, ls=(0, (2, 2)))
-ax.annotate(r"discrete levels lie above $a(u)$", xy=(0.6, A[0]),
-            xytext=(1.5, A[0] + 0.07), fontsize=12,
-            arrowprops=dict(arrowstyle="->", color="0.4", lw=1.0))
-ax.axhline(0, color="0.6", lw=0.8)
-ax.set_xlim(-0.15, 6.1)
-ax.set_xticks(range(0, 7))
-ax.set_xlabel(r"$u$ (continuous) / $k$ (discrete)", fontsize=12)
-ax.set_ylabel("kernel", fontsize=12)
-ax.legend(frameon=False, fontsize=11, loc="upper right")
-clean(ax)
+fig, ax = plt.subplots(figsize=(8.0, 4.6))
+ax.plot(tau6, f6, color="C0", lw=2.0, zorder=2)
+ax.plot(tau6_pts, f6_pts, "o", color="C0", ms=4.5, zorder=3)
+ax.axvline(1.0, color="0.6", lw=0.9, ls=(0, (4, 3)))
+ax.text(1.02, 0.02, r"$\tau = 1$", fontsize=11, color="0.4")
+ax.set_xlim(0, 2)
+ax.set_ylim(0, 0.6)
+ax.set_xlabel(r"$\tau$", fontsize=13)
+ax.set_ylabel(r"$f(\tau)$", fontsize=13)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
 fig.tight_layout()
-fig.savefig("fig-18-2.png", dpi=160, bbox_inches="tight")
-print("wrote fig-18-2.png")
-
-# ================================================================ Figure 3: osc
-# |a(u)| = e^{-lambda u}, sign flips at u = k + eta within each unit interval.
-lam, eta = 0.55, 0.45
-fig, ax = plt.subplots(figsize=(8.5, 4.6))
-uu = np.arange(0.0, 3.0, du)
-env = np.exp(-lam * uu)
-sign = np.where((uu % 1.0) < eta, 1.0, -1.0)
-a3 = sign * env
-# plot each continuous piece separately so sign jumps are not bridged
-edges = np.where(np.diff(sign) != 0)[0]
-bounds = np.concatenate(([0], edges + 1, [len(uu)]))
-for i in range(len(bounds) - 1):
-    sl = slice(bounds[i], bounds[i + 1])
-    ax.plot(uu[sl], a3[sl], color=BLUE, lw=2.0)
-ax.plot(uu, env, color=GREY, lw=1.0, ls=(0, (4, 3)))
-ax.plot(uu, -env, color=GREY, lw=1.0, ls=(0, (4, 3)))
-ax.text(2.45, env[uu <= 2.45][-1] + 0.03, r"$+e^{-\lambda u}$", color=GREY, fontsize=11)
-ax.text(2.45, -env[uu <= 2.45][-1] - 0.07, r"$-e^{-\lambda u}$", color=GREY, fontsize=11)
-ax.axhline(0, color="0.6", lw=0.8)
-for x in [eta, 1, 1 + eta, 2, 2 + eta]:
-    ax.axvline(x, color="0.8", lw=0.8, ls=(0, (3, 3)))
-ax.set_xticks([eta, 1, 1 + eta, 2, 2 + eta])
-ax.set_xticklabels([r"$\eta$", "1", r"$1+\eta$", "2", r"$2+\eta$"], fontsize=12)
-ax.set_xlim(-0.1, 3.0)
-ax.set_xlabel("$u$", fontsize=13)
-ax.set_ylabel("$a(u)$", fontsize=13)
-clean(ax)
-fig.tight_layout()
-fig.savefig("fig-18-3.png", dpi=160, bbox_inches="tight")
-print("wrote fig-18-3.png")
-
-# ================================================================ Figure 4: construct
-# a whose shape on [1,2) is NOT a scaled copy of its shape on [0,1);
-# the one-lag guess h = mu*a(u-1) therefore misses it -> large residual.
-uu = np.arange(0.0, 2.8, du)
-a4 = np.zeros_like(uu)
-m0 = uu < 1
-a4[m0] = 0.45 + 0.55 * np.sin(np.pi * uu[m0])          # broad hump on [0,1)
-m1 = (uu >= 1) & (uu < 2)
-a4[m1] = 0.45 - 0.25 * (uu[m1] - 1)                    # downward ramp on [1,2), a(1)=0.45
-m2 = uu >= 2
-a4[m2] = 0.20 * np.exp(-(uu[m2] - 2))                  # continuous tail (a(2)=0.20)
-mu = 0.55                                              # one-lag projection coefficient
-h4 = np.full_like(uu, np.nan)
-mm = uu >= 1
-h4[mm] = mu * (0.45 + 0.55 * np.sin(np.pi * (uu[mm] - 1)))
-h4[uu >= 2] = np.nan
-
-fig, ax = plt.subplots(figsize=(8.5, 4.6))
-ax.plot(uu, a4, color=BLUE, lw=2.0, label=r"$a(u)$")
-ax.plot(uu, h4, color=RED, lw=2.0, ls=(0, (5, 3)),
-        label=r"guess $h(u)=\mu\,a(u-1)$ on $[1,2)$")
-# shade the residual on [1,2)
-reg = (uu >= 1) & (uu <= 2)
-ax.fill_between(uu[reg], a4[reg], np.nan_to_num(h4[reg]), color=RED, alpha=0.12)
-ax.text(1.5, 0.13, r"residual $\int_1^2 c^2$", color="0.35", fontsize=11, ha="center")
-ax.axhline(0, color="0.6", lw=0.8)
-for x in [1, 2]:
-    ax.axvline(x, color="0.8", lw=0.8, ls=(0, (3, 3)))
-ax.set_xticks([0, 1, 2])
-ax.set_xlim(-0.1, 2.8)
-ax.set_ylim(0, 1.15)
-ax.set_xlabel("$u$", fontsize=13)
-ax.set_ylabel("$a,\\ h$", fontsize=13)
-ax.legend(frameon=False, fontsize=11, loc="upper right")
-clean(ax)
-fig.tight_layout()
-fig.savefig("fig-18-4.png", dpi=160, bbox_inches="tight")
-print("wrote fig-18-4.png")
-
-# ================================================================ Figure 5: avg
-# a(u) = u e^{1-u}: a(0)=0, peak at u=1.  h = mu a(u-1) (one-lag projection).
-a5 = u * np.exp(1.0 - u)
-num = np.sum(a5[u >= 1] * shift(a5, 1)[u >= 1]) * du
-den = np.sum(shift(a5, 1)[u >= 1] ** 2) * du
-mu5 = num / den
-h5 = np.full_like(u, np.nan)
-h5[u >= 1] = mu5 * shift(a5, 1)[u >= 1]
-print(f"fig-ta-avg: one-lag mu = {mu5:.3f}")
-
-fig, ax = plt.subplots(figsize=(8.5, 4.6))
-m = u <= 4
-ax.plot(u[m], a5[m], color=BLUE, lw=2.0, label=r"$a(u)$,  $a(0)=0$")
-ax.plot(u[m], h5[m], color=RED, lw=2.0, ls=(0, (5, 3)),
-        label=r"guess $h(u)=\mu\,a(u-1)$")
-reg = (u >= 1) & (u <= 2)
-ax.fill_between(u[reg], a5[reg], np.nan_to_num(h5[reg]), color=RED, alpha=0.12)
-ax.text(1.5, 0.18, r"large residual on $[1,2)$", color="0.35", fontsize=11, ha="center")
-ax.axhline(0, color="0.6", lw=0.8)
-for x in [1, 2]:
-    ax.axvline(x, color="0.8", lw=0.8, ls=(0, (3, 3)))
-ax.set_xticks([0, 1, 2, 3, 4])
-ax.set_xlim(-0.1, 4.0)
-ax.set_ylim(0, 1.1)
-ax.set_xlabel("$u$", fontsize=13)
-ax.set_ylabel("$a,\\ h$", fontsize=13)
-ax.legend(frameon=False, fontsize=11, loc="upper right")
-clean(ax)
-fig.tight_layout()
-fig.savefig("fig-18-5.png", dpi=160, bbox_inches="tight")
-print("wrote fig-18-5.png")
-
-# ================================================================ Figure 7: Granger 2x2
-def hump(uu, c, w, amp, base=0.0):
-    return base + amp * np.exp(-((uu - c) / w) ** 2)
-
-uu = np.arange(0.0, 2.8, du)
-fig, axes = plt.subplots(2, 2, figsize=(9.0, 6.2))
-
-# a11: hump on [0,1), zero after
-a11 = np.where(uu < 1, hump(uu, 0.28, 0.34, 0.75, 0.18), 0.0)
-# a12: hump with a small secondary wiggle on [0,1), zero after
-a12 = np.where(uu < 1, hump(uu, 0.22, 0.26, 0.55, 0.15) + hump(uu, 0.55, 0.10, 0.12), 0.0)
-# a21: hump on [0,1), then a smooth declining tail (nonzero on [1, infinity))
-a21 = hump(uu, 0.24, 0.30, 0.45, 0.0) + 0.30 * np.exp(-0.5 * uu) + 0.05
-# a22: monotone decay throughout
-a22 = 0.78 * np.exp(-0.5 * uu) + 0.05
-
-for ax, a, lab in zip(axes.ravel(), [a11, a12, a21, a22],
-                      [r"$a_{11}$", r"$a_{12}$", r"$a_{21}$", r"$a_{22}$"]):
-    if lab in (r"$a_{11}$", r"$a_{12}$"):
-        # draw compact support: solid on [0,1), then flat zero
-        ax.plot(uu[uu < 1], a[uu < 1], color=BLUE, lw=2.0)
-        ax.plot(uu[uu >= 1], a[uu >= 1], color=BLUE, lw=2.0)
-    else:
-        ax.plot(uu, a, color=BLUE, lw=2.0)
-    ax.axhline(0, color="0.6", lw=0.8)
-    for x in [1, 2]:
-        ax.axvline(x, color="0.8", lw=0.8, ls=(0, (3, 3)))
-    ax.set_xticks([1, 2])
-    ax.set_xlim(-0.05, 2.8)
-    ax.set_ylim(-0.05, 1.0)
-    ax.set_ylabel(lab, fontsize=13, rotation=0, labelpad=14)
-    ax.set_xlabel("$u$", fontsize=12)
-    clean(ax)
-fig.tight_layout()
-fig.savefig("fig-18-7.png", dpi=160, bbox_inches="tight")
-print("wrote fig-18-7.png")
-
-# ================================================================ Figures 11 & 12
-# Sampled vs averaged: approximating the first kernel by combinations of its
-# own integer shifts.  a1(0) != 0 -> good fit;  tilde a1(0) = 0 -> poor fit.
-a_s = np.exp(-0.7 * u) + 0.5 * np.exp(-0.25 * u)        # sampled kernel, a(0) != 0
-a_s = a_s / a_s[0]
-# unit average -> tilde a (continuous, vanishes at 0)
-kernel_len = int(round(1.0 / du))
-csum = np.concatenate(([0.0], np.cumsum(a_s) * du))
-a_avg = (csum[1:] - np.concatenate((np.zeros(kernel_len), csum[1:-kernel_len]))) if False else None
-# tilde a(u) = \int_0^1 a(u-s) ds = F(u) - F(u-1)
-F = np.cumsum(a_s) * du
-a_avg = F - shift(F, 1)
-
-gs, _, _ = project_onto_shifts(a_s, K=10)
-ga, _, _ = project_onto_shifts(a_avg, K=10)
-err_s = np.sum((a_s[u >= 1] - gs[u >= 1]) ** 2) * du
-err_a = np.sum((a_avg[u >= 1] - ga[u >= 1]) ** 2) * du
-print(f"fig-ta-11/12: fit error sampled={err_s:.4f}, averaged={err_a:.4f}")
-
-for fname, a_t, g_t, ylab, title in [
-    ("fig-18-11.png", a_s, gs, r"$a_1,\ g$", "sampled"),
-    ("fig-18-12.png", a_avg, ga, r"$\tilde a_1,\ \hat g$", "averaged"),
-]:
-    fig, ax = plt.subplots(figsize=(8.5, 4.4))
-    m = u <= 4.5
-    ax.plot(u[m], a_t[m], color=BLUE, lw=1.7,
-            label=(r"$a_1$" if title == "sampled" else r"$\tilde a_1$"))
-    gplot = np.where(u >= 1, g_t, np.nan)
-    ax.plot(u[m], gplot[m], color=RED, lw=2.6,
-            label=(r"$g$" if title == "sampled" else r"$\hat g$"))
-    ax.axhline(0, color="0.6", lw=0.8)
-    for x in [1, 2, 3]:
-        ax.axvline(x, color="0.8", lw=0.8, ls=(0, (3, 3)))
-    ax.set_xticks([1, 2, 3, 4])
-    ax.set_xlim(-0.1, 4.5)
-    ax.set_xlabel("$u$", fontsize=13)
-    ax.set_ylabel(ylab, fontsize=13)
-    ax.legend(frameon=False, fontsize=12, loc="upper right")
-    clean(ax)
-    fig.tight_layout()
-    fig.savefig(fname, dpi=160, bbox_inches="tight")
-    print(f"wrote {fname}")
+fig.savefig("fig-18-6_f_function.png", dpi=160, bbox_inches="tight")
+print("wrote fig-18-6_f_function.png")

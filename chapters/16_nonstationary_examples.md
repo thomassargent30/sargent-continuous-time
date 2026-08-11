@@ -82,7 +82,7 @@ This shows that
 
 ```{math}
 :label: eq-16-1
-\frac{d}{dv}\ E_t\, x(t+v) = \beta \int^\infty_0 w(t-\tau)\, d\tau,
+\frac{d}{dv}\ E_t\, x(t+v) = \beta \int^{t+T}_0 w(t-\tau)\, d\tau,
 ```
 
 which is the expression for $d/dv\, E_t x(t+v)$ that is obtained by differentiating the right side of {eq}`eq-16-forecast` formally.

@@ -63,6 +63,6 @@ the underlying probability space. $D$ denotes the time-derivative operator and $
 the Dirac delta generalized function.
 
 ```{note}
-A number of figures in the original manuscript were hand-drawn and are not yet
-reproduced here; their locations are marked in the text with a *(figure)* placeholder.
+The figures in the original manuscript were hand-drawn. They have been redrawn here; the
+scripts that generate them live alongside the images in `chapters/figures/`.
 ```

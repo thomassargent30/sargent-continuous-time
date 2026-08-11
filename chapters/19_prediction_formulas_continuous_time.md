@@ -33,6 +33,11 @@ and
 E\left[ W\{[t_4, t_3)\}\, W\{[t_2, t_1)\} \right] = 0 \quad \text{for } t_4 > t_3 > t_2 > t_1.
 ```
 
+Here $W\{[t_2, t_1)\}$ denotes the increment of $W$ over the interval between $t_1$ and $t_2$;
+we follow the original in writing the larger endpoint first, so that {eq}`eq-19-1-1` assigns
+that interval a variance equal to its length, and {eq}`eq-19-1-2` says that increments over
+disjoint intervals are orthogonal.
+
 Using functions in $L^2$ and the random measure $W$, we construct second-moment stationary
 processes as convolutions:
 
@@ -272,13 +277,13 @@ Suppose that $\gamma$ is given by
 Then
 
 $$
-\mathcal{L}p(\gamma)(\mathbf{c}) = \int_{-\infty}^{0} \exp[(\delta - \mathbf{c})t]\, dt = 1/(\mathbf{c} - \delta)
+\mathcal{L}p(\gamma)(\mathbf{c}) = \int_{-\infty}^{0} \exp[(\delta - \mathbf{c})t]\, dt = 1/(\delta - \mathbf{c})
 $$
 
 for $\operatorname{real}(\mathbf{c}) < \delta$. Thus
 
 $$
-\mathcal{L}p(\phi)(\mathbf{c}) = \mathcal{L}p(\psi)(\mathbf{c})/(\mathbf{c} - \delta).
+\mathcal{L}p(\phi)(\mathbf{c}) = \mathcal{L}p(\psi)(\mathbf{c})/(\delta - \mathbf{c}).
 $$
 
 Note that $\mathcal{L}p(\phi)$ is analytic on $\mathbf{C}$ except possibly at the point $\delta$
@@ -288,14 +293,14 @@ a pole at $\delta$, and to compute $\mathcal{L}p(\phi^+)$ we must eliminate this
 candidate for $\mathcal{L}p(\phi^+)$ is
 
 $$
-a^{+}(\mathbf{c}) = [\mathcal{L}p(\psi)(\mathbf{c}) - \mathcal{L}p(\psi)(\delta)]/(\mathbf{c} - \delta).
+a^{+}(\mathbf{c}) = [\mathcal{L}p(\psi)(\delta) - \mathcal{L}p(\psi)(\mathbf{c})]/(\mathbf{c} - \delta).
 $$
 
 Notice that the singularity of $a^+$ at $\delta$ is removable. The corresponding choice of $a^-$
 is
 
 $$
-a^{-}(\mathbf{c}) = a(\mathbf{c}) - a^{+}(\mathbf{c}) = \mathcal{L}p(\psi)(\delta)/(\mathbf{c} - \delta).
+a^{-}(\mathbf{c}) = a(\mathbf{c}) - a^{+}(\mathbf{c}) = \mathcal{L}p(\psi)(\delta)/(\delta - \mathbf{c}).
 $$
 
 It is straightforward to show that $a^+$ and $a^-$ satisfy the requirements of the Lemma.
@@ -303,13 +308,21 @@ Therefore,
 
 ```{math}
 :label: eq-19-3-4
-\mathcal{L}p(\phi^{+}) = [\mathcal{L}p(\psi)(\mathbf{c}) - \mathcal{L}p(\psi)(\delta)]/(\mathbf{c} - \delta).
+\mathcal{L}p(\phi^{+}) = [\mathcal{L}p(\psi)(\delta) - \mathcal{L}p(\psi)(\mathbf{c})]/(\mathbf{c} - \delta).
 ```
 
 Formula {eq}`eq-19-3-4` is the continuous time counterpart to formula (5) in Hansen and Sargent
 (1980a). It is the operator that evaluates the geometric distributed lead {eq}`eq-12-glead` of
 {doc}`12_prediction` and the optimal feedforward {eq}`eq-14-forward` of
-{doc}`14_faster_methods_recursive_linear_models`.
+{doc}`14_faster_methods_recursive_linear_models`. Indeed, the $\gamma$ of {eq}`eq-19-3-3`
+generates precisely the geometric distributed lead of {doc}`12_prediction`: substituting
+$u = -\tau$ in {eq}`eq-19-3-1` gives
+$x(t) = \int_0^\infty e^{-\delta u} y(t+u)\, du$, so that $\delta = -\rho$ in the notation
+there. With that substitution {eq}`eq-19-3-4` reads
+$[-\tilde P(\mathbf{c}) + \tilde P(-\rho)]/(\mathbf{c} + \rho)$, which is exactly
+{eq}`eq-12-gen`. {doc}`12_prediction` derived that formula only for a first-order
+$\tilde P$ and then asserted it for general $\tilde P$; the Lemma above is what establishes
+the general case, and in Example 3 below it is turned into a finite recursion.
 
 ### Example 2
 
@@ -350,7 +363,7 @@ $$
 a^- = \sum_j a_j
 $$
 
-satisfies (i) of the Lemma where $\delta$ is the real part of the zero of $p_n$ closest to the
+satisfies (i) of the Lemma where $\delta$ is the real part of the zero of $p_d$ closest to the
 imaginary axis and is bounded on $\mathbf{C}_{\rho}^-$ for any $\rho < \delta$. Therefore, we
 have the following generalization of {eq}`eq-19-3-4`:
 
@@ -373,7 +386,7 @@ of $q_n$ and that the zeros of $q_d$ are in the interior of $\mathbf{C}_0^-$. So
 {eq}`eq-19-3-4` now becomes
 
 $$
-\mathcal{L}p(\phi)(\mathbf{c}) = q_n(\mathbf{c})/[q_d(\mathbf{c})(\mathbf{c}-\delta)].
+\mathcal{L}p(\phi)(\mathbf{c}) = q_n(\mathbf{c})/[q_d(\mathbf{c})(\delta - \mathbf{c})].
 $$
 
 From Example 1, we know that
@@ -382,13 +395,13 @@ From Example 1, we know that
 :label: eq-19-3-5
 \begin{aligned}
 \mathcal{L}p(\phi^{+})(\mathbf{c})
-&= [q_{n}(\mathbf{c})/q_{d}(\mathbf{c}) - q_{n}(\delta)/q_{d}(\delta)]/(\mathbf{c} - \delta) \\
-&= [q_{n}(\mathbf{c})q_{d}(\delta) - q_{n}(\delta)q_{d}(\mathbf{c})]/[q_{d}(\mathbf{c})q_{d}(\delta)(\mathbf{c} - \delta)].
+&= [q_{n}(\delta)/q_{d}(\delta) - q_{n}(\mathbf{c})/q_{d}(\mathbf{c})]/(\mathbf{c} - \delta) \\
+&= [q_{n}(\delta)q_{d}(\mathbf{c}) - q_{n}(\mathbf{c})q_{d}(\delta)]/[q_{d}(\mathbf{c})q_{d}(\delta)(\mathbf{c} - \delta)].
 \end{aligned}
 ```
 
 The right side of {eq}`eq-19-3-5` has a removable singularity at $\delta$ by construction. This
-is evident because the polynomial $[q_n(\mathbf{c})q_d(\delta) - q_n(\delta)q_d(\mathbf{c})]$ has
+is evident because the polynomial $[q_n(\delta)q_d(\mathbf{c}) - q_n(\mathbf{c})q_d(\delta)]$ has
 a zero at $\delta$. Canceling the common factor $(\mathbf{c} - \delta)$ in the numerator and
 denominator results in
 
@@ -406,14 +419,14 @@ and $q_n^+$ satisfies
 
 ```{math}
 :label: eq-19-3-6
-q_n^+(\mathbf{c})(\mathbf{c} - \delta) = [q_n(\mathbf{c})q_d(\delta) - q_n(\delta)q_d(\mathbf{c})].
+q_n^+(\mathbf{c})(\mathbf{c} - \delta) = [q_n(\delta)q_d(\mathbf{c}) - q_n(\mathbf{c})q_d(\delta)].
 ```
 
 By equating coefficients of the polynomials on both sides of {eq}`eq-19-3-6`, one can construct
 a linear system of equations in the coefficients of $q_n^+(\mathbf{c})$. In fact there is a
 recursive structure to this equation system that can be exploited as follows. Let $\eta_j$
 denote the coefficient on $\mathbf{c}^j$ in
-$[q_n(\mathbf{c})q_d(\delta) - q_n(\delta)q_d(\mathbf{c})]$ and let $\epsilon_j$ denote the
+$[q_n(\delta)q_d(\mathbf{c}) - q_n(\mathbf{c})q_d(\delta)]$ and let $\epsilon_j$ denote the
 corresponding coefficient in $q_n^+(\mathbf{c})$. Then
 
 $$

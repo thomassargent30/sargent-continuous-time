@@ -104,18 +104,23 @@ where $D$ is the time derivative operator. The realizable, time invariant soluti
 {eq}`eq-21-3` is just
 
 $$
-\hat E_t\, p(t+v) = -\rho\, \hat E_t \int_0^\infty e^{\rho u}[a(t+v+u) - m(t+v+u)]\, du
+\hat E_t\, p(t+v) = \rho\, \hat E_t \int_0^\infty e^{\rho u}[a(t+v+u) - m(t+v+u)]\, du
 $$
 
-where $\rho = 1/\alpha$. Taking limits as $v$ declines to zero, and noting that
+where $\rho = 1/\alpha < 0$. Taking limits as $v$ declines to zero, and noting that
 $\lim_{v \downarrow 0}\hat E_t\, p(t+v) = \hat E_t\, p(t) = p(t)$, one obtains
 
 ```{math}
 :label: eq-21-4
-p(t) = -\rho\, \hat E_t \int_0^\infty e^{\rho u}[a(t+u) - m(t+u)]\, du
+p(t) = \rho\, \hat E_t \int_0^\infty e^{\rho u}[a(t+u) - m(t+u)]\, du
 ```
 
-as the solution to {eq}`eq-21-1`.
+as the solution to {eq}`eq-21-1`. (Dividing {eq}`eq-21-3` by $\alpha$ puts it in the form
+$(D + \rho)\hat E_t p(t+v) = \rho\,[\hat E_t m(t+v) - \hat E_t a(t+v)]$; since $\rho < 0$ the
+root $-\rho$ lies in the right half plane, so the bounded solution is the forward one displayed
+above. As a check, if $m$ and $a$ are constant there is no expected inflation and
+{eq}`eq-21-1` requires $p = m - a$, which is what {eq}`eq-21-4` delivers, since
+$\rho\int_0^\infty e^{\rho u}\, du = -1$.)
 
 Hansen and Sargent now specialize the assumptions so that Cagan's adaptive expectations
 mechanism is optimal: they seek specifications for $a$ and $m$ that, together with
@@ -200,8 +205,16 @@ Specification {eq}`eq-21-8` implies that
 
 ```{math}
 :label: eq-21-9
-D^{+}\hat E_t\, p(t+v) = -\frac{\beta}{D}\, k_1\, w_1(t).
+D^{+}\hat E_t\, p(t+v) = \frac{\beta}{D}\, k_1\, w_1(t),
 ```
+
+as one verifies by evaluating the annihilation operator of the appendix: with
+$c_1(D) = (D+\beta)k_1/D^2$,
+
+$$
+[\,D c_1(D)\, e^{vD}\,]_+ = \frac{\beta D\, c_1(D)}{\beta + D}
+= \frac{\beta D (D + \beta) k_1}{(\beta + D) D^2} = \frac{\beta k_1}{D}.
+$$
 
 Substituting {eq}`eq-21-9` into equation {eq}`eq-21-1` shows that
 
@@ -213,8 +226,10 @@ m(t) - p(t) = \frac{\alpha \beta D}{(\beta + D)}\, p(t) + a(t).
 Equation {eq}`eq-21-10` is a version of Cagan's model in continuous time, since
 
 $$
--\frac{\beta D}{\beta + D}\, p(t) = \beta \int_{-\infty}^t e^{-\beta(t-u)} Dp(u)\, du.
+\frac{\beta D}{\beta + D}\, p(t) = \beta \int_{-\infty}^t e^{-\beta(t-u)} Dp(u)\, du,
 $$
+
+which is the right-hand side of the adaptive expectations scheme {eq}`eq-21-5`.
 
 Equation {eq}`eq-21-10` reveals an exact relationship among $m$, $p$, and $a$. This singularity
 means that the white noise vector $w$ can have at most two elements. The authors assume that the
@@ -718,7 +733,7 @@ def print_table(v11, v22, betas):
         gp, gm, lp, ef = table_row(b, v11, v22)
         print(f"{b:6.2f} {gp:9.3f} {gm:9.3f} {lp:10.6f} {ef:10.6f}")
 
-betas = [0.05, 0.25, 0.55, 1.00, 2.00, 3.00, 5.00, 7.00, 10.00, 20.00]
+betas = [0.05, 0.25, 0.55, 1.00, 2.00, 3.00, 5.00, 6.00, 7.00, 10.00, 20.00]
 print_table(1.0, 1.0, betas)
 ```
 
@@ -1012,7 +1027,7 @@ Sims, C. A. (1972). Money, Income and Causality. *American Economic Review*, **6
 [^fn21-2]: Hansen and Sargent use the rules for taking expected values of products of integrals
     of white noises described by Kwakernaak and Sivan (1972, pp. 97–99).
 
-[^fn21-3]: First, note that $(I + Fz)\bar V(I + F'z^{-1})' = \Gamma_{-1} z^{-1} + \Gamma_0 +
+[^fn21-3]: First, note that $(I + Fz)\bar V(I + F'z^{-1}) = \Gamma_{-1} z^{-1} + \Gamma_0 +
     \Gamma_1 z$ and therefore the zeroes of $\det(\Gamma_{-1} z^{-1} + \Gamma_0 + \Gamma_1 z)$
     are comprised of the zeroes of $\det(I + Fz)$ and the reciprocals of the zeroes of
     $\det(I + Fz)$. The zeroes of $\det(I + Fz)$ are minus the reciprocals of the eigenvalues of

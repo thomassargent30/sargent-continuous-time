@@ -243,8 +243,8 @@ $$
 x(t) = \int^\infty_0 p(\tau)\, w(t - \tau)\, d\tau,
 $$
 
-and covariogram $E x(t)\, x(t-\tau) = R(\tau)$. Suppose that $R(\tau)$ is an analytic
-function, having a convergent Taylor series representation
+and covariogram $E x(t)\, x(t-\tau) = R(\tau)$. Suppose that $R(\tau)$ *and* the Wold kernel
+$p(\tau)$ are analytic functions, $R$ having a convergent Taylor series representation
 
 ```{math}
 :label: eq-11-star
@@ -260,7 +260,7 @@ R^{(2m)}(\tau) = \sum_{n=2m}^{\infty}\, R^{(n)}(0)\ \frac{\tau^{(n-2m)}}{(n - 2m
 $$
 
 so that $R^{(2m)}(\tau)$ exists and itself has a convergent Taylor series representation.
-Furthermore, under the assumed conditions, $p(\tau)$ is analytic and has a convergent
+Furthermore, $p(\tau)$ is by hypothesis analytic and so has a convergent
 Taylor series representation
 
 $$

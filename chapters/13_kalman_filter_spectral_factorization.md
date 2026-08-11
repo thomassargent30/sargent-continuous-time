@@ -32,6 +32,18 @@ filtering and control recursions developed here are the workhorses of the Hansen
 research program described in the Introduction; the companion chapters that follow apply them
 to time aggregation, prediction, and identification.
 
+```{warning}
+**Notation in this chapter.** Two symbols are deliberately overloaded, because the overloading
+*is* the duality of Section (e). In the filtering problem of Sections (a)–(c), $B$ is the
+loading on the process noise and $R$ is the covariance of the measurement noise; in the control
+problem of Section (d), $B$ is the loading on the control and $R$ is the cost of using it. The
+duality table {numref}`tbl-13-duality` is the dictionary between the two readings, and the
+numerical examples deliberately feed the *same* $(A, B)$ to both problems. Note also that $R$
+here is a matrix, unrelated to the autocovariance function $R(\tau)$ of Chapters 1–12; and that
+$K$ denotes the Kalman gain here, whereas in {doc}`14_faster_methods_recursive_linear_models`
+$K$ is the matrix loading the forcing process $z$ onto the Hamiltonian system {eq}`eq-14-ham`.
+```
+
 ## (a) The linear state-space model
 
 A continuous-time linear state-space system consists of a **transition equation** for an
@@ -167,7 +179,8 @@ dy(t) &= C\, \hat x(t)\, dt + d\eta(t).
 \end{aligned}
 ```
 
-This is the state-space realization of the **Wold representation** of {doc}`12_prediction`.
+This is the state-space realization of the **Wold representation** of
+{doc}`08_spectral_densities`.
 The observable $y$ is driven by a *single white noise* $\eta$ — the same dimension as $y$ —
 through the Kalman gain $K$. The innovation $\eta$ is a **fundamental** white noise for $y$:
 square-integrable functionals of $\{y(s),\ s \leq t\}$ and of $\{\eta(s),\ s \leq t\}$ span

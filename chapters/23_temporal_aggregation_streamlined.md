@@ -226,7 +226,7 @@ single number governs everything: when the gap is small, $c$ is concentrated on 
 leans on $a$ over $[k,k+1)$ and the discrete kernel resembles the continuous one
 ({numref}`fig-ta-c`); when the gap is large, the discrete MAR can be badly distorted.
 
-```{figure} figures/fig-18-1.png
+```{figure} figures/fig-23-1.png
 :name: fig-ta-c
 :width: 60%
 :align: center
@@ -279,8 +279,10 @@ sampling leaves alone.
 **Example 3.2 — a smooth kernel that is nonetheless distorted.** Take
 $a(u) = e^{-\lambda_1 u}+e^{-\lambda_2 u}$ with $\lambda_1\neq\lambda_2$. Marcet notes that
 $\int_1^\infty\|c\|^2 > 0$: were it zero, Proposition 2 would supply a constant $\mu$ with
-$\mu\,a(u-1)=a(u)$ for all $u\ge 1$, and evaluating at $u=1,2$ forces
-$(e^{-\lambda_1}+e^{-\lambda_2})^2 = e^{-2\lambda_1}+e^{-2\lambda_2}$, impossible. So an innocuous
+$\mu\,a(u-1)=a(u)$ for all $u\ge 1$. Evaluating at $u=1$ gives $\mu = a(1)/a(0) =
+(e^{-\lambda_1}+e^{-\lambda_2})/2$, and then $u=2$ forces
+$(e^{-\lambda_1}+e^{-\lambda_2})^2 = 2(e^{-2\lambda_1}+e^{-2\lambda_2})$, i.e.
+$(e^{-\lambda_1}-e^{-\lambda_2})^2 = 0$ — impossible when $\lambda_1 \neq \lambda_2$. So an innocuous
 sum of two exponentials already produces a distorted discrete MAR. More sharply (Hansen and
 Sargent 1991): if $a$ is continuous with $a(0)\neq 0$ and the sampled process has an
 autoregressive representation with $c=0$ on $[1,\infty)$, that representation must be first order.
@@ -304,7 +306,7 @@ $a$ on $[0,1)$.
 Examples 3.1, 3.3, and 3.4 already exhibit the **aliasing problem**: different continuous kernels
 all generating the *same* sampled process (a discrete AR(1)). The continuous kernel cannot be
 recovered from discrete data without further restrictions — the recurring lesson of
-Chapters 17 and (in a companion paper) 22.
+{doc}`17_discrete_sampling_folding` and {doc}`22_dimensionality_aliasing_problem`.
 
 ### A numerical illustration of Marcet's point
 
@@ -415,7 +417,7 @@ non-causality of $y_2$ for $y_1$ survives *point* sampling (Proposition 4), but 
 comes to Granger-cause $Y_1$. Whether non-causality survives aggregation thus depends not only on
 the continuous dynamics but on exactly how the data are collected.
 
-```{figure} figures/fig-18-7.png
+```{figure} figures/fig-23-7.png
 :name: fig-ta-granger
 :width: 60%
 :align: center
@@ -435,8 +437,9 @@ sample of the *filtered* continuous process
 $\tilde y_1(t) = \int_0^1 y_1(t-s)\, ds = (\ell * y_1)(t)$, where $\ell$ is the indicator of
 $[0,1)$. Passing to the frequency domain exactly as in Chapter 8, the filtered spectral density is
 $\hat\ell(\omega)\,\hat a_1(\omega)\,[\hat\ell(\omega)\,\hat a_1(\omega)]'$, and because $\ell$
-contributes no left-half-plane zeros, $\ell * a_1$ is itself the fundamental MAR kernel of
-$\tilde y_1$:
+contributes no *right*-half-plane zeros — the transform $\hat\ell(s) = (1 - e^{-s})/s$ has its
+zeros at $s = 2\pi i k$, $k \neq 0$, on the imaginary axis itself — $\ell * a_1$ is itself the
+fundamental MAR kernel of $\tilde y_1$:
 
 ```{math}
 :label: eq-ta-avg-kernel
@@ -460,7 +463,7 @@ discrete MARs — the projection $h(u)\approx\mu\,a(u-1)$ leaves a large residua
 relative to $[0,1)$ ({numref}`fig-ta-avg`) — so smoothing the kernel buys predictability at the
 cost of representation.
 
-```{figure} figures/fig-18-5.png
+```{figure} figures/fig-23-5.png
 :name: fig-ta-avg
 :width: 60%
 :align: center
@@ -576,16 +579,18 @@ closed span $A$, hence as a limit of finite combinations $\sum_k\mu_k'\,a(\cdot-
 the limit is attained: $h_i$ is itself exactly such a combination. Approximating functions on
 $[1,2)$ involve only the $k=1$ shift; since $\int_0^1 a a'$ is positive definite (full rank), the
 $k=1$ coefficients converge, and iterating interval by interval pins down
-$\lambda_1,\lambda_2,\dots$ with $h_i(u) = \sum_{k\ge 1}\lambda_k'\,a(u-k)$ almost everywhere.
+$\lambda_{i1},\lambda_{i2},\dots$ with $h_i(u) = \sum_{k\ge 1}\lambda_{ik}'\,a(u-k)$ almost
+everywhere, each $\lambda_{ik}$ being an $n$-vector.
 Substituting into $\eta(Y(t)\mid H_Y(t-1)) = \int_1^\infty h(u)\,\zeta(t-du)$ and interchanging the
 (now convergent) sum and integral gives the sampled process its **autoregressive representation**
 
 ```{math}
 :label: eq-ta-arr
-Y_i(t) = \varepsilon_i(t) + \sum_{k=1}^\infty \lambda_k'\, Y(t-k),
+Y_i(t) = \epsilon_i(t) + \sum_{k=1}^\infty \lambda_{ik}'\, Y(t-k),
 ```
 
-valid whenever $\{\lambda_k\}$ is absolutely summable. Thus, under a mild summability condition, the
+valid whenever $\{\lambda_{ik}\}$ is absolutely summable, with $\epsilon_i$ the $i$-th component
+of the discrete innovation of {eq}`eq-ta-eps-decomp`. Thus, under a mild summability condition, the
 sampled process is a vector autoregression whose coefficients are determined — through the
 projection of $a$ onto its own integer shifts — by the continuous-time kernel. Convergence of the
 discrete Wold decomposition to the continuous one as sampling is refined is studied further in

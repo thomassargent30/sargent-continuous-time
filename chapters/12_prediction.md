@@ -57,16 +57,26 @@ $w$ becomes the Kalman innovations process and this same forecast is computed re
 Using operational calculus, the formula can be expressed as
 
 $$
-E_t\, x(t+u) = [\, \tilde P(D)\, e^{-Du} \,]_+\, w(t)
+E_t\, x(t+u) = [\, \tilde P(D)\, e^{Du} \,]_+\, w(t)
 $$ (eq-12-wkop)
 
-where $[\, \tilde P(s)\, e^{-su} \,]_+$ is the time function formed by taking
-the inverse Laplace transform of $\tilde P(s)\, e^{-su}$, and then convoluting
-it with the Heaviside unit step function (i.e., setting values of the time
+where $[\, \tilde P(s)\, e^{su} \,]_+$ is the time function formed by taking
+the inverse Laplace transform of $\tilde P(s)\, e^{su}$, and then multiplying
+it by the Heaviside unit step function (i.e., setting values of the time
 function for $t < 0$ equal to zero, while leaving values of the function for $t
 \geq 0$ unaltered). The operator $[\,\cdot\,]_+$ is known as the *annihilation
-operator*. Note by property 4 (Delay) of Table 2 that $e^{-su}\, \tilde P(s)$ is
-the Laplace transform of the function $p(s+u)$.
+operator*. Note that $e^{uD}$ is the operator that shifts a time function
+*ahead* $u$ units, so that — reading property 4 (Delay) of Table 2 in the
+direction of an advance rather than a delay — $e^{su}\, \tilde P(s)$ is the
+Laplace transform of the advanced function $p(t+u)$; annihilating its negative
+part then leaves the kernel $p(s+u),\ s \geq 0$, of {eq}`eq-12-wk`. This
+$e^{uD}$ convention is the one used throughout the book, in
+{doc}`19_prediction_formulas_continuous_time` and in
+{doc}`21_aggregation_inverse_optimal_predictor`.
+
+As a check, for $\tilde P(s) = 1/(a+s)$ the inverse transform of
+$e^{su}/(a+s)$ is $e^{-a(t+u)}$ for $t + u \geq 0$; annihilating $t<0$ and
+transforming back gives $e^{-au}/(a+s)$, which is {eq}`eq-12-ar1pred`.
 
 As an example of the use of formula {eq}`eq-12-wk`, let $x(t)$ be governed by the
 first order stochastic differential equation
@@ -124,8 +134,8 @@ x(t)^{\ast} &= \left( \frac{-1}{\rho + D} \right)\ \left( \frac{1}{a+D} \right)\
 \end{aligned}
 $$ (eq-12-xstar)
 
-where for $re(\rho) < 0,\ -1/\rho + s$ is the Laplace transform of the time
-function $e^{-\rho u}$ for $u \leq 0,\ 0$ for $u > 0$.
+where for $re(\rho) < 0$, $-1/(\rho + s)$ is the (two-sided) Laplace transform
+of the time function equal to $e^{-\rho u}$ for $u \leq 0$ and $0$ for $u > 0$.
 
 Obtaining a partial fraction representation of the right side of {eq}`eq-12-xstar` gives
 

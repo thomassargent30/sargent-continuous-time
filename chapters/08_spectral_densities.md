@@ -94,8 +94,8 @@ R_y (s) &= h\ \ast \ R_x\ \ast \ h(-s)
 \end{aligned}
 ```
 
-Applying property {eq}`eq-8-6` and property 12 of table 2, the convolution property, twice
-to {eq}`eq-8-4` gives
+Applying property 6 of table 2, the convolution property, twice to {eq}`eq-8-4`, together with
+property 12 (reversal) to handle the $h(-s)$ factor, gives
 
 ```{math}
 :label: eq-8-5
@@ -121,20 +121,16 @@ $$
 \int_{-\infty}^{\infty} \delta^{(n)}(t) g(t)\, dt = (-1)^n g^{(n)} (0)
 $$
 
-where $g(t)$ is a test function that is $n$ times differentiable at $t$. (See Papoulis for
-definitions of $\delta (t)$ and its generalized derivatives; $\delta (t)$ and
+where $g(t)$ is a test function that is $n$ times differentiable at $t$. See Papoulis for
+definitions of $\delta (t)$ and its generalized derivatives. Both $\delta (t)$ and
 $\delta^{(n)}\, (t)$ can be defined in terms of particular limit points of sequences of
-functions $h_n (t) \in L_2 [-\infty, \, \infty]$ for each $n$, and which are used as
+functions $h_n (t) \in L_2 [-\infty, \, \infty]$ for each $n$, which are used as
 integrating functions in
 
 $$
-\int_{-\infty}^{\infty} h_n (t) g(t)\, dt,
-$$
-
-and
-
-$$
-\int_{-\infty}^{\infty}\, \left( \frac{d^n}{dt^n}\right)\, h_n (t) g(t)\, dt.
+\int_{-\infty}^{\infty} h_n (t) g(t)\, dt
+\qquad \text{and} \qquad
+\int_{-\infty}^{\infty}\, \left( \frac{d^n}{dt^n}\right)\, h_n (t)\, g(t)\, dt .
 $$
 
 The Fourier transform of $\delta' (t)$ is seen to be, from the definition
@@ -167,8 +163,8 @@ $$
 | $f(t)$ | $F(w)$ |
 | --- | --- |
 | $e^{-a\vert t\vert}$ | $\frac{2a}{a^2 + w^2}$, $a > 0$ |
-| $u(t)$ | $1/iw$ |
-| $u(t)t$ | $1/(iw)^2$ |
+| $u(t)$ | $\frac{1}{iw} + \pi\, \delta(w)$ |
+| $u(t)t$ | $\frac{1}{(iw)^2} + i\pi\, \delta'(w)$ |
 | $\delta (t)$ | $1$ |
 | $\delta' (t)$ | $iw$ |
 | $\delta^{(n)}\, (t)$ | $(iw)^n$ |
@@ -183,6 +179,14 @@ $$
 
 Note: $u(t) = \begin{cases} 1 & t \geq 0 \\ 0 & t < 0 \end{cases}\qquad$ (Heaviside step
 function)
+
+The entries for $u(t)$ and $u(t)t$ are the transforms in the sense of generalized functions;
+the $\delta$ terms record that these signals do not decay, and they carry all of the mass at
+$w = 0$. In every use we make of these entries — the operational calculus of
+{doc}`11_linear_sde` and {doc}`12_prediction`, and the nonstationary examples of
+{doc}`16_nonstationary_examples` — the operators $1/(iw)$ and $1/(iw)^2$ act on a noise that has
+no mass at the origin, so the $\delta$ terms may be, and are, dropped. Writers who work only
+with such operators often tabulate $u(t) \leftrightarrow 1/iw$ for that reason.
 
 $\delta (t) =$ Dirac delta generalized function, defined by
 $\int_{-\infty}^{\infty} g(t) \delta(t)\, dt = g(0)$ where $g(t)$ is a "test function" that
@@ -204,7 +208,7 @@ Property:
 | 4. Delay | $f(t-t_0) \leftrightarrow e^{-iwt_o}\, F(w)$ |
 | 5. Modulation | $e^{iw_0t}\, f(t) \leftrightarrow F(w-w_0)$ |
 | 6. Convolution | $f_1(t) \ast f_2(t) \leftrightarrow F_1(w)F_2(w)$; where $f_1(t) \ast f_2(t) \equiv \int_{-\infty}^{\infty} f_1(t-\tau) f_2(\tau)\, d\tau$ |
-| 7. Multiplication | $f_1(t) f_2 (t) \leftrightarrow \frac{1}{2\pi} F_1 (w) \ast F_2 (w)$; where $F_1(w) F_2(w) \equiv \int_{-\infty}^{\infty} F_1(w-s) F_2(s)\, ds$ |
+| 7. Multiplication | $f_1(t) f_2 (t) \leftrightarrow \frac{1}{2\pi} F_1 (w) \ast F_2 (w)$; where $F_1(w) \ast F_2(w) \equiv \int_{-\infty}^{\infty} F_1(w-s) F_2(s)\, ds$ |
 | 8. Time differentiation | $\frac{d^n}{dt^n}\, f(t) \leftrightarrow (iw)^n\ F(w)$ |
 | 9. Time integration | $\int_{-\infty}^{t} f(\tau)\, d\tau \leftrightarrow\ \frac{F(w)}{iw} + \pi\ F(0)\, \delta (w)$ |
 | 10. Frequency differentiation | $-itf(t)\ \leftrightarrow\ \frac{dF(w)}{dw}$ |
@@ -248,8 +252,9 @@ function $R(\tau)$ and spectral density $S(w)$. Then $x(t)$ can be represented a
 x(t) = \int_0^{\infty} p(\tau)w (t-\tau)\, d\tau + x^d(t)
 ```
 
-where $Ex^d (t) \cdot \int_0^{\infty} p(\tau) w(t-\tau - s)\, d\tau = 0$ for all $s$, so that
-$x^d (t)$ is orthogonal at all leads and lags to $\int p(s) w(t-\tau)\, d\tau$. In
+where $Ex^d (t) \cdot \int_0^{\infty} p(\tau) w(t - s - \tau)\, d\tau = 0$ for all $s$, so that
+$x^d (t)$ is orthogonal, at all leads and lags, to the moving average
+$\int_0^{\infty} p(\tau) w(\,\cdot\, - \tau)\, d\tau$. In
 {eq}`eq-8-a`, $w(t)$ is a white noise with autocovariogram
 
 $$
@@ -265,7 +270,7 @@ $$
 Furthermore, $w(t)$ is a *fundamental white noise for $x(t)$*, which means that minimum
 mean squared error $s$-step ahead errors in forecasting $x(t+s)$ as a square integrable
 linear functional of $[x(v), v \leq t]$ can be expressed as an integral of $w(\tau)$ for
-$t \leq \tau \leq \tau + s$; in particular,
+$t \leq \tau \leq t + s$; in particular,
 
 $$
 x(t+s) - E\, \left[ x (t+s) \mid x(v),\, v \leq t\right] = \int_0^{s} p(\tau) w(t+s-\tau)\, d\tau.

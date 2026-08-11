@@ -19,8 +19,8 @@ process's spectrum — and the answer, the *folding formula*, is the engine of t
 identification problems that occupy the remainder of the book.
 
 Let $x(t)$ be a continuous time, covariance stationary stochastic process with
-autocovariogram $R(\tau)$. Let $x_j = x(j)$ be a record of $x$ sampled at the discrete
-points in time $j = 0,\ \pm\, T,\ \pm\, 2T, \ldots,$ where $T > 0$ is the sampling
+autocovariogram $R(\tau)$. Let $x_j = x(jT)$ be a record of $x$ sampled at the discrete
+points in time $t = 0,\ \pm\, T,\ \pm\, 2T, \ldots,$ where $T > 0$ is the sampling
 interval. The autocovariogram of the discrete data can be represented as a generalized
 function $R^d(\tau)$ where
 
@@ -68,14 +68,21 @@ Now notice that
 w_0 \sum_{n=-\infty}^{\infty} S(w - nw_0) = S(w) \ast w_0 \sum_{n=-\infty}^{\infty} \delta(w - nw_0).
 ```
 
-The inverse Fourier transform of the right hand side of {eq}`eq-17-3` is
+By the multiplication property (property 7 of Table 2 of
+{doc}`08_spectral_densities`), multiplication in the time domain corresponds to convolution in
+the frequency domain divided by $2\pi$, so the Fourier transform of
+$R^d(\tau) = R(\tau)\, S_T(\tau)$ is
 
 $$
-\frac{1}{2\pi}\ \sum_{n=-\infty}^{\infty} R(\tau)\, \delta(\tau - nT) = \frac{1}{2\pi}\ R^d(\tau).
+\frac{1}{2\pi}\, S(w) \ast w_0 \sum_{n=-\infty}^{\infty} \delta(w - n w_0)
+= \frac{w_0}{2\pi} \sum_{n=-\infty}^{\infty} S(w - n w_0)
+= \frac{1}{T} \sum_{n=-\infty}^{\infty} S(w - n w_0),
 $$
 
-It follows from {eq}`eq-17-1` and {eq}`eq-17-3` that the spectral density of the discrete process $x_j$
-satisfies
+since $w_0/2\pi = 1/T$, the second equality being {eq}`eq-17-3` read from right to left.
+
+Because {eq}`eq-17-1` identifies this transform as $S^d(w)$, the spectral density of the
+discrete process $x_j$ satisfies
 
 $$
 S^d(w) = \frac{1}{T} \sum_{n=-\infty}^{\infty} S\!\left(w - n\, \frac{2\pi}{T}\right)

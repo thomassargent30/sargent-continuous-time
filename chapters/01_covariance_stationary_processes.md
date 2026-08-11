@@ -56,6 +56,17 @@ process possesses finite first and second moments. The function $\mu(t)$ is call
 $C(t_1,t_2)$ is called the *autocovariance function*. Often we shall be studying a
 stochastic process for which $\mu(t) = 0$, in which case $C(t_1,t_2) = R(t_1,t_2)$.
 
+```{note}
+**A warning about the word "autocorrelation."** Following an older usage common in the
+engineering literature on which these notes draw, $R$ is here the *second moment* function
+$E\,x(t_1)x(t_2)$ — it is not normalized to lie in $[-1,1]$, and it is not centred unless
+$\mu = 0$. Much of modern statistics reserves "autocorrelation" for the normalized quantity
+$C(\tau)/C(0)$. Since we shall work almost exclusively with zero-mean processes, where $R$ and
+$C$ coincide, no harm follows; but the reader coming from a statistics text should read $R$ as
+the autocovariance. {doc}`08_spectral_densities` calls the same object the *covariogram*, and
+it is $R$ — not any normalized version of it — whose Fourier transform is the spectral density.
+```
+
 In the following definition, we introduce the notion of stationarity.
 
 **Definition 1.** A stochastic process is said to be *covariance stationary* (or
