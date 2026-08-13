@@ -13,6 +13,15 @@ kernelspec:
 
 # 7. Stochastic Differential Equations Driven by a Wiener Process
 
+```{eval-rst}
+.. index::
+   single: Ito's rule
+   single: stochastic differential equation; Wiener driven
+   single: Ornstein-Uhlenbeck process
+   single: Stratonovich integral
+   single: Euler-Maruyama scheme
+```
+
 We wish to consider a class of stochastic differential equations driven by a Wiener process,
 
 $$

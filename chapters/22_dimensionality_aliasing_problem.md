@@ -13,6 +13,14 @@ kernelspec:
 
 # 22. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities
 
+```{eval-rst}
+.. index::
+   single: aliasing; dimensionality of
+   single: observational equivalence
+   single: identification; finite versus countable
+   single: Markov process; first order vector
+```
+
 ```{note}
 This chapter reports and paraphrases Lars Peter Hansen and Thomas J. Sargent, "The
 Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities,"
@@ -856,7 +864,7 @@ Singer, B., and S. Spilerman (1976). The Representation of Social Processes by M
     from a single realization, converge to them — which requires the sampled process to be
     *covariance ergodic*, a restriction on fourth moments rather than second. It holds
     comfortably for the Gaussian first order Markov processes of this section. See
-    {doc}`/Claude_background_papers/ergodicity`, and note the caveat of
+    {doc}`/appendices/ergodicity`, and note the caveat of
     {doc}`17_discrete_sampling_folding`: sampling can, in a degenerate case, destroy the
     property outright.
 

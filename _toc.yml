@@ -32,4 +32,4 @@ parts:
       - file: chapters/23_temporal_aggregation_streamlined
   - caption: "Appendices"
     chapters:
-      - file: Claude_background_papers/ergodicity
+      - file: appendices/ergodicity

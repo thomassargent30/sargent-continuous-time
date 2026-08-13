@@ -13,6 +13,16 @@ kernelspec:
 
 # 21. Inferring a Continuous-Time System from Discrete-Time Data: An Appreciation of A. W. Phillips (1959)
 
+```{eval-rst}
+.. index::
+   single: Phillips, A. W.
+   single: aliasing problem
+   single: identification
+   single: transfer function
+   single: estimation; of continuous time systems
+   pair: ergodicity; estimation
+```
+
 ```{note}
 This chapter presents the analysis of A. W. Phillips's remarkable 1959 *Biometrika* paper,
 "The Estimation of Parameters in Systems of Stochastic Differential Equations." Rather than
@@ -334,7 +344,7 @@ population $\phi_\tau$. That is the property called *covariance ergodicity*, and
 implied by covariance stationarity: it is a restriction on fourth moments, not second. For the
 processes Phillips works with it does hold — a Gaussian process with a rational spectral density
 has an exponentially decaying autocovariance, which is more than enough — but the hypothesis is
-doing real work and is worth naming. {doc}`/Claude_background_papers/ergodicity` gives the
+doing real work and is worth naming. {doc}`/appendices/ergodicity` gives the
 conditions, and notes the one circumstance, exhibited in
 {doc}`17_discrete_sampling_folding`, in which sampling itself destroys the property. It is the same identification of continuous-time content with a
 discrete-time representation that organizes the companion chapters on time aggregation

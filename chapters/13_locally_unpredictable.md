@@ -13,6 +13,13 @@ kernelspec:
 
 # 13. Locally Unpredictable Stochastic Processes
 
+```{eval-rst}
+.. index::
+   single: locally unpredictable process
+   single: martingale; locally
+   pair: smoothness; predictability
+```
+
 Lack of mean square differentiability implies that a process is "locally
 unpredictable" or is "locally like a martingale." Sims used the concept of
 local unpredictability in his work on asset prices, interest rates, and

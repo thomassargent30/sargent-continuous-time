@@ -13,6 +13,13 @@ kernelspec:
 
 # 9. Characterizations of Mean Square Differentiability and Mean Square Continuity
 
+```{eval-rst}
+.. index::
+   single: initial value theorem
+   single: Wold moving average kernel
+   single: mean square differentiability; kernel criterion for
+```
+
 {doc}`02_mean_square_continuity_differentiability` characterized mean square continuity and
 differentiability through the behavior of the autocovariance $R(\tau)$ near $\tau = 0$.
 

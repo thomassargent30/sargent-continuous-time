@@ -13,6 +13,14 @@ kernelspec:
 
 # 6. The Wiener Process
 
+```{eval-rst}
+.. index::
+   single: Wiener process
+   single: Brownian motion
+   single: independent increments
+   single: quadratic variation
+```
+
 We shall now describe a class of stochastic processes that can be described by stochastic differential equations driven by a "Wiener Process." We shall approach the Wiener process by regarding it as the limit as $\lambda \to \infty$ of a process $x(t)$ that solves
 
 $$

@@ -1,5 +1,11 @@
 # 4. The Concept of "Physical Realizability"
 
+```{eval-rst}
+.. index::
+   single: physical realizability
+   single: generalized stochastic process; versus ordinary
+```
+
 We have asserted that the white noise "$dN(t)/dt$" does not exist as an ordinary
 stochastic process, it being so erratic that its variance is infinite. We have shown how
 this process can be regarded as a limiting point of a sequence of ordinary stochastic

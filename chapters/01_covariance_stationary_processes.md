@@ -1,5 +1,21 @@
 # 1. Covariance Stationary Stochastic Processes
 
+```{eval-rst}
+.. index::
+   single: stochastic process
+   single: probability space
+   single: realization (sample path)
+   single: sample path
+   single: covariance stationarity
+   single: stationarity; strict
+   single: stationarity; covariance (wide sense)
+   single: autocovariance function
+   single: autocorrelation function
+   single: positive semidefinite function
+   single: ergodicity
+   single: ergodicity; and the theory of estimation
+```
+
 A stochastic process is a collection of random variables indexed by a variable $t$
 belonging to a set $T$. For a continuous time stochastic process $t \in \mathbb{R}$, or
 some interval in $\mathbb{R}$, where $\mathbb{R}$ is the set of real numbers. It is
@@ -35,6 +51,13 @@ practical theory of estimation. For now, it is important to realize that average
 within a single realization are logically distinct from averages over realizations at a point
 in time.
 
+```{eval-rst}
+.. index::
+   single: ergodicity; two conditions
+   single: mean square ergodicity
+   single: covariance ergodicity
+```
+
 ```{note}
 **Two ergodicity conditions, and where they are settled.** The distinction just drawn matters
 because every estimator in the second part of this book — the sampled autocovariances of
@@ -55,7 +78,7 @@ restriction on **fourth** moments, and nothing in Chapters 1–17 settles it: tw
 identical $C(\tau)$ can differ in whether it holds. It requires either an assumption of
 Gaussianity or an explicit condition on fourth cumulants.
 
-{doc}`/Claude_background_papers/ergodicity` develops both, together with what they do and do
+{doc}`/appendices/ergodicity` develops both, together with what they do and do
 not buy for the estimation of spectra and cross-spectra.
 ```
 

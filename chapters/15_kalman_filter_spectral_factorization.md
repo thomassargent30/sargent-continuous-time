@@ -13,6 +13,18 @@ kernelspec:
 
 # 15. State-Space Models, the Kalman Filter, and Spectral Factorization
 
+```{eval-rst}
+.. index::
+   single: Kalman-Bucy filter
+   single: Riccati equation
+   single: innovations representation
+   single: linear regulator
+   single: Hamilton-Jacobi-Bellman equation
+   single: duality; filtering and control
+   single: state-space model
+   single: innovation process
+```
+
 Chapters 8 and 12 obtained two of the central objects of the theory — the Wold
 representation and the spectral factorization theorem — by working in the *frequency
 domain*, with Laplace and Fourier transforms of the moving-average kernel $p(\tau)$. For the

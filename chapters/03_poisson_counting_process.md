@@ -13,6 +13,17 @@ kernelspec:
 
 # 3. The Poisson Counting Process
 
+```{eval-rst}
+.. index::
+   single: Poisson counting process
+   single: arrival times
+   single: white noise
+   single: Dirac delta generalized function
+   single: generalized stochastic process
+   single: shot noise
+   single: interarrival times
+```
+
 A *Poisson counting process* $N(t)$ is a continuous time stochastic process that assumes
 values on the nonnegative integers, and which can be defined in the following ways. Let
 $p_n(t) = \text{Prob}\, \{N(t) = n\},\ t \geq 0,\ n = 0,\ 1,\ 2,\ \ldots$. We define

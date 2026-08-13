@@ -13,6 +13,14 @@ kernelspec:
 
 # 10. The Cramér Representation
 
+```{eval-rst}
+.. index::
+   single: Cramer representation
+   single: random spectral measure
+   single: orthogonal increments
+   single: band-pass filter
+```
+
 The spectral density accomplishes an orthogonal decomposition by frequency of the variance of a covariance stationary stochastic process. The Cramér representation exhibits this decomposition in a general way.
 
 Let $x(t)$ be a covariance stationary, zero mean stochastic process with autocorrelation function $R(\tau)$. Let the spectral density of $x$ be denoted $S(w)$, where
@@ -248,6 +256,19 @@ the statement that has ordinary meaning is the one about *increments*, namely th
 variance contributed by the frequency band $[c,\, d]$ is $\frac{1}{\pi}\int_c^d S(\lambda)\,
 d\lambda$ — which is exactly what the band-pass construction above computed.
 
+```{eval-rst}
+.. index::
+   single: mean square ergodicity
+   single: ergodicity; mean square
+   single: ergodicity; criterion for
+   single: ergodicity; spectral criterion
+   single: long-run variance
+   single: spectral distribution; atom at zero frequency
+   single: random constant
+   pair: ergodicity; sample mean
+   see: ergodic; ergodicity
+```
+
 ## The time average as a filter: mean square ergodicity
 
 The machinery just assembled settles a question raised in
@@ -330,7 +351,7 @@ Second, and less comfortably: this settles the sample *mean* only. Whether the s
 {doc}`21_phillips_continuous_time_estimation` and
 {doc}`22_dimensionality_aliasing_problem` actually relies on — is a question about *fourth*
 moments, which the second-moment theory of this book does not settle.
-{doc}`/Claude_background_papers/ergodicity` takes that up.
+{doc}`/appendices/ergodicity` takes that up.
 
 ## The band decomposition and sampling
 

@@ -13,6 +13,14 @@ kernelspec:
 
 # 17. Discrete Sampling: The Folding Formula
 
+```{eval-rst}
+.. index::
+   single: folding formula
+   single: aliasing
+   single: Nyquist frequency
+   single: discrete sampling
+```
+
 We now confront the gap between the continuous time theory developed so far and the discretely
 sampled data we actually observe. The first question is what point-in-time sampling does to a
 process's spectrum — and the answer, the *folding formula*, is the engine of the aliasing and
@@ -108,6 +116,14 @@ is the same phenomenon as the multivalued $\lambda = \log\mu$ in Phillips's esti
 {doc}`22_dimensionality_aliasing_problem` counts how many continuous time models survive the
 folding; and {doc}`23_temporal_aggregation_streamlined` takes up the related distortions caused
 by time-averaging rather than point sampling.
+
+```{eval-rst}
+.. index::
+   single: ergodicity; destroyed by sampling
+   pair: ergodicity; aliasing
+   pair: aliasing; seasonal component
+   single: random constant
+```
 
 ## Sampling can destroy ergodicity
 

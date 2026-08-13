@@ -1,5 +1,14 @@
 # 18. Time Aggregation
 
+```{eval-rst}
+.. index::
+   single: time aggregation
+   single: vector autoregression
+   single: Granger causality
+   single: contamination (Geweke)
+   single: innovation; discrete time
+```
+
 *by Lars Peter Hansen and Thomas J. Sargent*
 
 ```{note}

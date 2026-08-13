@@ -13,6 +13,22 @@ kernelspec:
 
 # 8. Spectral Densities
 
+```{eval-rst}
+.. index::
+   single: spectral density
+   single: power spectrum
+   single: covariogram
+   single: Wold decomposition
+   single: spectral factorization theorem
+   single: fundamental white noise
+   single: non-fundamentalness
+   single: linearly deterministic process
+   single: linearly indeterministic process
+   single: periodogram
+   single: spectral smoothing
+   single: Fourier transform; tables of
+```
+
 ## (a) General Results
 
 Let $x(t)$ be a covariance stationary stochastic process with covariogram
@@ -656,7 +672,7 @@ neighbouring periodogram ordinates asymptotically are.
 
 That last clause is where the hidden assumption sits. Asymptotic independence across
 frequencies is a statement about *fourth* moments, not second, so nothing in this chapter
-establishes it; see {doc}`/Claude_background_papers/ergodicity`. The same appendix explains why
+establishes it; see {doc}`/appendices/ergodicity`. The same appendix explains why
 consistency of the $\hat R(\tau)$ feeding the periodogram is itself a fourth-moment question.
 
 ```{solution-end}

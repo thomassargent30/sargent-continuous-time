@@ -13,6 +13,14 @@ kernelspec:
 
 # 11. Linear Stochastic Differential Equations
 
+```{eval-rst}
+.. index::
+   single: linear stochastic differential equation
+   single: rational spectral density
+   single: partial fraction expansion
+   single: analytic function
+```
+
 We now consider a class of higher order stochastic differential equations that are formed
 by driving a linear, constant coefficient $n^{th}$ order differential equation with a white
 noise. Letting $D^j$ be the $j^{th}$ mean square derivative operator, we consider the

@@ -1,5 +1,29 @@
 # A1. Ergodicity and the Consistent Estimation of Second Moments
 
+```{eval-rst}
+.. index::
+   single: ergodicity
+   single: ergodicity; mean square
+   single: ergodicity; covariance
+   single: ergodicity; sufficient conditions for
+   single: ergodicity; and fourth moments
+   single: mean square ergodicity
+   single: covariance ergodicity
+   single: Slutsky's condition
+   single: Bartlett triangle
+   single: Isserlis's theorem
+   single: fourth cumulant
+   single: consistency; of autocovariance estimators
+   single: consistency; of spectral density estimators
+   single: periodogram; inconsistency of
+   single: spectral smoothing; and consistency
+   single: cross-spectral density
+   single: coherence
+   single: long-run variance
+   pair: ergodicity; estimation
+   pair: ergodicity; aliasing
+```
+
 ```{note}
 This appendix redeems a promise made in {doc}`/chapters/01_covariance_stationary_processes` and
 left unkept by the rest of the book. It is background rather than a chapter: nothing in
@@ -58,6 +82,12 @@ which every covariance stationary process possesses by Bochner's theorem. $S$ ex
 when $F$ is absolutely continuous, and then $dF = S\,d\omega$.
 
 ## A1.2 Mean square ergodicity
+
+```{eval-rst}
+.. index::
+   single: mean square ergodicity; definition
+   single: ergodicity; mean square, definition
+```
 
 **Definition A1 (mean square ergodicity).** Let $x(t)$ be covariance stationary with mean $\mu$,
 and write the time average over a record of length $2T$ as
@@ -164,6 +194,13 @@ harm: it averages out over a long record. Only the frequency-zero atom survives 
 frequency zero*, which is where this becomes an aliasing question.
 
 ## A1.3 Covariance ergodicity
+
+```{eval-rst}
+.. index::
+   single: covariance ergodicity; definition
+   single: ergodicity; covariance, definition
+   single: product process
+```
 
 **Definition A2 (covariance ergodicity).** With $x$ covariance stationary and
 

@@ -13,6 +13,16 @@ kernelspec:
 
 # 5. Stochastic Processes Driven by a Poisson Counting Process
 
+```{eval-rst}
+.. index::
+   single: stochastic differential equation; Poisson driven
+   single: Ito sense, solution in the
+   single: random telegraph wave
+   single: generalized Poisson process
+   single: random walk
+   single: continuity convention (left versus right)
+```
+
 We now study a class of differential equations that are driven by the generalized derivative $dN/dt$ of a Poisson counting process — the white noise built in {doc}`03_poisson_counting_process`. The equation that we study can be represented formally in the alternative ways.
 
 ```{math}

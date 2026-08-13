@@ -1,5 +1,13 @@
 # 19. Prediction Formulas for Continuous Time Linear Rational Expectations Models
 
+```{eval-rst}
+.. index::
+   single: prediction formulas, continuous time
+   single: Laplace transform
+   single: analytic decomposition
+   single: annihilation operator; general form
+```
+
 *by Lars Peter Hansen and Thomas J. Sargent*
 
 In this note we derive optimal prediction formulas to be used in solving continuous time

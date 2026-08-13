@@ -13,6 +13,15 @@ kernelspec:
 
 # 12. Linear Least Squares Prediction
 
+```{eval-rst}
+.. index::
+   single: Wiener-Kolmogorov prediction formula
+   single: annihilation operator
+   single: geometric distributed lead
+   single: present value
+   single: prediction; as projection
+```
+
 ## (a) The Wiener–Kolmogorov Formula
 
 The Wold moving average representation is useful for representing the linear

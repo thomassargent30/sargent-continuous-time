@@ -13,6 +13,16 @@ kernelspec:
 
 # 16. Faster Methods for Solving Recursive Linear Models of Dynamic Economies
 
+```{eval-rst}
+.. index::
+   single: matrix sign algorithm
+   single: Hamiltonian matrix
+   single: certainty equivalence
+   single: feedback and feedforward
+   single: Arrow-Debreu prices
+   single: social planning problem
+```
+
 *An application and extension of the continuous-time linear regulator of {doc}`15_kalman_filter_spectral_factorization`.*
 
 ```{note}

@@ -1,5 +1,15 @@
 # 2. Mean Square Continuity and Differentiability of a Stochastic Process
 
+```{eval-rst}
+.. index::
+   single: mean square continuity
+   single: mean square differentiability
+   single: mean square derivative
+   single: Cauchy criterion
+   single: analytic autocovariance function
+   pair: smoothness; predictability
+```
+
 Having characterized a process through its autocovariance function $R(\tau)$ in
 {doc}`01_covariance_stationary_processes`, we now ask how the smoothness of $R$ at the origin
 translates into the regularity — continuity and differentiability — of $x(t)$ itself. We

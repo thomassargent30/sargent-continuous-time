@@ -1,5 +1,13 @@
 # 14. Examples of Nonstationary Processes
 
+```{eval-rst}
+.. index::
+   single: nonstationary process
+   single: adaptive expectations
+   single: Cagan model
+   single: Muth, J. F.
+```
+
 We briefly consider an example of a nonstationary process, for which many of the results above can still be used. We consider a process $x(t)$ that is described by
 
 $$

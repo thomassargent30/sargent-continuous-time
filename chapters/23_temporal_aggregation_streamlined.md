@@ -13,6 +13,15 @@ kernelspec:
 
 # 23. Temporal Aggregation of Economic Time Series
 
+```{eval-rst}
+.. index::
+   single: temporal aggregation
+   single: unit averaging
+   single: Marcet, A.
+   single: moving average representation; sampled
+   pair: span; sampling rate
+```
+
 ```{note}
 This chapter is a report on, and a paraphrase of, Albert Marcet's study of temporal
 aggregation — his chapter "Temporal Aggregation of Economic Time Series" in *Rational
@@ -563,7 +572,7 @@ intra-window resolution removes it, because the information in a record is bound
 the record is, not by how densely it is read.
 
 Fine sampling recovers the continuous time structure; only a long span estimates it. See
-{doc}`/Claude_background_papers/ergodicity`.
+{doc}`/appendices/ergodicity`.
 ```
 
 ## 7. What Marcet's analysis teaches

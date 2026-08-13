@@ -13,6 +13,14 @@ kernelspec:
 
 # 20. Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in Continuous Time
 
+```{eval-rst}
+.. index::
+   single: inverse optimal predictor problem
+   single: adaptive expectations; optimality of
+   single: Cagan model; aggregation over time
+   single: Granger causality; induced by aggregation
+```
+
 ```{note}
 This chapter reports and paraphrases the analysis of Lars Peter Hansen and Thomas J. Sargent,
 "Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in
