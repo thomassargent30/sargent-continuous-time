@@ -548,6 +548,24 @@ interval" can mislead however finely one samples. In the language of Chapter 13:
 is smooth at the origin the process is *not* locally unpredictable, the one-step innovation is not
 dominated by a fresh continuous-time surprise, and no amount of fine sampling makes it so.
 
+```{warning}
+**These are statements about populations, not about estimates.** Propositions 6 and 7 say that
+the discrete *model* approaches the continuous one as $\delta \downarrow 0$: the forecasts
+converge, and under the normalization {eq}`eq-ta-norm` so do the impulse responses. They say
+nothing about how well anything can be *estimated*, and it is worth being explicit that finer
+sampling does not help on that score at all.
+
+Consistency requires a growing *span*, not a shrinking interval. Sampling a fixed window
+$[-T, T]$ ever more finely drives the sample mean to $\bar x_T$, the continuous time average
+over that fixed window — a random variable with variance $S(0)/2T > 0$, by
+{eq}`eq-10-longrun` of {doc}`10_cramer_representation` — and not to $\mu$. No amount of
+intra-window resolution removes it, because the information in a record is bounded by how long
+the record is, not by how densely it is read.
+
+Fine sampling recovers the continuous time structure; only a long span estimates it. See
+{doc}`/Claude_background_papers/ergodicity`.
+```
+
 ## 7. What Marcet's analysis teaches
 
 Marcet's organizing formula is Proposition 3: the sampled MAR coefficients

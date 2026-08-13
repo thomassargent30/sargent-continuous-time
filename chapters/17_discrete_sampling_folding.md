@@ -109,6 +109,45 @@ is the same phenomenon as the multivalued $\lambda = \log\mu$ in Phillips's esti
 folding; and {doc}`23_temporal_aggregation_streamlined` takes up the related distortions caused
 by time-averaging rather than point sampling.
 
+## Sampling can destroy ergodicity
+
+One consequence of {eq}`eq-17-fold` deserves to be singled out, because it concerns not what can
+be *identified* from sampled data but whether those data support estimation at all.
+
+{doc}`10_cramer_representation` showed that a covariance stationary process is mean square
+ergodic — that its time average converges to its ensemble mean — if and only if its spectral
+density carries no $\delta$-function at frequency *zero*. But sampling maps every continuous
+frequency $w_1$ to the discrete frequency $w_1$ modulo $w_0 = 2\pi/T$. In particular,
+
+> an atom at any continuous frequency $w_1 = 2\pi k/T$ folds onto discrete frequency zero.
+
+A process can therefore be perfectly ergodic in continuous time and fail to be so once sampled.
+Take
+
+$$
+x(t) = A\cos(w_0 t) + B\sin(w_0 t), \qquad w_0 = \frac{2\pi}{T},
+$$
+
+with $A, B$ uncorrelated, mean zero, variance $\sigma^2$, so that
+$R(\tau) = \sigma^2 \cos(w_0\tau)$. Its spectral density has $\delta$-functions at $\pm w_0$ and
+none at the origin, so the continuous time average tends to zero: the process oscillates, and
+averaging over a long record averages it away. But sample at $t = jT$, where
+$\cos(w_0 jT) = \cos 2\pi j = 1$ and $\sin(w_0 j T) = 0$, and
+
+$$
+x_j = A \qquad \text{for every } j :
+$$
+
+a random constant — precisely the non-ergodic process of {doc}`10_cramer_representation`. An
+observer of the sampled data sees a series that never moves and can never learn $\mu$, though
+the underlying process is in vigorous motion.
+
+A deterministic seasonal at exactly the sampling frequency is thus harmless in continuous time
+and fatal in discrete time. This is the ergodic face of aliasing, complementary to the
+identification questions of {doc}`21_phillips_continuous_time_estimation` and
+{doc}`22_dimensionality_aliasing_problem`: those ask which continuous time *models* survive
+sampling, this asks whether the sampled record can estimate anything at all.
+
 ## Exercises
 
 The folding formula says that sampling a continuous time process at interval $T$ produces a
@@ -199,6 +238,69 @@ substantial part of the continuous spectrum lives above the Nyquist frequency; i
 aliased back into the band and the folded spectrum sits visibly *above* the continuous one.
 Part (b) confirms that the folding formula and the DFT of the sampled autocovariance agree
 to numerical precision — two routes to the same discrete spectral density.
+
+```{solution-end}
+```
+
+```{exercise-start}
+:label: fold_ex2
+```
+
+**A process that samples to a random constant.** Take
+$x(t) = A\cos(w_0 t) + B\sin(w_0 t)$ with $A, B$ independent standard normals and
+$w_0 = 2\pi/T$ for $T = 1$.
+
+(a) Plot a realization on $[0, 20]$ on a fine grid, and superimpose the values at the sampling
+instants $t = 0, 1, \ldots, 20$. Confirm that the sampled values are all equal to the realized
+$A$, while the continuous path oscillates with standard deviation close to $1/\sqrt{2}$.
+
+(b) Compute the running time average of the continuous path and confirm it tends to zero,
+while the running average of the sampled series is $A$ at every horizon.
+
+(c) Explain in terms of {eq}`eq-17-fold`: where does the spectral mass of $x$ sit, and where
+does sampling put it?
+
+```{exercise-end}
+```
+
+```{solution-start} fold_ex2
+:class: dropdown
+```
+
+```{code-cell} ipython3
+rng = np.random.default_rng(3)
+T = 1.0
+w0 = 2*np.pi/T
+A, B = rng.normal(), rng.normal()
+
+t  = np.arange(0, 20, 0.002)          # fine grid: the continuous path
+j  = np.arange(0, 21)                 # the sampling instants
+xc = A*np.cos(w0*t) + B*np.sin(w0*t)
+xs = A*np.cos(w0*j*T) + B*np.sin(w0*j*T)
+
+print(f"realized A = {A:+.6f},  B = {B:+.6f}")
+print(f"continuous path: mean {xc.mean():+.6f}, s.d. {xc.std():.6f}  (theory s.d. = {np.sqrt((A**2+B**2)/2):.6f})")
+print(f"sampled values : {np.unique(np.round(xs, 12))}   <- a single number, equal to A")
+print(f"running mean of sampled series at j=5, 20: {xs[:5].mean():+.6f}, {xs[:20].mean():+.6f}")
+```
+
+```{code-cell} ipython3
+fig, ax = plt.subplots(figsize=(11, 4))
+ax.plot(t, xc, lw=0.9, color='C0', label='continuous path $x(t)$')
+ax.plot(j, xs, 'o', ms=7, color='C3', label='sampled $x_j$ — every value equals $A$')
+ax.axhline(A, color='C3', ls=':', lw=1)
+ax.axhline(0, color='k', lw=0.5)
+ax.set_xlim(0, 20); ax.set_xlabel('$t$'); ax.set_ylabel('$x$')
+ax.set_title('A process that is mean square ergodic in continuous time, and not after sampling')
+ax.legend(loc='upper right', fontsize=9)
+plt.show()
+```
+
+The picture is the whole argument. The spectral mass of $x$ sits entirely at $\pm w_0$, away
+from the origin, so the continuous time average washes it out. Sampling at interval
+$T = 2\pi/w_0$ folds those two atoms onto discrete frequency zero, and what had been an
+oscillation becomes a constant. The sampled record contains one number, repeated; no length of
+record will reveal the mean.
 
 ```{solution-end}
 ```

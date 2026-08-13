@@ -27,13 +27,37 @@ corresponding to the "mean", we could compute $\int x(t,w)\,dP(w)$, which is the
 across realizations, at a given time $t$; alternatively, we could compute
 $\lim_{T \to \infty} (2T)^{-1} \int^T_{-T} x(t,w)\,dt$, the average across $t$ during a
 single realization $w$. In these pages we spend most of our time characterizing the
-behavior of the stochastic process $x_t = x(t,w)$ across realizations $w$. Later, we
-shall see that under some regularity conditions on the stochastic process $x(t,w)$, the
-behavior of averages across $w$'s is closely reflected in behavior of averages across
-time for a single $w$. These regularity conditions are conditions for "ergodicity," and
-must be imposed to acquire a practical theory of estimation. For now, it is important to
-realize that averages across time within a single realization are logically distinct from
-averages over realizations at a point in time.
+behavior of the stochastic process $x_t = x(t,w)$ across realizations $w$. Under some
+regularity conditions on the stochastic process $x(t,w)$, the behavior of averages across
+$w$'s is closely reflected in behavior of averages across time for a single $w$. These
+regularity conditions are conditions for "ergodicity," and must be imposed to acquire a
+practical theory of estimation. For now, it is important to realize that averages across time
+within a single realization are logically distinct from averages over realizations at a point
+in time.
+
+```{note}
+**Two ergodicity conditions, and where they are settled.** The distinction just drawn matters
+because every estimator in the second part of this book — the sampled autocovariances of
+{doc}`21_phillips_continuous_time_estimation`, the matrix covariogram of
+{doc}`20_aggregation_inverse_optimal_predictor`, the discrete spectral density of
+{doc}`17_discrete_sampling_folding` — is a time average from a single realization, asked to
+converge to an ensemble quantity. Two conditions are needed, and they are of quite different
+depth.
+
+*Mean square ergodicity* asks that the sample mean converge to $\mu$. It turns out to be a
+restriction on second moments only, and one that the processes of this book satisfy
+automatically: {doc}`10_cramer_representation` shows that it holds precisely when the spectral
+distribution puts no mass at frequency zero, which is guaranteed for any purely linearly
+indeterministic process.
+
+*Covariance ergodicity* asks that the sample autocovariances converge to $C(\tau)$. This is a
+restriction on **fourth** moments, and nothing in Chapters 1–17 settles it: two processes with
+identical $C(\tau)$ can differ in whether it holds. It requires either an assumption of
+Gaussianity or an explicit condition on fourth cumulants.
+
+{doc}`/Claude_background_papers/ergodicity` develops both, together with what they do and do
+not buy for the estimation of spectra and cross-spectra.
+```
 
 We define the following three functions which measure population averages across
 realizations:

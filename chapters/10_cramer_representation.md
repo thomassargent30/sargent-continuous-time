@@ -248,6 +248,90 @@ the statement that has ordinary meaning is the one about *increments*, namely th
 variance contributed by the frequency band $[c,\, d]$ is $\frac{1}{\pi}\int_c^d S(\lambda)\,
 d\lambda$ — which is exactly what the band-pass construction above computed.
 
+## The time average as a filter: mean square ergodicity
+
+The machinery just assembled settles a question raised in
+{doc}`01_covariance_stationary_processes` and left open there: when does averaging a *single
+realization* over time reveal the *ensemble* mean? The answer costs nothing extra, because the
+time average is simply one more filter of the kind {eq}`eq-10-2` describes.
+
+Let $x(t)$ be covariance stationary with mean $\mu$, and form the time average over a record of
+length $2T$,
+
+$$
+\bar x_T = \frac{1}{2T}\int^{T}_{-T} x(t)\, dt .
+$$
+
+Call $x(t)$ *mean square ergodic* if $E(\bar x_T - \mu)^2 \to 0$ as $T \to \infty$ — that is, if
+$\bar x_T$ converges in mean square to $\mu$.
+
+Now observe that $\bar x_T$ is the output of a filter applied to $x$, with weighting function
+$b(\tau) = 1/2T$ on $[-T,T]$ and zero elsewhere. Its transfer function is
+
+$$
+B_T(\lambda) = \frac{1}{2T}\int^{T}_{-T} e^{-i\lambda t}\, dt = \frac{\sin \lambda T}{\lambda T},
+$$
+
+so by {eq}`eq-10-1` the centered time average has the Cramér representation
+$\bar x_T - \mu = (2\pi)^{-1/2}\int B_T(\lambda) Z'(\lambda)\, d\lambda$, and by
+{eq}`eq-10-2` its variance is
+
+```{math}
+:label: eq-10-erg
+E(\bar x_T - \mu)^2 = \frac{1}{2\pi}\int^\infty_{-\infty}
+\left(\frac{\sin \lambda T}{\lambda T}\right)^{2} S(\lambda)\, d\lambda .
+```
+
+Equation {eq}`eq-10-erg` answers the question by inspection. The kernel
+$(\sin \lambda T/\lambda T)^2$ never exceeds $1$, equals $1$ at $\lambda = 0$, and tends to $0$
+at every $\lambda \neq 0$ as $T$ grows. So as the record lengthens, the filter annihilates
+every frequency except the origin: **time averaging is a band-pass filter whose band collapses
+onto zero frequency.** What survives in the limit is whatever variance the process carries
+*exactly at* $\lambda = 0$.
+
+For processes with an ordinary spectral density that limit is zero, and $x$ is mean square
+ergodic. But the linearly deterministic component of Wold's theorem
+({doc}`08_spectral_densities`) carries $\delta$-functions,
+$S_d(\lambda) = \sum_j a_j\pi[\delta(\lambda - \lambda_j) + \delta(\lambda + \lambda_j)]$, and
+if one of the $\lambda_j$ is zero then {eq}`eq-10-erg` retains a term that never vanishes. Hence
+
+> **Criterion.** A covariance stationary process is mean square ergodic **if and only if its
+> spectral density carries no $\delta$-function at frequency zero** — equivalently, iff its
+> linearly deterministic component contains no zero-frequency term.
+
+Failure has exactly one form: a *random constant*. If $x(t) \equiv A$ with $EA = 0$ and
+$EA^2 = \sigma^2$, then $R(\tau) = \sigma^2$ for every $\tau$, the spectral density is
+$2\pi\sigma^2\delta(\lambda)$, and $\bar x_T = A$ for every $T$ — the time average never
+approaches the ensemble mean, because there is nothing to average. Every purely linearly
+indeterministic process is therefore mean square ergodic, since its spectral density
+$|\tilde P(i\lambda)|^2$ is an ordinary function with no atoms. The book's standing assumption
+already delivers the property.
+
+Two consequences are worth recording. First, when $\int |R(\tau)|\,d\tau < \infty$, letting
+$T \to \infty$ in the time-domain counterpart of {eq}`eq-10-erg`,
+
+$$
+E(\bar x_T - \mu)^2 = \frac{1}{2T}\int^{2T}_{-2T}\Big(1 - \frac{|\tau|}{2T}\Big) R(\tau)\, d\tau,
+$$
+
+gives
+
+```{math}
+:label: eq-10-longrun
+2T \cdot E(\bar x_T - \mu)^2 \;\longrightarrow\; \int^\infty_{-\infty} R(\tau)\, d\tau = S(0) .
+```
+
+The variance of the sample mean is asymptotically $S(0)/2T$: **the spectral density at the
+origin, divided by the length of the record.** The "long-run variance" of time series
+econometrics is nothing but the spectrum at zero frequency.
+
+Second, and less comfortably: this settles the sample *mean* only. Whether the sample
+*autocovariances* converge to $R(\tau)$ — the property that the estimation in
+{doc}`21_phillips_continuous_time_estimation` and
+{doc}`22_dimensionality_aliasing_problem` actually relies on — is a question about *fourth*
+moments, which the second-moment theory of this book does not settle.
+{doc}`/Claude_background_papers/ergodicity` takes that up.
+
 ## The band decomposition and sampling
 
 The picture built here — a process as a superposition of mutually orthogonal frequency bands,
@@ -339,6 +423,67 @@ spectrum is visibly inflated. Note how slowly the share falls — the Lorentzian
 as $w^{-2}$, so halving the sampling interval does not come close to halving the aliased power. {doc}`22_dimensionality_aliasing_problem` pushes this to its extreme by
 building a process whose variance lies *entirely* above the Nyquist frequency, yet which is
 indistinguishable from this one in sampled data.
+
+```{solution-end}
+```
+
+```{exercise-start}
+:label: cramer_ex2
+```
+
+**Mean square ergodicity, and how it fails.** Continue with the Ornstein–Uhlenbeck process,
+$R(\tau) = \frac{b^2}{2a}e^{-a|\tau|}$, $S(\lambda) = b^2/(a^2+\lambda^2)$, $a=1$, $b=0.7$.
+
+(a) Evaluate $E(\bar x_T-\mu)^2$ from the time-domain formula
+$\frac{1}{2T}\int_{-2T}^{2T}(1-|\tau|/2T)R(\tau)d\tau$ for $T = 5, 20, 100$, and confirm it
+approaches $S(0)/2T$ of {eq}`eq-10-longrun`.
+
+(b) Confirm the same numbers from the frequency-domain formula {eq}`eq-10-erg`, integrating
+$(\sin\lambda T/\lambda T)^2 S(\lambda)$. The two routes are the same computation seen from the
+two sides of the Cramér representation.
+
+(c) Now break ergodicity. Add a random constant: $y(t) = x(t) + A$ with $A$ independent of $x$,
+mean zero, variance $\sigma^2 = 0.5$. Show that $E(\bar y_T - \mu)^2 \to \sigma^2$ rather than
+to zero, however long the record — the $\delta$-function that the spectral density of $y$
+carries at $\lambda = 0$.
+
+```{exercise-end}
+```
+
+```{solution-start} cramer_ex2
+:class: dropdown
+```
+
+```{code-cell} ipython3
+import numpy as np
+from scipy.integrate import quad
+
+a, b = 1.0, 0.7
+R = lambda t: (b**2/(2*a))*np.exp(-a*abs(t))
+S = lambda w: b**2/(a**2 + w**2)
+S0 = b**2/a**2                                   # = S(0) = integral of R
+
+print("  T      time domain      S(0)/2T       frequency domain")
+for T in [5.0, 20.0, 100.0]:
+    td = quad(lambda t: (1-abs(t)/(2*T))*R(t), -2*T, 2*T, limit=400)[0]/(2*T)
+    fd = quad(lambda w: (np.sin(w*T)/(w*T))**2 * S(w), -np.inf, np.inf, limit=800)[0]/(2*np.pi)
+    print(f"{T:6.1f}   {td:.8f}     {S0/(2*T):.8f}    {fd:.8f}")
+```
+
+```{code-cell} ipython3
+# (c) a random constant added: variance of the sample mean no longer vanishes
+sig2 = 0.5
+print("  T      Var(mean of y) = Var(mean of x) + sigma^2")
+for T in [5.0, 20.0, 100.0, 1000.0]:
+    td = quad(lambda t: (1-abs(t)/(2*T))*R(t), -2*T, 2*T, limit=400)[0]/(2*T)
+    print(f"{T:7.1f}   {td + sig2:.8f}   -> floor of sigma^2 = {sig2}")
+```
+
+The time-domain and frequency-domain evaluations agree to eight digits, and both approach
+$S(0)/2T$. Adding the random constant puts an atom at the origin, and the variance of the
+sample mean falls to $\sigma^2$ and stops: no record, however long, locates $\mu$. Note that
+$A$ is invisible in any *centered* second moment — it shifts $R(\tau)$ by $\sigma^2$ at every
+lag, which is exactly what the sample autocovariances of a demeaned record cannot detect.
 
 ```{solution-end}
 ```

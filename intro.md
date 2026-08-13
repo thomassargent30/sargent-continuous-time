@@ -69,6 +69,15 @@ theory of what sampling does to a moving-average kernel.
 22. The Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities (Hansen and Sargent, *Econometrica*, 1983)
 23. Temporal Aggregation of Economic Time Series (Marcet)
 
+### Appendices
+
+Background material that the chapters presuppose but do not develop.
+
+A1. Ergodicity and the Consistent Estimation of Second Moments — the conditions under which
+time averages computed from a single realization converge to the ensemble moments the book
+characterizes, and what those conditions do and do not buy for the estimation of
+autocovariances, spectra and cross-spectra.
+
 ## Notation
 
 Throughout, $E$ denotes the mathematical expectation operator and $\mathbb{R}$ the real

@@ -562,9 +562,102 @@ plt.show()
 
 The numerical integral of $S(w)/2\pi$ reproduces $R(0) = b^2/(2a)$, and the smoothed
 periodogram of the simulated path follows the theoretical spectrum: most of the variance
-sits at low frequencies, with a $1/w^2$ tail. (The raw periodogram is very noisy — its
-variance does not vanish as the sample grows — which is why we band-average; this is the
-practical motivation for *spectral smoothing*.)
+sits at low frequencies, with a $1/w^2$ tail. The raw periodogram is very noisy, which is why
+we band-average — see {ref}`spec_ex2` for why that step is not a cosmetic one.
+
+```{solution-end}
+```
+
+```{exercise-start}
+:label: spec_ex2
+```
+
+**Why the periodogram must be smoothed.** The band-averaging in part (c) above is not a
+refinement of the estimator; without it there is no consistency at all. This exercise makes
+that concrete.
+
+Simulate the discretely sampled Ornstein–Uhlenbeck process ($a=1$, $b=0.7$, unit sampling),
+which is the AR(1) $x_t = e^{-a}x_{t-1} + \eta_t$ with
+$\sigma_\eta^2 = \frac{b^2}{2a}(1-e^{-2a})$, and form the periodogram
+$I_N(w) = N^{-1}|\sum_t (x_t - \bar x)e^{-iwt}|^2$.
+
+(a) Fix an interior frequency and, over many independent replications, tabulate the mean and
+standard deviation of $I_N(w)$ for $N = 128, 512, 2048$. The *mean* sits close to $S(w)$ at
+every $N$ — the periodogram is asymptotically unbiased, and at this replication count the
+residual bias is not easily separated from Monte Carlo error. The point of the table is the
+other column: the *standard deviation* stays put at roughly $S(w)$ itself, however large $N$
+becomes.
+
+(b) Explain the result. $I_N(w)$ is the squared modulus of a *single* Fourier coefficient, and
+that coefficient is asymptotically complex Gaussian with variance $S(w)$ — a fixed number of
+random quantities, however long the record. Hence $I_N(w)/S(w)$ is asymptotically
+$\tfrac12\chi^2_2$, with mean $1$ and variance $1$, forever. Lengthening the record buys more
+*frequencies*, not more precision at any one of them.
+
+(c) Now average over the $m$ frequencies nearest $w$ and watch the standard deviation fall like
+$m^{-1/2}$. Consistency requires letting $m$ grow with $N$ while the bandwidth $m/N$ shrinks —
+the conditions $b_N \to 0$ and $Nb_N \to \infty$ of the spectral-window literature.
+
+```{exercise-end}
+```
+
+```{solution-start} spec_ex2
+:class: dropdown
+```
+
+```{code-cell} ipython3
+rng = np.random.default_rng(0)
+a, b = 1.0, 0.7
+phi = np.exp(-a)
+sig2 = (b**2/(2*a))*(1 - phi**2)
+
+def periodograms(N, reps):
+    """reps independent periodograms of an AR(1) record of length N."""
+    out = np.empty((reps, N//2 + 1))
+    for r in range(reps):
+        e = rng.normal(0, np.sqrt(sig2), N + 500)
+        x = np.zeros(N + 500)
+        for t in range(1, N + 500):
+            x[t] = phi*x[t-1] + e[t]
+        x = x[500:]; x = x - x.mean()
+        out[r] = np.abs(np.fft.rfft(x))**2 / N
+    return out
+
+print("   N     mean I     true S     s.d. I    s.d./S")
+for N in [128, 512, 2048]:
+    I = periodograms(N, 600)
+    k = N//8                                   # a fixed interior frequency
+    w = 2*np.pi*k/N
+    Strue = sig2/np.abs(1 - phi*np.exp(-1j*w))**2
+    print(f"{N:5d}   {I[:,k].mean():8.5f}   {Strue:8.5f}   {I[:,k].std():8.5f}   "
+          f"{I[:,k].std()/Strue:6.3f}")
+```
+
+```{code-cell} ipython3
+# (c) smoothing over m neighbouring ordinates: the s.d. falls like 1/sqrt(m)
+N = 2048
+I = periodograms(N, 600)
+k = N//8
+w = 2*np.pi*k/N
+Strue = sig2/np.abs(1 - phi*np.exp(-1j*w))**2
+print("   m   mean of smoothed I   s.d.    s.d./S   (1/sqrt(m) for comparison)")
+for m in [1, 5, 25, 125]:
+    sm = I[:, k-m//2 : k+m//2+1].mean(axis=1)
+    print(f"{m:4d}   {sm.mean():14.5f}   {sm.std():7.5f}  {sm.std()/Strue:6.3f}"
+          f"      {1/np.sqrt(m):6.3f}")
+```
+
+The first table is the point: the mean tracks $S(w)$ but the standard deviation does not fall,
+staying at roughly $S(w)$ as $N$ increases sixteenfold. The periodogram is asymptotically
+unbiased and permanently noisy. The second table shows smoothing doing the work that
+lengthening the record cannot: averaging $m$ neighbouring ordinates cuts the standard deviation
+by very nearly $m^{-1/2}$, as it would for $m$ independent observations — which is what
+neighbouring periodogram ordinates asymptotically are.
+
+That last clause is where the hidden assumption sits. Asymptotic independence across
+frequencies is a statement about *fourth* moments, not second, so nothing in this chapter
+establishes it; see {doc}`/Claude_background_papers/ergodicity`. The same appendix explains why
+consistency of the $\hat R(\tau)$ feeding the periodogram is itself a fourth-moment question.
 
 ```{solution-end}
 ```

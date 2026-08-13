@@ -30,3 +30,6 @@ parts:
       - file: chapters/21_phillips_continuous_time_estimation
       - file: chapters/22_dimensionality_aliasing_problem
       - file: chapters/23_temporal_aggregation_streamlined
+  - caption: "Appendices"
+    chapters:
+      - file: Claude_background_papers/ergodicity

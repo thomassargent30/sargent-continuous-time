@@ -427,8 +427,8 @@ W_0 = \int_0^1 \exp(A_0 \tau)\, V_0\, \exp(A_0' \tau)\, d\tau.
 
 As noted by Phillips (1973), the covariance properties of $x$ sampled at the integers are
 completely characterized by $(B_0, W_0)$. Given the pair $(B_0, W_0)$, which is estimable from
-discrete time data, the goal is to identify the covariance properties of the continuous time
-process, which are completely characterized by $(A_0, V_0)$. The version of the aliasing
+discrete time data,[^fn22-erg] the goal is to identify the covariance properties of the
+continuous time process, which are completely characterized by $(A_0, V_0)$. The version of the aliasing
 phenomenon considered by Phillips (1973) is simply that, given $(B_0, W_0)$, one cannot in
 general solve uniquely for $(A_0, V_0)$ using equations {eq}`eq-22-13` and {eq}`eq-22-14`. Hansen
 and Sargent seek to characterize the dimensionality of the class of $(A_0, V_0)$ pairs consistent
@@ -851,6 +851,14 @@ Singer, B., and S. Spilerman (1976). The Representation of Social Processes by M
     for $|\omega| < \omega^*$. This process can be chosen to be observationally equivalent to $x$
     from discrete time data. Since $\{\omega^* > \pi\}$ is an uncountable set, the class of
     observationally equivalent $x^*$ processes is uncountably infinite.
+
+[^fn22-erg]: "Estimable" here means that the sample counterparts of $B_0$ and $W_0$, computed
+    from a single realization, converge to them — which requires the sampled process to be
+    *covariance ergodic*, a restriction on fourth moments rather than second. It holds
+    comfortably for the Gaussian first order Markov processes of this section. See
+    {doc}`/Claude_background_papers/ergodicity`, and note the caveat of
+    {doc}`17_discrete_sampling_folding`: sampling can, in a degenerate case, destroy the
+    property outright.
 
 [^fn22-2]: P. C. B. Phillips had pointed out to Hansen and Sargent that if $V_0$ is assumed to be
     singular, then when $W_0$ is positive definite there is extra identifying information about

@@ -326,7 +326,17 @@ discrete-time ARMA shadow, the discrete Wold representation of the sampled data.
 point — strikingly modern — is that because the sampled continuous process and this discrete
 ARMA process have *identical* second-moment properties, the sampling behaviour of estimators of
 the continuous system can be studied through the well-developed theory of estimators for
-discrete ARMA models. It is the same identification of continuous-time content with a
+discrete ARMA models.
+
+Every step of Phillips's procedure runs on *sample* autocovariances $\hat\phi_\tau$ computed
+from a single realization, and the whole argument presupposes that these converge to the
+population $\phi_\tau$. That is the property called *covariance ergodicity*, and it is not
+implied by covariance stationarity: it is a restriction on fourth moments, not second. For the
+processes Phillips works with it does hold — a Gaussian process with a rational spectral density
+has an exponentially decaying autocovariance, which is more than enough — but the hypothesis is
+doing real work and is worth naming. {doc}`/Claude_background_papers/ergodicity` gives the
+conditions, and notes the one circumstance, exhibited in
+{doc}`17_discrete_sampling_folding`, in which sampling itself destroys the property. It is the same identification of continuous-time content with a
 discrete-time representation that organizes the companion chapters on time aggregation
 ({doc}`18_time_aggregation_var`, {doc}`20_aggregation_inverse_optimal_predictor`).
 
