@@ -33,7 +33,7 @@ html:
   home_page_in_navbar: false
 
 repository:
-  url: https://github.com/maxmaxmaxmaxmaxmax373/sargent-continuous-time
+  url: https://github.com/thomassargent30/sargent-continuous-time
   branch: main
 
 sphinx:
