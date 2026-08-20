@@ -16,19 +16,19 @@ kernelspec:
 ```{eval-rst}
 .. index::
    single: stochastic differential equation; Poisson driven
-   single: Ito sense, solution in the
+   single: Ito integral; solution in the Ito sense
    single: random telegraph wave
    single: generalized Poisson process
    single: random walk
    single: continuity convention (left versus right)
 ```
 
-We now study a class of differential equations that are driven by the generalized derivative $dN/dt$ of a Poisson counting process — the white noise built in {doc}`03_poisson_counting_process`. The equation that we study can be represented formally in the alternative ways.
+We now study a class of differential equations that are driven by the generalized derivative $dN/dt$ of a Poisson counting process, the white noise built in {doc}`03_poisson_counting_process`. We can represent the equation that we study formally in three alternative ways.
 
 ```{math}
 :label: eq-5-1
 \begin{aligned}
-(a)\quad \frac{dx}{dt} &= f\bigl(x(t),\, t\bigr) + g\bigl(x(t),\, t)\ \frac{dN(t)}{dt} \\[4pt]
+(a)\quad \frac{dx}{dt} &= f\bigl(x(t),\, t\bigr) + g\bigl(x(t),\, t\bigr)\ \frac{dN(t)}{dt} \\[4pt]
 (b)\quad dx &= f\bigl(x(t),\, t\bigr)dt + g\bigl(x(t),\,t\bigr) dN(t) \\[4pt]
 (c)\quad x(t) &= x(0) + \int_0^t f\bigl(x(s),\, s\bigr) ds + \int_0^t g\bigl(x(s),\, s\bigr) dN(s),
 \end{aligned}
@@ -39,6 +39,12 @@ with $x(0)$ given and $t \geq 0$.
 Here $N(t)$ is a Poisson counting process with rate $\lambda > 0$, and $f(x,\, t)$ and $g(x,\,t)$ are continuous functions. (Add additional regularity conditions.) We now want to define what we mean by a solution to the differential equation {eq}`eq-5-1`.
 
 (def-ito-solution)=
+```{eval-rst}
+.. index::
+   single: stochastic differential equation; Ito sense solution
+   single: Ito integral; left limit convention
+```
+
 **Definition 9.** A stochastic process $x(t)$ is said to be a solution of the stochastic differential equation {eq}`eq-5-1` in the Ito sense if:
 
 (i) on an interval where $N(t)$ is constant, $x(t)$ satisfies the ordinary differential equation $dx/dt = f(x,\,t)$;
@@ -54,18 +60,16 @@ and
 (iii) $x(t)$ is continuous from the left.
 
 ```{note}
-**A word on the continuity convention.** {doc}`03_poisson_counting_process` drew $N(t)$ as
-*right* continuous — at an arrival time it has already jumped — whereas part (iii) makes the
-solution $x(t)$ *left* continuous, so that at an arrival time $t_i$ the value $x(t_i)$ is still
-the pre-jump one. The two conventions are deliberate and they work together. Making $x$ left
-continuous is what makes the integrand in $\int g(x(s),\, s)\, dN(s)$ depend only on the
-history *strictly before* each arrival, hence statistically independent of whether the counter
-jumps at that instant. That independence is precisely property (b) invoked below in deriving
-rule {eq}`eq-5-rule2`, and it is what the term "in the Ito sense" refers to in Definition 9:
-the integrand is evaluated at the left limit. Readers who prefer the now more common càdlàg
-convention may take $x$ right continuous instead, replacing the left limits in (ii) by right
-limits throughout; every moment formula below is unaffected, since the two versions of $x$
-differ only on the countable set of arrival times, a set of Lebesgue measure zero.
+{doc}`03_poisson_counting_process` drew $N(t)$ as right continuous, so at an arrival time it has
+already jumped. Part (iii) makes the solution $x(t)$ left continuous, so at an arrival time
+$t_i$ the value $x(t_i)$ is still the pre-jump one. The two conventions work together. Left
+continuity of $x$ makes the integrand in $\int g(x(s),\, s)\, dN(s)$ depend on the history
+strictly before each arrival, hence independent of whether the counter jumps at that instant.
+That independence is property (b) invoked below in deriving rule {eq}`eq-5-rule2`, and it is
+what "in the Ito sense" refers to in Definition 9: evaluate the integrand at the left limit. The
+now more common càdlàg convention takes $x$ right continuous and replaces the left limits in
+(ii) by right limits. Every moment formula below survives that change, since the two versions of
+$x$ differ only on the countable set of arrival times, a set of Lebesgue measure zero.
 ```
 
 The solution concept is illustrated in {numref}`fig-5-1`.
@@ -75,7 +79,7 @@ The solution concept is illustrated in {numref}`fig-5-1`.
 :width: 90%
 :align: center
 
-Figure 1. The solution concept for a Poisson-driven stochastic differential equation. Between the arrival times $t_i$ the path $x(t)$ satisfies the ordinary differential equation $dx/dt = f(x,\, t)$ (the smooth segments). At each arrival time $t_i$, $x(t)$ jumps by the amount $g\bigl(\lim_{t \downarrow t_i} x(t),\, t_i\bigr)$ (the dashed vertical segments). The solution is continuous from the left: at $t_i$ the value $x(t_i)$ equals the left limit (filled dot), while the post-jump value is the right limit (open dot).
+Figure 1. The solution concept for a Poisson-driven stochastic differential equation. Between the arrival times $t_i$ the path $x(t)$ satisfies the ordinary differential equation $dx/dt = f(x,\, t)$ (the smooth segments). At each arrival time $t_i$, $x(t)$ jumps by the amount $g\bigl(\lim_{t \uparrow t_i} x(t),\, t_i\bigr)$, evaluated at the pre-jump left limit as Definition 9 requires (the dashed vertical segments). The solution is continuous from the left: at $t_i$ the value $x(t_i)$ equals the left limit (filled dot), while the post-jump value is the right limit (open dot).
 ```
 
 As a first example, consider the stochastic differential equation
@@ -174,32 +178,32 @@ $$
 dx(t)/dt = \delta(t) + 2 \sum_{j=1}^{\infty}\, (-1)^j\, \delta(t-t_j).
 $$
 
-We now describe three useful rules for manipulating stochastic differential equations that are driven by Poisson counting processes. In {doc}`07_wiener_driven_sde` the Wiener-driven analogues of these same three rules — Itô's rule among them — are obtained as the $\lambda \to \infty$ limit of the ones developed here. We consider an $n \times 1$ vector stochastic process $x(t)$ that is governed by
+We now describe three useful rules for manipulating stochastic differential equations that are driven by Poisson counting processes. In {doc}`07_wiener_driven_sde` the Wiener-driven analogues of these same three rules, Itô's rule among them, are obtained as the $\lambda \to \infty$ limit of the ones developed here. We consider an $n \times 1$ vector stochastic process $x(t)$ that is governed by
 
 $$
-dx(t) = f\bigl(x(t),\, t)\bigr) dt + \sum_{i=1}^{m}\, g_i\bigl(x(t),\,t\bigr) dN_i(t)
+dx(t) = f\bigl(x(t),\, t\bigr) dt + \sum_{i=1}^{m}\, g_i\bigl(x(t),\,t\bigr) dN_i(t)
 $$
 
-where $f$: $R^n \to R^n,\ g_i$: $R^1 \to R^n$, and $N_1(t),\ \ldots,\ N_m(t)$ are statistically independent Poisson counting processes with rates $\lambda_1,\ \ldots,\ \lambda_m$. We consider a vector function $\Psi(x)$: $R^n \to R^k$.
+where $f$: $R^n \to R^n,\ g_i$: $R^n \to R^n$, and $N_1(t),\ \ldots,\ N_m(t)$ are statistically independent Poisson counting processes with rates $\lambda_1,\ \ldots,\ \lambda_m$. We consider a vector function $\Psi(x)$: $R^n \to R^k$.
 
 Then it follows immediately from {ref}`Definition 9 <def-ito-solution>` that $\Psi(x)$ satisfies the stochastic differential equation
 
 $$
 \begin{aligned}
 d\Psi(x) &= \left\langle \frac{\partial \Psi}{\partial x},\ f(x,\,t)\right\rangle\ dt \\[4pt]
-&+ \sum_{i=1}^{m}\ \bigl(\Psi(x + g_i(x,\, t)\bigr) - \Psi(x)\bigr) dN_i(t).
+&+ \sum_{i=1}^{m}\ \bigl(\Psi\bigl(x + g_i(x,\, t)\bigr) - \Psi(x)\bigr) dN_i(t).
 \end{aligned}
 $$ (eq-5-rule1)
 
-Together with {ref}`Definition 9 <def-ito-solution>`, equation {eq}`eq-5-rule1` states that;
+Together with {ref}`Definition 9 <def-ito-solution>`, equation {eq}`eq-5-rule1` states that:
 
 (i) in intervals in which there are no arrivals, $\Psi(x)$ satisfies the ordinary differential equation $d\Psi(x)/dt = \left\langle \frac{\partial \Psi}{\partial x},\ f(x,\,t)\right\rangle\ dt$; (ii) at arrival times $t_j$ of any of the $N_i(t)$ processes
 
 $$
 \begin{aligned}
 \lim_{t\downarrow t_j}\ \Psi\bigl(x(t)\bigr) &= \lim_{t \uparrow t_j}\ \Psi\bigl(x(t)\bigr) \\
-&+ \Psi\, \bigl[\lim_{t\downarrow t_j}\ \bigl(x(t) + g_i\bigl(x(t),\, t)\bigr)\bigr] - \Psi\, \bigl(\lim_{t \uparrow t_j}\ x(t)\bigr). \\
-&= \Psi\, \bigl[\lim_{t \uparrow t_j}\ \bigl(x(t) + g_i\bigl(x(t),\, t)\bigr)\bigr].
+&+ \Psi\, \bigl[\lim_{t\uparrow t_j}\ \bigl(x(t) + g_i\bigl(x(t),\, t\bigr)\bigr)\bigr] - \Psi\, \bigl(\lim_{t \uparrow t_j}\ x(t)\bigr). \\
+&= \Psi\, \bigl[\lim_{t \uparrow t_j}\ \bigl(x(t) + g_i\bigl(x(t),\, t\bigr)\bigr)\bigr].
 \end{aligned}
 $$
 
@@ -270,14 +274,14 @@ We express the second integral using
 
 $$
 \begin{aligned}
-\int_t^{t + \Delta} &\ g_i\, \bigl(x(s),\, s\bigr) dN_i(s) = E\, \int_t^{t + \Delta}\ g_i\, \bigl(x(s),\, s\bigr)\ (dN_i - \lambda_i\, ds) \\
+E\, \int_t^{t + \Delta} &\ g_i\, \bigl(x(s),\, s\bigr) dN_i(s) = E\, \int_t^{t + \Delta}\ g_i\, \bigl(x(s),\, s\bigr)\ (dN_i - \lambda_i\, ds) \\
 &+ E\, \int_t^{t + \Delta}\ \lambda_i\, g_i\, \bigl(x(s),\, s\bigr)ds.
 \end{aligned}
 $$ (eq-5-decomp)
 
 We now use the following two properties of the Poisson counter: (a) $E(N_i(t) - \lambda_i t) = 0$, (b) the probability that $N_i(t)$ jumps in $[t,\, t + \Delta]$ is independent of $x(t)$.
 
-These imply that $E \int_t^{t + \Delta}\, g_i\, (x(s),\, s)\ (dN_i - \lambda ds) = 0$.
+These imply that $E \int_t^{t + \Delta}\, g_i\, (x(s),\, s)\ (dN_i - \lambda_i\, ds) = 0$.
 
 Using this result in {eq}`eq-5-Eincr` and {eq}`eq-5-decomp`, dividing by $\Delta$, and taking the limit as $\Delta \to 0$ gives
 
@@ -518,13 +522,13 @@ $$
 \frac{dy(t)}{dt}\ = \sum_{i=1}^{\infty}\ a(\tau_i)\, \delta(t - \tau_i)
 $$ (eq-5-dydt)
 
-where $\{t_i\}$ is the $i^{th}$ arrival time of a Poisson counter with rate $\lambda$. An alternative representation in terms of an Ito stochastic differential equation is
+where $\tau_i$ is the $i^{th}$ arrival time of a Poisson counter with rate $\lambda$. An alternative representation in terms of an Ito stochastic differential equation is
 
 $$
 dy(t) = a(t)dN(t)
 $$
 
-where $N(t)$ is a Poisson counting process with rate $\lambda$ and where the normal random variate $a(t)$ plays the role of $g(x(t),\, t)$ in formula {eq}`eq-5-1`. Applying rule {eq}`eq-5-rule1` to derive a differential equation for $y(t)^2$, we obtain
+where $N(t)$ is a Poisson counting process with rate $\lambda$ and where the normal random variate $a(t)$ enters as $g(x(t),\, t)$ in formula {eq}`eq-5-1`. Applying rule {eq}`eq-5-rule1` to derive a differential equation for $y(t)^2$, we obtain
 
 $$
 dy(t)^2 = \bigl[a(t)^2 + 2a(t) y(t)\bigr]\, dN(t).
@@ -563,7 +567,7 @@ $$
 Thus, the generalized Poisson process is a random walk. At the random arrival times $\tau_i$, the process $y(t)$ takes a jump of random size $a(\tau_i)$. Since the normal distribution that governs $a(\tau_i)$ is symmetric about zero, the process is as likely to jump upward as it is to jump downward. This is why the process has no "drift," i.e., it has zero mean for all $t$. The process is mean square continuous, but not mean square differentiable. The derivative $dy(t)/dt$ given by {eq}`eq-5-dydt` exists in the sense of a generalized stochastic process. This derivative is an example of a *white noise*, its autocorrelation function being a delta function $\sigma_a^2 \lambda \delta(\tau)$. In our work below, such a white noise is a valid input into a linear system. For example, if we define
 
 $$
-wt = \frac{dy(t)}{dt} = \sum_{i=1}^{\infty}\ a(\tau_i)\, \delta(t - \tau_i)
+w(t) = \frac{dy(t)}{dt} = \sum_{i=1}^{\infty}\ a(\tau_i)\, \delta(t - \tau_i)
 $$ (eq-5-wt)
 
 we might be interested in the process,
@@ -579,6 +583,15 @@ z(t) = \sum_{i=1}^{\infty}\ a(\tau_i)\, h(t - \tau_i).
 $$
 
 Later, the process $z(t)$ will be shown to be a covariance stationary one for which the first and second moments are readily computed.
+
+```{eval-rst}
+.. index::
+   single: random telegraph wave; construction of
+   single: random walk; Poisson driven
+   single: generalized Poisson process; definition
+   single: compensated Poisson process
+   single: Ito's rule; Poisson case
+```
 
 ## Exercises
 

@@ -4,7 +4,6 @@ root: intro
 parts:
   - caption: "Part I. Continuous Time Stochastic Processes"
     chapters:
-      - file: chapters/00_introduction
       - file: chapters/01_covariance_stationary_processes
       - file: chapters/02_mean_square_continuity_differentiability
       - file: chapters/03_poisson_counting_process
@@ -33,3 +32,4 @@ parts:
   - caption: "Appendices"
     chapters:
       - file: appendices/ergodicity
+      - file: subject_index

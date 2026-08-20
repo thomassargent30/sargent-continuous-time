@@ -15,14 +15,28 @@ to be interchangeable with the notion of an ordinary stochastic process.
 
 We use the following definition:
 
+```{eval-rst}
+.. index::
+   single: ordinary stochastic process
+   single: physical realizability; definition
+```
+
 **Definition 7.** A stochastic process is said to be *ordinary* or *physically realizable*
-if its "realizations" or "sample paths" can be represented as ordinary function of time.
+if its "realizations" or "sample paths" can be represented as ordinary functions of time.
 
 Loosely speaking, this means that it is in principle possible to "draw" each sample path
 as a function of time. (It may, however, sometimes take a long time to do so, since for
 example, the sample path of the Wiener process is not of bounded variation.)
 
 We also use the following definition:
+
+```{eval-rst}
+.. index::
+   single: generalized stochastic process; definition
+   single: Dirac delta function
+   single: white noise; as a generalized process
+   single: instantaneous variance; infinite
+```
 
 **Definition 8.** A *generalized stochastic process* is a stochastic process whose sample
 paths cannot be represented as ordinary functions, but only as limit points of sequences

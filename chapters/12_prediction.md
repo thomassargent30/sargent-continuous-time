@@ -22,6 +22,14 @@ kernelspec:
    single: prediction; as projection
 ```
 
+```{eval-rst}
+.. index::
+   single: prediction; Wiener-Kolmogorov formula
+   single: projection; linear least squares
+   single: forecast; optimal linear
+   single: prediction error
+```
+
 ## (a) The Wiener–Kolmogorov Formula
 
 The Wold moving average representation is useful for representing the linear
@@ -88,9 +96,9 @@ it by the Heaviside unit step function (i.e., setting values of the time
 function for $t < 0$ equal to zero, while leaving values of the function for $t
 \geq 0$ unaltered). The operator $[\,\cdot\,]_+$ is known as the *annihilation
 operator*. Note that $e^{uD}$ is the operator that shifts a time function
-*ahead* $u$ units, so that — reading property 4 (Delay) of Table 2 in the
-direction of an advance rather than a delay — $e^{su}\, \tilde P(s)$ is the
-Laplace transform of the advanced function $p(t+u)$; annihilating its negative
+*ahead* $u$ units. Reading property 4 (Delay) of Table 2 in the direction of an
+advance rather than a delay, $e^{su}\, \tilde P(s)$ is the Laplace transform of
+the advanced function $p(t+u)$; annihilating its negative
 part then leaves the kernel $p(s+u),\ s \geq 0$, of {eq}`eq-12-wk`. This
 $e^{uD}$ convention is the one used throughout the book, in
 {doc}`19_prediction_formulas_continuous_time` and in
@@ -121,6 +129,13 @@ or
 $$
 E_t\, x(t+u) = e^{-au}\, x(t).
 $$ (eq-12-ar1pred)
+
+```{eval-rst}
+.. index::
+   single: geometric distributed lead; prediction of
+   single: present value; of a forecast
+   single: discounting; in prediction formulas
+```
 
 ## (b) A Formula for Predicting "Geometric Distributed Leads"
 
@@ -247,7 +262,7 @@ and verify this closed form against the quadrature {eq}`eq-12-gker`.
 
 (b) Confirm that $g(0) = \tilde P(-\rho) = 1/[(a_1-\rho)(a_2-\rho)]$, as the initial value
 theorem of {doc}`09_characterizations_ms_differentiability` requires. Note that
-$g(0) \neq 0$ even though $p(0) = 0$ — the fact exploited in {doc}`13_locally_unpredictable`.
+$g(0) \neq 0$ even though $p(0) = 0$. {doc}`13_locally_unpredictable` exploits that fact.
 
 (c) Recover the first-order case by letting $a_2 \to \infty$. Note that the kernel itself
 vanishes in that limit, so the process must be rescaled: $a_2\, p(\tau) \to e^{-a_1\tau}$, and

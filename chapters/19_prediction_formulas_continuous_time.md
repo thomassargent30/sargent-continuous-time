@@ -10,6 +10,13 @@
 
 *by Lars Peter Hansen and Thomas J. Sargent*
 
+```{note}
+This chapter reprints a note by Lars Peter Hansen and Thomas J. Sargent. It keeps their first
+person and their section, equation, and footnote numbering. The sentences below that begin
+"Within this book" are editorial additions that tie the note to {doc}`12_prediction` and
+{doc}`16_faster_methods_recursive_linear_models`; so is the reference list at the end.
+```
+
 In this note we derive optimal prediction formulas to be used in solving continuous time
 rational expectations models. In these derivations we employ Laplace transforms in a manner
 analogous to the use of $z$ transforms for solving discrete time optimal prediction problems
@@ -17,10 +24,19 @@ in Hansen and Sargent (1980a, Appendix A). The formulas are intended to play the
 for continuous time models that the discrete time formulas for optimal predictions of
 geometric distributed leads did in Hansen and Sargent (1980a). Within this book, they generalize
 the continuous time geometric-distributed-lead forecast of {doc}`12_prediction` from
-first-order Markov forcing to the full class of rational (and nonstationary) processes — making
-good the promise of equation {eq}`eq-12-gen` there — and they supply the prediction calculus
-that {doc}`16_faster_methods_recursive_linear_models` invokes to evaluate the optimal feedforward
+first-order Markov forcing to the full class of rational and nonstationary processes, making
+good the promise of equation {eq}`eq-12-gen` there. They supply the prediction calculus that
+{doc}`16_faster_methods_recursive_linear_models` invokes to evaluate the optimal feedforward
 {eq}`eq-16-forward`.
+
+```{eval-rst}
+.. index::
+   single: convolution
+   single: Hilbert space; of a stationary process
+   single: isometry; between L2 and the process span
+   single: random measure; orthogonal
+   single: projection; onto a closed span
+```
 
 ## 1. Convolutions and Prediction
 
@@ -100,6 +116,14 @@ P\left[ \int_{-\infty}^{+\infty} \phi(\tau)\, dW(t-\tau) \;\Big|\; H(t) \right]
 Hence the prediction process obtained by taking a process $x \in X$ constructed as a
 convolution of $\phi$ and $dW$ and projecting it onto $H(t)$ for each $t$ is a convolution of
 $\phi^+$ and $dW$ for $\phi^+$ given in {eq}`eq-19-1-5`.
+
+```{eval-rst}
+.. index::
+   single: Laplace transform; one-sided
+   single: annihilation operator; and transforms
+   single: transfer function; and prediction
+   single: rational expectations model; continuous time
+```
 
 ## 2. Transforms
 
@@ -451,6 +475,12 @@ which can be solved recursively beginning with $\epsilon_0$. The solution to thi
 gives a continuous time counterpart to formulas reported in Hansen and Sargent (1980a, 1981b)
 for autoregressive and autoregressive moving-average processes.
 
+```{eval-rst}
+.. index::
+   single: vector information structure
+   single: information set; of an agent
+```
+
 ## 4. Vector Information Structures
 
 Suppose that $W$ is a $k$-dimensional vector random measure with second moment stationary
@@ -478,6 +508,11 @@ Laplace transforms of entries in $\phi$. In Example 1 formula {eq}`eq-19-3-4` st
 $\mathcal{L}p(\psi)$ is the vector of Laplace transforms of entries in $\psi$. The recursions
 derived in Example 3 still apply where $q_n$ is now a $k$-dimensional vector of polynomials, each
 with orders less than the scalar polynomial $q_d$.
+
+```{eval-rst}
+.. index::
+   single: nonstationarity; in prediction formulas
+```
 
 ## 5. Nonstationarities
 
@@ -510,3 +545,17 @@ $\mathbf{C}$.
     moments of $y$ as long as $\psi \exp(-\sigma t)$ is in $L^2_+$ for some $\sigma$ satisfying
     $0 < \sigma < \delta$. The transform analysis now applies to the narrower strip
     $\mathbf{C}^-_{\delta} \cap \mathbf{C}^+_{\sigma}$.
+
+## References
+
+Beltrami, E. J., and M. R. Wohlers (1966). *Distributions and the Boundary Values of Analytic
+Functions*. New York: Academic Press.
+
+Hansen, L. P., and T. J. Sargent (1980). Formulating and Estimating Dynamic Linear Rational
+Expectations Models. *Journal of Economic Dynamics and Control*, **2**, 7–46.
+
+Hansen, L. P., and T. J. Sargent (1981). Linear Rational Expectations Models for Dynamically
+Interrelated Variables, in R. E. Lucas, Jr., and T. J. Sargent, eds., *Rational Expectations and
+Econometric Practice*. Minneapolis: University of Minnesota Press.
+
+Rozanov, Y. A. (1967). *Stationary Random Processes*. San Francisco: Holden-Day.

@@ -1,4 +1,5 @@
 jupyter-book>=0.15,<2
+sphinx-exercise>=1.0
 numpy
 scipy
 matplotlib

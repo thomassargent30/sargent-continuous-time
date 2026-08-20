@@ -25,12 +25,12 @@ kernelspec:
 This chapter reports and paraphrases the analysis of Lars Peter Hansen and Thomas J. Sargent,
 "Aggregation Over Time and the Inverse Optimal Predictor Problem for Adaptive Expectations in
 Continuous Time," *International Economic Review* **24** (1983), no. 1, pp. 1–20. We retell the
-argument in the third person — "Hansen and Sargent show," "the authors now assume," and so on —
-while preserving the original section, equation, and table numbering. The four tables of the
-original paper are **recomputed here in Python**, and the code adds figures (not in the
-original) that visualize the results. The recomputation reproduces the published tables to all
-printed digits, except for three entries of Table 2 that are evidently typographical errors in
-the 1983 original (flagged in {ref}`sec-20-5`).
+argument in the third person, writing "Hansen and Sargent show" and "the authors now assume,"
+and we preserve the original section, equation, and table numbering. We recompute the four
+tables of the original paper in Python, and the code adds figures that are not in the original.
+The recomputation reproduces the published tables to all printed digits, except for three
+entries of Table 2 that are typographical errors in the 1983 original. {ref}`sec-20-5` flags
+them.
 ```
 
 ## 1. Introduction
@@ -67,14 +67,23 @@ The continuous-time process for inflation and money creation that makes adaptive
 optimal has, *ipso facto*, the property that money creation fails to Granger (1969) cause
 inflation in continuous time. Yet for discrete-time samples drawn from that same process, money
 creation *does* Granger cause inflation. This is an instance of how aggregation over time
-interrupts Granger non-causality patterns that hold in continuous time — a phenomenon studied
-by Sims (1971, 1973), taken up systematically in {doc}`18_time_aggregation_var`, and rooted in
-the spectral folding of {doc}`17_discrete_sampling_folding`. The model is simple enough that
+interrupts Granger non-causality patterns that hold in continuous time. Sims (1971, 1973)
+studied that phenomenon, {doc}`18_time_aggregation_var` takes it up systematically, and the
+spectral folding of {doc}`17_discrete_sampling_folding` is its root. The model is simple enough that
 Hansen and Sargent can analyze the effect quite completely.
 
 The calculations are interesting for their own sake, and also because they illustrate a method
 for analyzing the effects of aggregation over time that applies to a wide variety of linear
 rational expectations models.
+
+```{eval-rst}
+.. index::
+   single: inverse optimal predictor problem; continuous time
+   single: Cagan's adaptive expectations; continuous time version
+   single: Muth, J. F.
+   single: money creation and inflation
+   single: exponentially weighted forecast
+```
 
 ## 2. The continuous-time inverse optimal predictor problem
 
@@ -361,6 +370,14 @@ is no surprise: {eq}`eq-20-19` was constructed precisely to guarantee that Cagan
 expectations mechanism {eq}`eq-20-5` is optimal. In light of {eq}`eq-20-4`, if Cagan's mechanism
 is rational there must be extensive feedback from $p$ to $m$.[^fn20-1]
 
+```{eval-rst}
+.. index::
+   single: aggregation over time; effects on a bivariate model
+   single: matrix covariogram
+   single: bivariate Wold representation
+   single: temporal aggregation; and adaptive expectations
+```
+
 ## 3. Effects of aggregation over time
 
 Hansen and Sargent now deduce the implications of the continuous-time version of Cagan's model
@@ -487,6 +504,12 @@ def bivariate_factor(G0, G1, iters=20000):
         V = G0 - G1 @ np.linalg.solve(V, G1.T)
     F = G1 @ np.linalg.inv(V)
     return F, V
+```
+
+```{eval-rst}
+.. index::
+   single: univariate prediction; of inflation
+   single: approximation error; of adaptive expectations
 ```
 
 ## 4. Predicting inflation using information on lagged inflation only
@@ -624,6 +647,13 @@ $-2 + \sqrt{3}$. For values of $\lambda_p$ in the range estimated by Cagan (1956
 to Cagan's estimator of $\beta$.
 
 (sec-20-5)=
+```{eval-rst}
+.. index::
+   single: bivariate prediction; of inflation
+   single: Granger causality; spurious
+   single: information; discarded by aggregation
+```
+
 ## 5. Predicting inflation using information on lagged inflation and lagged money creation
 
 Hansen and Sargent now turn to the bivariate moving average of the discrete-time process for
@@ -970,7 +1000,7 @@ for b in [0.35, 10.0]:
 
 One eigenvalue of $F$ sits at $-1$ for every $\beta$, confirming the text's claim (it reflects
 the over-differencing implicit in applying $(1-L)^2$). At $\beta = 0.35$ the percentage gain for
-$p$ is a small fraction of a percent — money creation barely improves the inflation forecast, so
+$p$ is a small fraction of a percent. Money creation barely improves the inflation forecast, so
 Cagan's univariate procedure loses almost nothing. At $\beta = 10$ the gain is several percent:
 when the continuous-time decay is fast relative to the unit sampling interval, aggregation over
 time induces economically meaningful Granger causality from money creation to inflation that is

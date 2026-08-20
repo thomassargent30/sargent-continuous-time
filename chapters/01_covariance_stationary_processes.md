@@ -4,7 +4,7 @@
 .. index::
    single: stochastic process
    single: probability space
-   single: realization (sample path)
+   single: sample path; realization
    single: sample path
    single: covariance stationarity
    single: stationarity; strict
@@ -17,8 +17,8 @@
 ```
 
 A stochastic process is a collection of random variables indexed by a variable $t$
-belonging to a set $T$. For a continuous time stochastic process $t \in \mathbb{R}$, or
-some interval in $\mathbb{R}$, where $\mathbb{R}$ is the set of real numbers. It is
+belonging to a set $T$. For a continuous time stochastic process, $T$ is $\mathbb{R}$, the set
+of real numbers, or an interval in $\mathbb{R}$. It is
 imagined that there is an underlying probability space, which is characterized by a
 3-tuple $(\Omega, \mathcal{F}, P)$, where $\Omega$ is a collection of points,
 $\mathcal{F}$ a collection of sets in $\Omega$, and $P$ a probability measure. The sets
@@ -59,27 +59,25 @@ in time.
 ```
 
 ```{note}
-**Two ergodicity conditions, and where they are settled.** The distinction just drawn matters
-because every estimator in the second part of this book — the sampled autocovariances of
+Every estimator in the second part of this book is a time average from a single realization,
+asked to converge to an ensemble quantity: the sampled autocovariances of
 {doc}`21_phillips_continuous_time_estimation`, the matrix covariogram of
 {doc}`20_aggregation_inverse_optimal_predictor`, the discrete spectral density of
-{doc}`17_discrete_sampling_folding` — is a time average from a single realization, asked to
-converge to an ensemble quantity. Two conditions are needed, and they are of quite different
+{doc}`17_discrete_sampling_folding`. Two conditions deliver that convergence, and they differ in
 depth.
 
-*Mean square ergodicity* asks that the sample mean converge to $\mu$. It turns out to be a
-restriction on second moments only, and one that the processes of this book satisfy
-automatically: {doc}`10_cramer_representation` shows that it holds precisely when the spectral
-distribution puts no mass at frequency zero, which is guaranteed for any purely linearly
-indeterministic process.
+Mean square ergodicity asks that the sample mean converge to $\mu$. It restricts second moments
+only, and the processes of this book satisfy it. {doc}`10_cramer_representation` shows that it
+holds precisely when the spectral distribution puts no mass at frequency zero, which holds for
+any purely linearly indeterministic process.
 
-*Covariance ergodicity* asks that the sample autocovariances converge to $C(\tau)$. This is a
-restriction on **fourth** moments, and nothing in Chapters 1–17 settles it: two processes with
-identical $C(\tau)$ can differ in whether it holds. It requires either an assumption of
-Gaussianity or an explicit condition on fourth cumulants.
+Covariance ergodicity asks that the sample autocovariances converge to $C(\tau)$. It restricts
+fourth moments. Nothing in Chapters 1–17 settles it, and two processes with identical $C(\tau)$
+can differ in whether it holds. It requires either Gaussianity or a condition on fourth
+cumulants.
 
-{doc}`/appendices/ergodicity` develops both, together with what they do and do
-not buy for the estimation of spectra and cross-spectra.
+{doc}`/appendices/ergodicity` develops both, and says what they do and do not buy for estimating
+spectra and cross-spectra.
 ```
 
 We define the following three functions which measure population averages across
@@ -104,17 +102,26 @@ $C(t_1,t_2)$ is called the *autocovariance function*. Often we shall be studying
 stochastic process for which $\mu(t) = 0$, in which case $C(t_1,t_2) = R(t_1,t_2)$.
 
 ```{note}
-**A warning about the word "autocorrelation."** Following an older usage common in the
-engineering literature on which these notes draw, $R$ is here the *second moment* function
-$E\,x(t_1)x(t_2)$ — it is not normalized to lie in $[-1,1]$, and it is not centred unless
-$\mu = 0$. Much of modern statistics reserves "autocorrelation" for the normalized quantity
-$C(\tau)/C(0)$. Since we shall work almost exclusively with zero-mean processes, where $R$ and
-$C$ coincide, no harm follows; but the reader coming from a statistics text should read $R$ as
-the autocovariance. {doc}`08_spectral_densities` calls the same object the *covariogram*, and
-it is $R$ — not any normalized version of it — whose Fourier transform is the spectral density.
+Following an older usage common in the engineering literature on which these notes draw, $R$ is
+here the second moment function $E\,x(t_1)x(t_2)$. It is not normalized to lie in $[-1,1]$, and
+it is not centred unless $\mu = 0$. Modern statistics reserves "autocorrelation" for the
+normalized quantity $C(\tau)/C(0)$. We work almost always with zero-mean processes, where $R$
+and $C$ coincide, so no harm follows. Read $R$ as the autocovariance.
+{doc}`08_spectral_densities` calls the same object the covariogram. The spectral density is the
+Fourier transform of $R$, not of any normalized version of it.
 ```
 
 In the following definition, we introduce the notion of stationarity.
+
+```{eval-rst}
+.. index::
+   single: covariance stationarity; definition
+   single: stationarity; second-order
+   single: stationarity; wide sense
+   single: mean function
+   single: ensemble average
+   single: time average
+```
 
 **Definition 1.** A stochastic process is said to be *covariance stationary* (or
 *second-order stationary* or *wide-sense stationary*) if
@@ -187,10 +194,16 @@ concepts to be introduced in {doc}`08_spectral_densities`. It is true that $C(\t
 semidefinite if and only if the function
 
 $$
-S(w) = \int^\infty_{-\infty} C(\tau)\, e^{-i w \tau}\, d\tau \geq 0\ \text{ for all } w \in (-\infty, \infty).
+S(\omega) = \int^\infty_{-\infty} C(\tau)\, e^{-i \omega \tau}\, d\tau \geq 0\ \text{ for all } \omega \in (-\infty, \infty).
 $$
 
-We now define a more restrictive form of stationary:
+We now define a more restrictive form of stationarity:
+
+```{eval-rst}
+.. index::
+   single: strict stationarity
+   single: Gaussian process; and strict stationarity
+```
 
 **Definition 2.** A stochastic process is said to be *stationary* or *strictly
 stationary* if for any finite $n$, any collection of dates $[t_1, \ldots, t_n]$, and any
@@ -207,6 +220,6 @@ $$
 Notice that strict stationarity implies covariance stationarity, but not *vice versa*.
 Throughout this book we work with the weaker, second-moment notion. The next chapter shows
 that the smoothness of the autocovariance function $R(\tau)$ at the origin governs the
-continuity and differentiability of $x(t)$ itself — the first appearance of a
-smoothness-versus-predictability theme that recurs in
-{doc}`09_characterizations_ms_differentiability` and {doc}`13_locally_unpredictable`.
+continuity and differentiability of $x(t)$ itself.
+{doc}`09_characterizations_ms_differentiability` and {doc}`13_locally_unpredictable` return to
+that theme.

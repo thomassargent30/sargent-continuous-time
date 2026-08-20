@@ -11,6 +11,15 @@ kernelspec:
   name: python3
 ---
 
+```{eval-rst}
+.. index::
+   single: folding formula; derivation
+   single: aliasing; definition
+   single: discrete sampling; of a continuous time process
+   single: skip sampling
+   single: sampled spectral density
+```
+
 # 17. Discrete Sampling: The Folding Formula
 
 ```{eval-rst}
@@ -23,8 +32,8 @@ kernelspec:
 
 We now confront the gap between the continuous time theory developed so far and the discretely
 sampled data we actually observe. The first question is what point-in-time sampling does to a
-process's spectrum — and the answer, the *folding formula*, is the engine of the aliasing and
-identification problems that occupy the remainder of the book.
+process's spectrum. The answer, the *folding formula*, drives the aliasing and identification
+problems that occupy the remainder of the book.
 
 Let $x(t)$ be a continuous time, covariance stationary stochastic process with
 autocovariogram $R(\tau)$. Let $x_j = x(jT)$ be a record of $x$ sampled at the discrete
@@ -54,9 +63,9 @@ From {eq}`eq-17-Rd`, we can express the spectral density of the discrete sampled
 ```{math}
 :label: eq-17-1
 \begin{aligned}
-S^d(w) &= \int_{-\infty}^{\infty} R^d(\tau)\, e^{-iw\tau}\, d\tau \\
-&= \sum_{n=-\infty}^{\infty} \int_{-\infty}^{\infty} R(\tau)\, e^{-iw\tau}\, \delta(\tau - nT)\, d\tau \\
-&= \sum_{n=-\infty}^{\infty} R(nT)\, e^{-iwnT}
+S^d(\omega) &= \int_{-\infty}^{\infty} R^d(\tau)\, e^{-i\omega\tau}\, d\tau \\
+&= \sum_{n=-\infty}^{\infty} \int_{-\infty}^{\infty} R(\tau)\, e^{-i\omega\tau}\, \delta(\tau - nT)\, d\tau \\
+&= \sum_{n=-\infty}^{\infty} R(nT)\, e^{-i\omega nT}
 \end{aligned}
 ```
 
@@ -66,14 +75,14 @@ delta functions $S_T(\tau) = \sum_{n=-\infty}^{\infty} \delta(\tau - nT)$ is giv
 
 ```{math}
 :label: eq-17-2
-\sum_{n=-\infty}^{\infty} \delta(\tau - nT) \leftrightarrow w_0 \sum_{n=-\infty}^{\infty} \delta(w - nw_0),\ w_o = 2\pi/T.
+\sum_{n=-\infty}^{\infty} \delta(\tau - nT) \leftrightarrow \omega_0 \sum_{n=-\infty}^{\infty} \delta(\omega - n\omega_0),\ \omega_0 = 2\pi/T.
 ```
 
 Now notice that
 
 ```{math}
 :label: eq-17-3
-w_0 \sum_{n=-\infty}^{\infty} S(w - nw_0) = S(w) \ast w_0 \sum_{n=-\infty}^{\infty} \delta(w - nw_0).
+\omega_0 \sum_{n=-\infty}^{\infty} S(\omega - n\omega_0) = S(\omega) \ast \omega_0 \sum_{n=-\infty}^{\infty} \delta(\omega - n\omega_0).
 ```
 
 By the multiplication property (property 7 of Table 2 of
@@ -82,35 +91,35 @@ the frequency domain divided by $2\pi$, so the Fourier transform of
 $R^d(\tau) = R(\tau)\, S_T(\tau)$ is
 
 $$
-\frac{1}{2\pi}\, S(w) \ast w_0 \sum_{n=-\infty}^{\infty} \delta(w - n w_0)
-= \frac{w_0}{2\pi} \sum_{n=-\infty}^{\infty} S(w - n w_0)
-= \frac{1}{T} \sum_{n=-\infty}^{\infty} S(w - n w_0),
+\frac{1}{2\pi}\, S(\omega) \ast \omega_0 \sum_{n=-\infty}^{\infty} \delta(\omega - n \omega_0)
+= \frac{\omega_0}{2\pi} \sum_{n=-\infty}^{\infty} S(\omega - n \omega_0)
+= \frac{1}{T} \sum_{n=-\infty}^{\infty} S(\omega - n \omega_0),
 $$
 
-since $w_0/2\pi = 1/T$, the second equality being {eq}`eq-17-3` read from right to left.
+since $\omega_0/2\pi = 1/T$, the second equality being {eq}`eq-17-3` read from right to left.
 
-Because {eq}`eq-17-1` identifies this transform as $S^d(w)$, the spectral density of the
+Because {eq}`eq-17-1` identifies this transform as $S^d(\omega)$, the spectral density of the
 discrete process $x_j$ satisfies
 
 $$
-S^d(w) = \frac{1}{T} \sum_{n=-\infty}^{\infty} S\!\left(w - n\, \frac{2\pi}{T}\right)
+S^d(\omega) = \frac{1}{T} \sum_{n=-\infty}^{\infty} S\!\left(\omega - n\, \frac{2\pi}{T}\right)
 $$ (eq-17-fold)
 
-where $S^d(w)$ is the spectral density of the discrete data and $S(w)$ is the spectral
+where $S^d(\omega)$ is the spectral density of the discrete data and $S(\omega)$ is the spectral
 density of the continuous time data. Equation {eq}`eq-17-fold` is known as the *folding formula*.
 
 The folding formula is best read through the Cramér representation of
 {doc}`10_cramer_representation`. There the process was exhibited as a superposition of
 mutually orthogonal frequency bands, the band $[c,\, d]$ contributing variance
-$\frac{1}{\pi}\int_c^d S(w)\, dw$. Sampling does not destroy those bands: it *wraps* them,
-translating each by a multiple of $w_0 = 2\pi/T$ onto the observable interval
-$[-\pi/T,\, \pi/T]$, where — because the bands were orthogonal — their variances simply add.
+$\frac{1}{\pi}\int_c^d S(\omega)\, d\omega$. Sampling does not destroy those bands: it *wraps* them,
+translating each by a multiple of $\omega_0 = 2\pi/T$ onto the observable interval
+$[-\pi/T,\, \pi/T]$, where their variances simply add, the bands having been orthogonal.
 Equation {eq}`eq-17-fold` is that addition. The frequency $\pi/T$, half the sampling rate, is
 the *Nyquist frequency*; everything above it is folded down on top of something below it.
 
 The folding formula is therefore the engine of the *aliasing problem*: because infinitely many
 continuous time frequencies fold onto the same discrete frequency, the sampled spectrum cannot
-by itself recover the continuous one — the sampled data record only the *sum* of the folded
+by itself recover the continuous one. The sampled data record only the *sum* of the folded
 bands, never the division of that sum among them. {doc}`21_phillips_continuous_time_estimation` shows this
 is the same phenomenon as the multivalued $\lambda = \log\mu$ in Phillips's estimation problem;
 {doc}`22_dimensionality_aliasing_problem` counts how many continuous time models survive the
@@ -125,36 +134,42 @@ by time-averaging rather than point sampling.
    single: random constant
 ```
 
+```{eval-rst}
+.. index::
+   single: seasonal component; folded to zero frequency
+   single: random constant; created by sampling
+```
+
 ## Sampling can destroy ergodicity
 
-One consequence of {eq}`eq-17-fold` deserves to be singled out, because it concerns not what can
-be *identified* from sampled data but whether those data support estimation at all.
+One consequence of {eq}`eq-17-fold` concerns not what can be *identified* from sampled data but
+whether those data support estimation at all.
 
 {doc}`10_cramer_representation` showed that a covariance stationary process is mean square
-ergodic — that its time average converges to its ensemble mean — if and only if its spectral
+ergodic, so that its time average converges to its ensemble mean, if and only if its spectral
 density carries no $\delta$-function at frequency *zero*. But sampling maps every continuous
-frequency $w_1$ to the discrete frequency $w_1$ modulo $w_0 = 2\pi/T$. In particular,
+frequency $\omega_1$ to the discrete frequency $\omega_1$ modulo $\omega_0 = 2\pi/T$. In particular,
 
-> an atom at any continuous frequency $w_1 = 2\pi k/T$ folds onto discrete frequency zero.
+> an atom at any continuous frequency $\omega_1 = 2\pi k/T$ folds onto discrete frequency zero.
 
 A process can therefore be perfectly ergodic in continuous time and fail to be so once sampled.
 Take
 
 $$
-x(t) = A\cos(w_0 t) + B\sin(w_0 t), \qquad w_0 = \frac{2\pi}{T},
+x(t) = A\cos(\omega_0 t) + B\sin(\omega_0 t), \qquad \omega_0 = \frac{2\pi}{T},
 $$
 
 with $A, B$ uncorrelated, mean zero, variance $\sigma^2$, so that
-$R(\tau) = \sigma^2 \cos(w_0\tau)$. Its spectral density has $\delta$-functions at $\pm w_0$ and
+$R(\tau) = \sigma^2 \cos(\omega_0\tau)$. Its spectral density has $\delta$-functions at $\pm \omega_0$ and
 none at the origin, so the continuous time average tends to zero: the process oscillates, and
 averaging over a long record averages it away. But sample at $t = jT$, where
-$\cos(w_0 jT) = \cos 2\pi j = 1$ and $\sin(w_0 j T) = 0$, and
+$\cos(\omega_0 jT) = \cos 2\pi j = 1$ and $\sin(\omega_0 j T) = 0$, and
 
 $$
 x_j = A \qquad \text{for every } j :
 $$
 
-a random constant — precisely the non-ergodic process of {doc}`10_cramer_representation`. An
+a random constant, the non-ergodic process of {doc}`10_cramer_representation`. An
 observer of the sampled data sees a series that never moves and can never learn $\mu$, though
 the underlying process is in vigorous motion.
 
@@ -177,7 +192,7 @@ We illustrate this with the Ornstein–Uhlenbeck process of Chapters 7–8, whos
 time spectral density is
 
 $$
-S(w) = \frac{b^2}{a^2 + w^2}, \qquad a, b > 0.
+S(\omega) = \frac{b^2}{a^2 + \omega^2}, \qquad a, b > 0.
 $$
 
 ```{code-cell} ipython3
@@ -194,15 +209,15 @@ Take $a = 1$, $b = 0.7$.
 (a) Implement the folding formula
 
 $$
-S^d(w) = \frac{1}{T} \sum_{n=-\infty}^{\infty} S\!\left(w - n\,\frac{2\pi}{T}\right)
+S^d(\omega) = \frac{1}{T} \sum_{n=-\infty}^{\infty} S\!\left(\omega - n\,\frac{2\pi}{T}\right)
 $$
 
 (truncating the sum at $|n| \le n_{\max}$). For a *fast* sampling rate ($T = 0.5$) and a
-*slow* one ($T = 3$), plot the continuous spectrum $S(w)$ and the folded discrete spectrum
-$S^d(w)$ on the observable band $[0, \pi/T]$. Comment on the aliasing.
+*slow* one ($T = 3$), plot the continuous spectrum $S(\omega)$ and the folded discrete spectrum
+$S^d(\omega)$ on the observable band $[0, \pi/T]$. Comment on the aliasing.
 
 (b) As an independent check, the discrete spectral density is also the discrete Fourier
-transform of the sampled autocovariance, $S^d(w) = \sum_n R(nT)\,e^{-iwnT}$ with
+transform of the sampled autocovariance, $S^d(\omega) = \sum_n R(nT)\,e^{-i\omega nT}$ with
 $R(\tau) = \frac{b^2}{2a}e^{-a|\tau|}$ (equation {eq}`eq-17-1`). Verify that this matches
 your folding-formula computation.
 
@@ -225,10 +240,10 @@ fig, axes = plt.subplots(1, 2, figsize=(13, 4))
 for ax, T in zip(axes, [0.5, 3.0]):
     w_nyq = np.pi / T                      # Nyquist frequency
     w = np.linspace(0, w_nyq, 400)
-    ax.plot(w, S(w), 'b-', lw=2, label='continuous $S(w)$')
-    ax.plot(w, folded_spectrum(w, T), 'r--', lw=2, label='folded $S^d(w)$')
+    ax.plot(w, S(w), 'b-', lw=2, label=r'continuous $S(\omega)$')
+    ax.plot(w, folded_spectrum(w, T), 'r--', lw=2, label=r'folded $S^d(\omega)$')
     ax.set_title(f'sampling interval $T={T}$  (Nyquist $\\pi/T={w_nyq:.2f}$)')
-    ax.set_xlabel('$w$'); ax.set_ylabel('spectral density')
+    ax.set_xlabel(r'$\omega$'); ax.set_ylabel('spectral density')
     ax.legend()
 plt.tight_layout()
 plt.show()
@@ -253,7 +268,7 @@ $S^d \approx S$ on the band. With the slow rate ($T = 3$, Nyquist $\approx 1.05$
 substantial part of the continuous spectrum lives above the Nyquist frequency; it is
 aliased back into the band and the folded spectrum sits visibly *above* the continuous one.
 Part (b) confirms that the folding formula and the DFT of the sampled autocovariance agree
-to numerical precision — two routes to the same discrete spectral density.
+to numerical precision, by two routes to the same discrete spectral density.
 
 ```{solution-end}
 ```
@@ -263,8 +278,8 @@ to numerical precision — two routes to the same discrete spectral density.
 ```
 
 **A process that samples to a random constant.** Take
-$x(t) = A\cos(w_0 t) + B\sin(w_0 t)$ with $A, B$ independent standard normals and
-$w_0 = 2\pi/T$ for $T = 1$.
+$x(t) = A\cos(\omega_0 t) + B\sin(\omega_0 t)$ with $A, B$ independent standard normals and
+$\omega_0 = 2\pi/T$ for $T = 1$.
 
 (a) Plot a realization on $[0, 20]$ on a fine grid, and superimpose the values at the sampling
 instants $t = 0, 1, \ldots, 20$. Confirm that the sampled values are all equal to the realized
@@ -303,7 +318,7 @@ print(f"running mean of sampled series at j=5, 20: {xs[:5].mean():+.6f}, {xs[:20
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(11, 4))
 ax.plot(t, xc, lw=0.9, color='C0', label='continuous path $x(t)$')
-ax.plot(j, xs, 'o', ms=7, color='C3', label='sampled $x_j$ — every value equals $A$')
+ax.plot(j, xs, 'o', ms=7, color='C3', label='sampled $x_j$: every value equals $A$')
 ax.axhline(A, color='C3', ls=':', lw=1)
 ax.axhline(0, color='k', lw=0.5)
 ax.set_xlim(0, 20); ax.set_xlabel('$t$'); ax.set_ylabel('$x$')
@@ -312,9 +327,9 @@ ax.legend(loc='upper right', fontsize=9)
 plt.show()
 ```
 
-The picture is the whole argument. The spectral mass of $x$ sits entirely at $\pm w_0$, away
+The spectral mass of $x$ sits entirely at $\pm \omega_0$, away
 from the origin, so the continuous time average washes it out. Sampling at interval
-$T = 2\pi/w_0$ folds those two atoms onto discrete frequency zero, and what had been an
+$T = 2\pi/\omega_0$ folds those two atoms onto discrete frequency zero, and what had been an
 oscillation becomes a constant. The sampled record contains one number, repeated; no length of
 record will reveal the mean.
 

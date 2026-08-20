@@ -11,6 +11,15 @@ kernelspec:
   name: python3
 ---
 
+```{eval-rst}
+.. index::
+   single: Poisson counting process; definition
+   single: counting process
+   single: arrival rate
+   single: jump process
+   single: Poisson counting process; moments of
+```
+
 # 3. The Poisson Counting Process
 
 ```{eval-rst}
@@ -18,7 +27,7 @@ kernelspec:
    single: Poisson counting process
    single: arrival times
    single: white noise
-   single: Dirac delta generalized function
+   single: Dirac delta function
    single: generalized stochastic process
    single: shot noise
    single: interarrival times
@@ -141,7 +150,7 @@ For $t_1 > t_2$, we have
 $$
 \begin{aligned}
 E\, \big\{N(t_1) - N(t_2)\big\} &= \lambda (t_1 - t_2) \\
-E\, \big\{N(t_1) - N(t_2)\}^2 &= \lambda^2 (t_1 - t_2)^2 + \lambda (t_1 - t_2). \\
+E\, \big\{N(t_1) - N(t_2)\big\}^2 &= \lambda^2 (t_1 - t_2)^2 + \lambda (t_1 - t_2). \\
 \end{aligned}
 $$
 
@@ -150,13 +159,13 @@ $N(t_1) - N(t_3) = (N(t_1) - N(t_2)) + (N(t_2) - N(t_3))$, and
 $N(t_2) - N(t_4) = (N(t_2) - N(t_3)) + (N(t_3) - N(t_4))$, we obtain
 
 $$
-E\, \big\{ (N(t_1) - N(t_3))\, (N(t_2) - N(t_4)) = \lambda^2 (t_1 - t_3)\ (t_2 - t_4) + \lambda (t_2 - t_3).
+E\, \big\{ (N(t_1) - N(t_3))\, (N(t_2) - N(t_4)) \big\} = \lambda^2 (t_1 - t_3)\ (t_2 - t_4) + \lambda (t_2 - t_3).
 $$
 
 It follows that
 
 $$
-\text{cov}\ (N(t_1) - N(t_3))\ (N(t_2) - N(t_4)) = \lambda (t_2 - t_3),
+\text{cov}\ \big( N(t_1) - N(t_3),\ N(t_2) - N(t_4) \big) = \lambda (t_2 - t_3),
 $$
 
 so that the covariance between two increments is proportional to their overlap in time
@@ -329,6 +338,12 @@ called *shot noise*. In {doc}`08_spectral_densities` we shall show how to calcul
 first and second order moments. Shot noise is the prototype of the lesson made precise in
 {doc}`04_physical_realizability`: the generalized white noise $dN/dt$ lives only under the
 integral sign, while the integrated process $Y(t)$ is perfectly ordinary.
+
+```{eval-rst}
+.. index::
+   single: shot noise; and the Poisson process
+   single: white noise; as a limit of shot noise
+```
 
 ## Exercises
 

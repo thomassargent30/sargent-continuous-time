@@ -29,40 +29,47 @@ kernelspec:
 This chapter paraphrases and streamlines Lars Peter Hansen, John Heaton, and Thomas J.
 Sargent, "Faster Methods for Solving Continuous Time Recursive Linear Models of Dynamic
 Economies," Chapter 7 of *Rational Expectations Econometrics* (L. P. Hansen and T. J.
-Sargent, eds., Westview Press, Underground Classics in Economics). It is presented here as an
-application of the optimal linear regulator and algebraic Riccati equation introduced in
+Sargent, eds., Westview Press, Underground Classics in Economics). We present it as an
+application of the optimal linear regulator and algebraic Riccati equation of
 {doc}`15_kalman_filter_spectral_factorization`.
 ```
 
 Section (d) of {doc}`15_kalman_filter_spectral_factorization` posed the continuous-time linear
-regulator — minimize $\int_0^\infty (x^\top Q x + u^\top R u)\, dt$ subject to
-$\dot x = A x + B u$ — and solved it through an algebraic Riccati equation. That regulator is
-not merely a control problem: it is the **computational engine for the equilibria of a large
-class of dynamic stochastic economies**. The route, following Hansen and Sargent's research
-program, is to associate with a competitive economy a *fictitious social planning problem*
-with a quadratic objective and linear constraints. The planner's allocation coincides with the
-competitive equilibrium allocation, and the Arrow–Debreu prices that support it are read off
-the **gradient of the planner's value function** — which, because the value function is
-quadratic, is linear in the state. Computing the equilibrium therefore reduces to solving an
-optimal linear regulator.
+regulator, minimizing $\int_0^\infty (x^\top Q x + u^\top R u)\, dt$ subject to
+$\dot x = A x + B u$, and solved it through an algebraic Riccati equation. That regulator computes the
+equilibria of a large class of dynamic stochastic economies. Hansen and Sargent's research
+program associates with a competitive economy a fictitious social planning problem with a
+quadratic objective and linear constraints. The planner's allocation coincides with the
+competitive equilibrium allocation, and the gradient of the planner's value function gives the
+Arrow–Debreu prices that support it. That gradient is linear in the state, because the value
+function is quadratic. Computing the equilibrium therefore reduces to solving an optimal linear
+regulator.
 
 This chapter develops that reduction and then extends the basic regulator in three ways that
 matter for economics:
 
-1. It allows the forcing processes — the preference and endowment shocks — to be **arbitrary**
-   square-integrable functions of time, not necessarily the outputs of a finite system of
-   differentiable equations (the constraints become *nonautonomous*). As a consequence the
-   optimal decision rule **separates** into a *feedback* (control) part and a *feedforward*
-   (prediction) part — the continuous-time form of the certainty-equivalence separation
-   emphasized by Lucas and Sargent (1981). The feedforward part is exactly the geometric
+1. It allows the forcing processes, the preference and endowment shocks, to be **arbitrary**
+   square-integrable functions of time rather than outputs of a finite system of differentiable
+   equations. The constraints become *nonautonomous*. The optimal decision rule then
+   **separates** into a *feedback* (control) part and a *feedforward* (prediction) part. That is
+   the continuous-time form of the certainty-equivalence separation that Lucas and Sargent
+   (1981) emphasized. The feedforward part is exactly the geometric
    distributed lead of {doc}`12_prediction`, computed in general by the companion
    {doc}`19_prediction_formulas_continuous_time`.
-2. It supplies **fast solvers** for the Riccati equation — the *matrix sign algorithm* — that
-   avoid eigenvalue decompositions and exploit the Hamiltonian structure, scaling to the large
+2. It supplies a fast solver for the Riccati equation, the *matrix sign algorithm*, that avoids
+   eigenvalue decompositions and exploits the Hamiltonian structure. It scales to the large
    state vectors that realistic economies require.
 3. It connects the solution to the **spectral factorization theorem** of
    {doc}`08_spectral_densities`: the Euler equations of the model are factored exactly as a
    rational spectral density is factored.
+
+```{eval-rst}
+.. index::
+   single: linear quadratic economy
+   single: social planning problem; fictitious
+   single: competitive equilibrium; and the planning problem
+   single: value function; gradient of
+```
 
 ## (a) A linear-quadratic economy as a planning problem
 
@@ -83,7 +90,7 @@ discount rate. Services are produced from a stock of *household capital* $h(t)$ 
 s(t) = \Lambda\, h(t) + \Pi\, c(t),
 ```
 
-and the two capital stocks — household capital $h(t)$ and physical capital $k(t)$ — accumulate
+and the two capital stocks, household capital $h(t)$ and physical capital $k(t)$, accumulate
 according to linear laws of motion driven by consumption and by investment $i(t)$:
 
 ```{math}
@@ -137,7 +144,13 @@ quadratic form in $(\hat u, \hat x, \hat z)$,
 
 The planning problem is to choose $\{\hat u(t)\}$ to maximize {eq}`eq-16-objhat` subject to
 {eq}`eq-16-statehat`. This is a discounted optimal linear regulator with an exogenous forcing
-term $B_z \hat z$ — the regulator of Chapter 15 augmented by a forcing process.
+term $B_z \hat z$. It is the regulator of Chapter 15 augmented by a forcing process.
+
+```{eval-rst}
+.. index::
+   single: discounting; removal of
+   single: undiscounted transformation
+```
 
 ## (b) Removing the discount
 
@@ -171,15 +184,21 @@ Deflation has simply shifted every eigenvalue of the transition matrix left by $
 provided the original capital-depreciation matrices have eigenvalues with real parts below
 $\epsilon$, the deflated transition matrix $A$ is a stability matrix and the deflated stocks are
 square integrable. We have reduced the economy to a **standard undiscounted optimal linear
-regulator with forcing** — the problem of Chapter 15, Section (d), but with the forcing term
+regulator with forcing**. It is the problem of Chapter 15, Section (d), with the forcing term
 $B_z z$ and a general cross-penalized criterion $\Omega$.
+
+```{eval-rst}
+.. index::
+   single: invariant subspace; stable
+   single: linear regulator; Hamiltonian of
+```
 
 ## (c) The optimal linear regulator and its Hamiltonian
 
 Partition $\Omega$ conformably with $(u, x, z)$ into blocks $\Omega_{uu}, \Omega_{ux}, \ldots$
 The regulator differs from the textbook problem of Chapter 15 in two ways that the economic
 application forces upon us. First, the forcing $z(t)$ is allowed to be *any* square-integrable
-function — it need **not** solve a differential equation, so the constraints are nonautonomous.
+function. It need **not** solve a differential equation, so the constraints are nonautonomous.
 Second, stability of $x$ is imposed as an explicit constraint rather than emerging
 automatically, because with general $z$ a stable state path is not guaranteed.
 
@@ -197,8 +216,8 @@ H = \begin{bmatrix} H_{11} & H_{12} \\ H_{21} & H_{22} \end{bmatrix},
 ```
 
 where $x_c$ is the (transformed) co-state. The blocks are built from $A$, $B_u$ and the
-partitions of $\Omega$ — for instance $H_{11} = A - B_u \Omega_{uu}^{-1}\Omega_{ux}$ and
-$H_{12} = -B_u \Omega_{uu}^{-1} B_u^\top$ — and $H$ has the defining **Hamiltonian symmetries**
+partitions of $\Omega$, for instance $H_{11} = A - B_u \Omega_{uu}^{-1}\Omega_{ux}$ and
+$H_{12} = -B_u \Omega_{uu}^{-1} B_u^\top$. $H$ has the defining **Hamiltonian symmetries**
 
 $$
 H_{22} = -H_{11}^\top, \qquad H_{12} = H_{12}^\top, \qquad H_{21} = H_{21}^\top .
@@ -218,10 +237,9 @@ subspace** of $H$, which forces the co-state to be a linear function of the stat
 x_c(t) = M_x\, x_s(t), \qquad M_x = E_{21} E_{11}^{-1},
 ```
 
-where $E_{11}, E_{21}$ are blocks of the stable eigenvectors. The matrix $M_x$ is **symmetric
-and positive semidefinite**, and it is precisely the **stabilizing solution of an algebraic
-Riccati equation** — the same object as the cost-to-go matrix $P$ of the regulator in Chapter
-13. It satisfies
+where $E_{11}, E_{21}$ are blocks of the stable eigenvectors. The matrix $M_x$ is symmetric
+and positive semidefinite, and it is the stabilizing solution of an algebraic Riccati
+equation, the same object as the cost-to-go matrix $P$ of the regulator in Chapter 15. It satisfies
 
 ```{math}
 :label: eq-16-riccati
@@ -230,8 +248,8 @@ Riccati equation** — the same object as the cost-to-go matrix $P$ of the regul
 
 which is the Riccati equation {eq}`eq-15-careg` written in Hamiltonian form. The optimal value
 of the planning criterion, as a function of the initial condition, is the quadratic
-$-\tfrac12\, \mu^\top M_x\, \mu$ — and its gradient $-M_x \mu$ delivers the supporting
-Arrow–Debreu prices.
+$-\tfrac12\, \mu^\top M_x\, \mu$. Its gradient $-M_x \mu$ delivers the supporting Arrow–Debreu
+prices.
 
 **The feedback–feedforward decomposition.** Substituting {eq}`eq-16-Mx` back into the
 Hamiltonian system {eq}`eq-16-ham` gives a recursive law of motion for the optimally controlled
@@ -243,12 +261,19 @@ D x_s(t) = \underbrace{(H_{11} + H_{12} M_x)\, x_s(t)}_{\text{feedback (control)
 \; + \; \underbrace{H_{12}\, w(t) + K_1\, z(t)}_{\text{feedforward (prediction)}} .
 ```
 
-The **feedback** matrix $H_{11} + H_{12} M_x$ is a stability matrix — it is the closed-loop
-transition $A - B_u F$ of the Chapter-13 regulator, with feedback gain $F$ built from $M_x$. The
+The **feedback** matrix $H_{11} + H_{12} M_x$ is a stability matrix. It is the closed-loop
+transition $A - B_u F$ of the Chapter 15 regulator, with feedback gain $F$ built from $M_x$. The
 **feedforward** term carries the influence of the forcing process through an auxiliary process
 $w(t)$ that depends on the *expected future* path of $z$. The solution thus splits into a part
-that stabilizes the state (control) and a part that forecasts the shocks (prediction) — the
-separation principle in continuous time.
+that stabilizes the state (control) and a part that forecasts the shocks (prediction). That is
+the separation principle in continuous time.
+
+```{eval-rst}
+.. index::
+   single: matrix sign function
+   single: quadratic convergence
+   single: Riccati equation; numerical solution of
+```
 
 ## (d) Faster Riccati solvers: the matrix sign algorithm
 
@@ -265,7 +290,7 @@ For any matrix $G$ with no purely imaginary eigenvalues, the iteration
 \mathcal{R}(G) = \tfrac12\big(G + G^{-1}\big)
 ```
 
-converges, when started at $G_0 = H$, to the **matrix sign function** $\operatorname{sign}(H)$ —
+converges, when started at $G_0 = H$, to the matrix sign function $\operatorname{sign}(H)$,
 a matrix with eigenvalues $-1$ on the stable invariant subspace and $+1$ on the unstable one.
 Partitioning the limit $H^\infty = \operatorname{sign}(H)$ conformably, the stabilizing Riccati
 solution is recovered algebraically; equivalently, $M_x$ is the least-squares solution of the
@@ -282,12 +307,13 @@ by the iteration {eq}`eq-16-sign`, so the algorithm can be carried out on the ha
 roughly halving the work. The matrix sign algorithm is the continuous-time analogue of the
 doubling algorithms used for discrete-time quadratic control. It solves the *same* algebraic
 Riccati equation as `scipy`'s `solve_continuous_are` used in Chapter 15, but by an iteration that
-scales gracefully — the point of the paper. {ref}`ex-16-1` implements it and checks it against
-the Chapter-13 solver.
+scales gracefully, which is the point of the paper. {ref}`ex-16-1` implements it and checks it
+against
+the Chapter 15 solver.
 
 **The feedforward as prediction.** It remains to compute the feedforward process $w(t)$. When
-the forcing is itself autonomous — $D z(t) = A_{zz} z(t)$ with $A_{zz}$ stable — the feedforward
-collapses to a linear function $w(t) = M_z z(t)$, where $M_z$ solves a Sylvester equation linear
+the forcing is itself autonomous, with $D z(t) = A_{zz} z(t)$ and $A_{zz}$ stable, the
+feedforward collapses to a linear function $w(t) = M_z z(t)$, where $M_z$ solves a Sylvester equation linear
 in its entries,
 
 ```{math}
@@ -296,8 +322,8 @@ in its entries,
 ```
 
 solvable directly or by a second application of the matrix sign algorithm to a triangular
-composite system. For *general* (nonautonomous) $z$, the feedforward is a **forward convolution**
-— a present value of the expected future forcing,
+composite system. For *general* (nonautonomous) $z$, the feedforward is a forward convolution,
+a present value of the expected future forcing,
 
 ```{math}
 :label: eq-16-forward
@@ -305,7 +331,7 @@ w(t) = \int_0^\infty \exp\!\big[(H_{11} + H_{12} M_x)^\top \tau\big]\,(K_2 - M_x
 ```
 
 in which the *transpose of the stable feedback matrix* governs the decay of the weights on
-future shocks. (Equation {eq}`eq-16-forward` is written for a $z$ path known at $t$ — the
+future shocks. (Equation {eq}`eq-16-forward` is written for a $z$ path known at $t$, the
 perfect-foresight, or deterministic, case. When $z$ is stochastic, $z(t+\tau)$ is replaced
 throughout by its least squares forecast $\hat E_t\, z(t+\tau)$; certainty equivalence, which
 holds because the criterion is quadratic and the constraints linear, is what makes this
@@ -316,12 +342,19 @@ integral of expected future shocks. Evaluating it for a general forcing process 
 the companion {doc}`19_prediction_formulas_continuous_time`, which supplies the Laplace-transform
 prediction calculus that turns {eq}`eq-16-forward` into a finite matrix computation.
 
+```{eval-rst}
+.. index::
+   single: Euler equations; spectral factorization of
+   single: geometric distributed lead; in decision rules
+   single: rational spectral density matrix
+```
+
 ## (e) Spectral factorization in the Euler equations
 
-For the important special case of a pure investment-with-adjustment-cost economy — no household
-capital, so $s(t) = \Pi c(t)$, with costs of adjusting capital that may penalize higher
-derivatives of the capital stock — the first-order conditions can be written as continuous-time
-**Euler equations** in the capital stock. Disentangling the discount scaling, these take the
+Take a pure investment-with-adjustment-cost economy: no household capital, so
+$s(t) = \Pi c(t)$, with costs of adjusting capital that may penalize higher derivatives of the
+capital stock. The first-order conditions can then be written as continuous-time **Euler
+equations** in the capital stock. Disentangling the discount scaling, these take the
 form
 
 $$
@@ -331,8 +364,8 @@ $$
 where $P(\cdot)$ is a backward derivative operator and $Q(\cdot)$ a forward convolution operator.
 The operator on the left is a polynomial in $D$ whose symbol, evaluated on the imaginary axis,
 is a **rational spectral density matrix** $F(\theta)$. Solving the Euler equation requires
-factoring $F$ into a part with all its zeros in the left half plane and its mirror image — that
-is, applying the **spectral factorization theorem** of {doc}`08_spectral_densities`,
+factoring $F$ into a part with all its zeros in the left half plane and its mirror image. That
+applies the **spectral factorization theorem** of {doc}`08_spectral_densities`,
 
 $$
 F(\theta) = \hat P(-i\theta)^\top\, V\, \hat P(i\theta) \big/ \big[(-i\theta+\epsilon)(i\theta+\epsilon)\big]^{\ell+1},
@@ -341,8 +374,8 @@ $$
 with $\hat P$ nonsingular in the left half plane. The stable factor furnishes a one-sided
 forward inverse, and a matrix partial-fractions expansion of it yields the decision rule. Thus
 the regulator solution of Section (c) and the spectral-factorization route of this section are
-two faces of the same computation — the time-domain Riccati equation and the frequency-domain
-factorization that Chapter 15 already showed to be equivalent.
+two faces of the same computation, the time-domain Riccati equation and the frequency-domain
+factorization that Chapter 15 showed to be equivalent.
 
 A particularly clean instance is Heaton's (1989) model of consumer durables, in which household
 capital is the only endogenous state and the optimal net investment in the durable stock obeys
@@ -353,7 +386,7 @@ D k(t) = [\,f(t) - b(t)\,] - \rho \int_0^\infty e^{-\rho\tau}\, [\,f(t+\tau) - b
 ```
 
 Net investment compares the *current* endowment-relative-to-bliss gap with a $\rho$-discounted
-**present value of the future** gaps — a permanent-income logic in which the durable stock is
+**present value of the future** gaps. A permanent-income logic governs it: the durable stock is
 accumulated whenever the present is favorable relative to what is expected to come. The present
 value on the right is, once again, the geometric distributed lead of {doc}`12_prediction`.
 {ref}`ex-16-2` works this rule out for an autoregressive forcing process.
@@ -438,8 +471,8 @@ print("‖ΔS‖ per iteration     =", [f"{d:.1e}" for d in deltas])
 
 The sign-algorithm matrix $M_x$ matches `solve_continuous_are` and annihilates the Riccati
 residual; the closed loop is stable; and the per-iteration change collapses from $O(10^{-1})$ to
-below $10^{-13}$ in a handful of steps — the hallmark of the quadratic convergence that makes
-the matrix sign algorithm fast.
+below $10^{-13}$ in a handful of steps. That is the quadratic convergence that makes the matrix
+sign algorithm fast.
 
 ```{solution-end}
 ```

@@ -25,17 +25,15 @@ kernelspec:
    single: innovation process
 ```
 
-Chapters 8 and 12 obtained two of the central objects of the theory — the Wold
-representation and the spectral factorization theorem — by working in the *frequency
-domain*, with Laplace and Fourier transforms of the moving-average kernel $p(\tau)$. For the
-important special case in which a process has a **rational** spectral density, there is an
-equivalent and computationally powerful *time-domain* construction built on a
-finite-dimensional **linear state-space model**. The device that carries it out is the
-**Kalman–Bucy filter**, whose steady state solves an **algebraic Riccati equation**. The
-filter delivers the **innovations representation** — the state-space realization of the Wold
-representation — and in producing it performs a spectral factorization. Solving the Riccati
-equation is thus the time-domain algorithm behind the spectral factorization theorem of
-{doc}`08_spectral_densities`.
+Chapters 8 and 12 obtained the Wold representation and the spectral factorization theorem by
+working in the *frequency domain*, with Laplace and Fourier transforms of the moving-average
+kernel $p(\tau)$. When a process has a rational spectral density, an equivalent time-domain
+construction built on a finite-dimensional linear state-space model does the same work. The
+device that carries it out is the Kalman–Bucy filter, whose steady state solves an algebraic
+Riccati equation. The filter delivers the innovations representation, the state-space
+realization of the Wold representation, and in producing it performs a spectral factorization.
+Solving the Riccati equation is the time-domain algorithm behind the spectral factorization
+theorem of {doc}`08_spectral_densities`.
 
 The same matrices reappear in a control problem: the **continuous-time linear regulator**,
 whose Bellman equation yields a Riccati equation of *exactly the same form*. The two problems
@@ -48,12 +46,22 @@ to time aggregation, prediction, and identification.
 **Notation in this chapter.** Two symbols are deliberately overloaded, because the overloading
 *is* the duality of Section (e). In the filtering problem of Sections (a)–(c), $B$ is the
 loading on the process noise and $R$ is the covariance of the measurement noise; in the control
-problem of Section (d), $B$ is the loading on the control and $R$ is the cost of using it. The
-duality table {numref}`tbl-15-duality` is the dictionary between the two readings, and the
-numerical examples deliberately feed the *same* $(A, B)$ to both problems. Note also that $R$
+problem of Section (d), $B$ is the loading on the control and $R$ is the cost of using it.
+The duality table {numref}`tbl-15-duality` translates between the two readings. The numerical
+examples feed the *same* $(A, B)$ to both problems. Note also that $R$
 here is a matrix, unrelated to the autocovariance function $R(\tau)$ of the earlier chapters; and that
 $K$ denotes the Kalman gain here, whereas in {doc}`16_faster_methods_recursive_linear_models`
 $K$ is the matrix loading the forcing process $z$ onto the Hamiltonian system {eq}`eq-16-ham`.
+```
+
+```{eval-rst}
+.. index::
+   single: state-space model; continuous time
+   single: transition equation
+   single: observation equation
+   single: process noise
+   single: measurement noise
+   single: companion form
 ```
 
 ## (a) The linear state-space model
@@ -80,15 +88,15 @@ E\, dW(t)\, dW(t)^\top = I\, dt, \qquad E\, dV(t)\, dV(t)^\top = R\, dt, \qquad 
 $$
 
 so that the **process noise** $B\, dW$ has intensity $BB^\top$ and the **measurement noise**
-$dV$ has intensity $R$. We assume $A$ is a *stability matrix* — all its eigenvalues have
-strictly negative real parts — so that the state $x(t)$ is covariance stationary, with
+$dV$ has intensity $R$. We assume that $A$ is a *stability matrix*, so that all its eigenvalues
+have strictly negative real parts and the state $x(t)$ is covariance stationary, with
 stationary covariance $\Sigma_x = E\, x(t) x(t)^\top$ solving the Lyapunov equation
 $A \Sigma_x + \Sigma_x A^\top + BB^\top = 0$.
 
 This is the multivariate, first-order machinery underlying the scalar high-order equations of
 {doc}`11_linear_sde`. Writing the $n^{\text{th}}$-order equation $\theta(D)\, x(t) = w(t)$ in
-*companion form* — stacking $x, Dx, \ldots, D^{n-1}x$ into a state vector — produces exactly a
-system of the form {eq}`eq-15-state`, and the rational spectral densities tabulated in
+*companion form*, stacking $x, Dx, \ldots, D^{n-1}x$ into a state vector, produces a system of
+the form {eq}`eq-15-state`, and the rational spectral densities tabulated in
 Chapter 8 are precisely those of the observed signal $C x(t)$. Indeed, the spectral density
 of the signal $C x(t)$ is the rational matrix
 
@@ -106,6 +114,14 @@ covariance $R$. The fully *volatility-parameterized* form, in which the observat
 $dy = C x\, dt + D\, dV$ with $E\, dV\, dV^\top = I\, dt$ and $R = DD^\top$, is the
 $(A, B, C, D)$ parameterization; it is the subject of {ref}`ex-15-1`.
 
+```{eval-rst}
+.. index::
+   single: Kalman gain
+   single: Riccati equation; filtering
+   single: filter algebraic Riccati equation
+   single: forecast error covariance
+```
+
 ## (b) The Kalman–Bucy filter and the Riccati equation
 
 Let $\hat x(t)$ denote the linear least squares estimate of the state given the observation
@@ -122,8 +138,8 @@ $$
 \Sigma(t) = E\big[\, (x(t) - \hat x(t))(x(t) - \hat x(t))^\top \,\big]
 $$
 
-be the covariance matrix of the filtering error. The **Kalman–Bucy filter** propagates
-$\hat x$ and $\Sigma$ according to
+be the covariance matrix of the filtering error. The **Kalman–Bucy filter** advances
+$\hat x$ and $\Sigma$ in time according to
 
 ```{math}
 :label: eq-15-kbfilter
@@ -138,15 +154,15 @@ d\hat x(t) = A\, \hat x(t)\, dt + K(t)\,\big(\, dy(t) - C\, \hat x(t)\, dt \,\bi
 
 Equation {eq}`eq-15-kbfilter` says that the estimate is propagated by the deterministic
 dynamics $A \hat x\, dt$ and then corrected, with **Kalman gain** $K(t)$, in proportion to the
-*surprise* $dy - C\hat x\, dt$ — the part of the new observation not anticipated by the
-current estimate. Equation {eq}`eq-15-riccati-ode` is a matrix **Riccati differential
+*surprise* $dy - C\hat x\, dt$, the part of the new observation that the current estimate does
+not anticipate. Equation {eq}`eq-15-riccati-ode` is a matrix **Riccati differential
 equation**: uncertainty is injected by the process noise $BB^\top$ and removed, at the
 quadratic rate $\Sigma C^\top R^{-1} C \Sigma$, by the information in the observations.
 
 ### Where the Riccati equation comes from
 
-Both the gain and the Riccati equation follow from Itô's rule of {doc}`07_wiener_driven_sde` —
-the one place in the linear theory where the second-order term of that rule does real work.
+Both the gain and the Riccati equation follow from Itô's rule of {doc}`07_wiener_driven_sde`. That is
+the one place in the linear theory where the second order term of that rule does work.
 Take the gain $K(t)$ as *given for the moment*, subtract {eq}`eq-15-kbfilter` from
 {eq}`eq-15-state`, and use {eq}`eq-15-obs` to eliminate $dy$. The estimation error
 $e(t) = x(t) - \hat x(t)$ obeys a linear stochastic differential equation driven by both noises,
@@ -158,8 +174,8 @@ de(t) = (A - K C)\, e(t)\, dt + B\, dW(t) - K\, dV(t).
 
 Now apply Itô's rule to the quadratic function $\Psi(e) = e\,e^\top$. Its first derivative
 contributes $\langle \partial\Psi/\partial e,\ (A-KC)e\rangle$, giving the two terms
-$(A-KC)\Sigma + \Sigma(A-KC)^\top$; its *second* derivative — the term that distinguishes Itô
-calculus from ordinary calculus — contributes the quadratic variation of the driving noise,
+$(A-KC)\Sigma + \Sigma(A-KC)^\top$. Its *second* derivative, the term that distinguishes Itô
+calculus from ordinary calculus, contributes the quadratic variation of the driving noise,
 which by the independence of $W$ and $V$ is $BB^\top + KRK^\top$. Taking expectations, the
 martingale parts drop out and
 
@@ -203,6 +219,18 @@ is itself a stable linear system: the matrix $A - KC$ has all of its eigenvalues
 half plane. This is the time-domain counterpart of the requirement, in Chapter 8, that a Wold
 spectral factor have no zeros in the right half plane.
 
+```{eval-rst}
+.. index::
+   single: innovation process; continuous time
+   single: spectral factorization; time domain construction
+   single: fundamental white noise; and the innovations representation
+```
+
+```{eval-rst}
+.. index::
+   single: impulse response; of the innovations representation
+```
+
 ## (c) The innovations representation and spectral factorization
 
 Define the **innovation** process by its increment
@@ -212,9 +240,8 @@ Define the **innovation** process by its increment
 d\eta(t) = dy(t) - C\, \hat x(t)\, dt.
 ```
 
-A foundational result of filtering theory is that $\eta(t)$ is itself a Wiener process — the
-*continuous-time innovations process* — with intensity equal to the measurement-noise
-intensity,
+A foundational result of filtering theory is that $\eta(t)$ is itself a Wiener process, the
+*continuous-time innovations process*, with intensity equal to the measurement-noise intensity,
 
 $$
 E\, d\eta(t)\, d\eta(t)^\top = R\, dt .
@@ -233,8 +260,8 @@ dy(t) &= C\, \hat x(t)\, dt + d\eta(t).
 
 This is the state-space realization of the **Wold representation** of
 {doc}`08_spectral_densities`.
-The observable $y$ is driven by a *single white noise* $\eta$ — the same dimension as $y$ —
-through the Kalman gain $K$. The innovation $\eta$ is a **fundamental** white noise for $y$:
+The observable $y$ is driven through the Kalman gain $K$ by a *single white noise* $\eta$ of the
+same dimension as $y$. The innovation $\eta$ is a **fundamental** white noise for $y$:
 square-integrable functionals of $\{y(s),\ s \leq t\}$ and of $\{\eta(s),\ s \leq t\}$ span
 the same linear space, because the filter $A - KC$ that recovers $\eta$ from $y$ is stable.
 The associated transfer function
@@ -271,7 +298,7 @@ algebraic Riccati equation {eq}`eq-15-care` is the time-domain algorithm for fac
 rational spectral density.**
 
 The following cell illustrates the construction on a damped harmonic oscillator observed in
-noise — a second-order system whose signal $Cx$ has the rational spectrum of Chapter 8.
+noise. It is a second-order system whose signal $Cx$ has the rational spectrum of Chapter 8.
 
 ```{code-cell} ipython3
 import numpy as np
@@ -289,7 +316,7 @@ R = np.array([[0.10]])                       # measurement-noise intensity
 # Solve the FILTER algebraic Riccati equation
 #     A Σ + Σ A' + B B' - Σ C' R^{-1} C Σ = 0.
 # scipy's solve_continuous_are(a,b,q,r) returns X solving a'X+Xa-Xb r^{-1} b'X+q=0,
-# so we pass the *dual* data (a,b,q,r) = (A', C', B B', R) — see Section (e) on duality.
+# so we pass the *dual* data (a,b,q,r) = (A', C', B B', R). See Section (e) on duality.
 Sigma = solve_continuous_are(A.T, C.T, B @ B.T, R)
 K = Sigma @ C.T @ np.linalg.inv(R)           # Kalman gain
 
@@ -329,6 +356,14 @@ The two curves coincide to machine precision: the Kalman filter has factored the
 spectral density $S(\omega)$ into $T(i\omega)\, R\, T(-i\omega)^\top$, with $T(s)$ the
 minimum-phase factor. The resonant peak near $\omega = w_0 = 1$ is the oscillator's natural
 frequency; the additive floor $R$ is the white measurement noise.
+
+```{eval-rst}
+.. index::
+   single: linear regulator; continuous time
+   single: control algebraic Riccati equation
+   single: certainty equivalence
+   single: cost-to-go matrix
+```
 
 ## (d) The continuous-time linear regulator
 
@@ -392,6 +427,12 @@ print("feedback gain F =", F.ravel().round(4))
 print("closed-loop poles eig(A - B F) =", np.linalg.eigvals(A - B @ F).round(4))
 ```
 
+```{eval-rst}
+.. index::
+   single: detectability
+   single: stabilizability
+```
+
 ## (e) Duality of filtering and control
 
 Place the two Riccati equations side by side:
@@ -437,9 +478,8 @@ the duality is the formal expression of that time reversal. Read economically, t
 *cost-to-go* of an optimally controlled system coincides with the *forecast-error covariance*
 of the dual estimation problem.
 
-The duality is more than an aesthetic curiosity: it means a single algorithm — and a single
-body of theorems on existence, uniqueness, and stability of the Riccati solution — serves both
-problems. Indeed in Section (c) we already solved the *filter* Riccati equation by calling a
+One algorithm therefore serves both problems, as does one body of theorems on existence,
+uniqueness, and stability of the Riccati solution. Indeed in Section (c) we already solved the *filter* Riccati equation by calling a
 *regulator* Riccati solver on transposed data. The next cell makes the correspondence explicit
 by recovering $\Sigma$ and $K$ from the regulator solver applied to the dual data.
 
@@ -455,14 +495,19 @@ print("duality holds:", np.allclose(P_dual, Sigma) and np.allclose(F_dual, K.T))
 ```
 
 The match is exact: the value matrix of the dual regulator problem *is* the filter error
-covariance, and its feedback gain *is* the (transposed) Kalman gain. The white innovation
-$\eta$ produced by the filter is, by construction, a process with no predictable increment —
-the locally unpredictable building block studied in {doc}`13_locally_unpredictable`.
+covariance, and its feedback gain is the transposed Kalman gain. The white innovation
+$\eta$ that the filter produces has no predictable increment. It is
+the locally unpredictable building block of {doc}`13_locally_unpredictable`.
+
+```{eval-rst}
+.. index::
+   single: innovation; recoverability by an econometrician
+   single: non-fundamentalness; and the innovations representation
+```
 
 ## (f) The innovation, and whether an econometrician can find it
 
-It is worth being clear about what the innovation $\eta$ of {eq}`eq-15-innov` is, because it is
-the object that the whole of Part II turns out to be about.
+The innovation $\eta$ of {eq}`eq-15-innov` is the object that Part II is about.
 
 The filter constructed here is a *continuous-time* filter: it conditions on the entire history
 $\{y(s),\ s \leq t\}$, observed without gaps. Under that conditioning $\eta$ is fundamental, and
@@ -471,8 +516,8 @@ Kalman gain $K$ playing the part of the moving-average kernel. An agent inside t
 watches $y$ continuously sees exactly $\eta$; it is that agent's *news*.
 
 An econometrician with quarterly data does not see $\eta$. What such an observer can construct
-is the one-step-ahead error in forecasting $y_t$ from $y_{t-1}, y_{t-2}, \ldots$ — a
-*discrete-time* innovation, formed by projecting on a strictly coarser information set. The two
+is the one-step-ahead error in forecasting $y_t$ from $y_{t-1}, y_{t-2}, \ldots$, a
+*discrete-time* innovation formed by projecting on a strictly coarser information set. The two
 objects need not be close, and the relation between them is precisely the subject of
 {doc}`18_time_aggregation_var`, which writes the discrete innovation as
 $a_t = \int_0^\infty f(\tau) w(t-\tau)\, d\tau$ and asks when the kernel $f$ is concentrated on
@@ -489,7 +534,7 @@ the second term being the error one makes in recovering the continuous-time fore
 sampled data. The Riccati equation of this chapter tells us what the continuous innovation is;
 those chapters tell us how much of it survives the passage to discrete data. The answer, in
 general, is: not all of it, and the shortfall is governed by the behaviour of the kernel at the
-origin — the condition of {doc}`13_locally_unpredictable`.
+origin, the condition of {doc}`13_locally_unpredictable`.
 
 ## Exercises
 
@@ -519,8 +564,8 @@ A\, \Sigma + \Sigma\, A^\top + BB^\top - \Sigma\, C^\top (DD^\top)^{-1} C\, \Sig
 \qquad K = \Sigma\, C^\top (DD^\top)^{-1},
 $$
 
-and explain why $DD^\top$ must be nonsingular — i.e., why every component of the observation
-must carry some independent measurement noise — for the filter to be well posed.
+and explain why $DD^\top$ must be nonsingular for the filter to be well posed, so that every
+component of the observation carries some independent measurement noise.
 
 (b) For the oscillator of the text, take $D = 0.4$ (a scalar, so $C$ is $1 \times 2$) and
 verify numerically that the resulting $\Sigma$ and $K$ are exactly those obtained with
@@ -540,8 +585,8 @@ filter it entered as the measurement-noise covariance, so the algebraic Riccati 
 $(DD^\top)^{-1}$ appears in both the Riccati equation and the gain; it exists iff $DD^\top$ has
 full rank, i.e. iff $D$ has full row rank. A direction in observation space with no noise
 (a zero row of $D$) would let the filter extract a noiseless linear combination of the state
-and drive the corresponding error variance to zero, making $C^\top (DD^\top)^{-1} C$ unbounded
-— the filtering problem is then singular and must be reduced before the standard CARE applies.
+and drive the corresponding error variance to zero, making $C^\top (DD^\top)^{-1} C$ unbounded.
+The filtering problem is then singular, and one must reduce it before the standard CARE applies.
 
 (b) The construction below confirms the filter sees only $DD^\top$:
 

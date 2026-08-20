@@ -11,6 +11,14 @@ kernelspec:
   name: python3
 ---
 
+```{eval-rst}
+.. index::
+   single: Ito's rule; Wiener case
+   single: stochastic differential equation; drift and diffusion
+   single: diffusion coefficient
+   single: drift
+```
+
 # 7. Stochastic Differential Equations Driven by a Wiener Process
 
 ```{eval-rst}
@@ -19,7 +27,7 @@ kernelspec:
    single: stochastic differential equation; Wiener driven
    single: Ornstein-Uhlenbeck process
    single: Stratonovich integral
-   single: Euler-Maruyama scheme
+   single: Euler-Maruyama discretization
 ```
 
 We wish to consider a class of stochastic differential equations driven by a Wiener process,
@@ -46,18 +54,17 @@ d\Psi(x) &= \left\langle \frac{\partial\Psi}{\partial x}\, , \ f\left(x(t),\, t\
 $$
 
 ```{note}
-**The angle-bracket notation.** Throughout this chapter, $\langle u,\, v\rangle$ denotes the
-**Euclidean inner product** (dot product) of two vectors $u$ and $v$ in $\mathbb{R}^n$,
+Throughout this chapter, $\langle u,\, v\rangle$ denotes the Euclidean inner product of two
+vectors $u$ and $v$ in $\mathbb{R}^n$,
 
 $$
 \langle u,\, v\rangle = u^\top v = \sum_{i=1}^{n} u_i\, v_i .
 $$
 
-Here $x$ is in general a vector-valued state, $\Psi(x)$ is a scalar-valued function,
-$\dfrac{\partial\Psi}{\partial x}$ is its **gradient** (a column vector with entries
-$\partial\Psi/\partial x_i$), and $\dfrac{\partial^2\Psi}{\partial x^2}$ is its **Hessian**
-(the matrix of second partials $\partial^2\Psi/\partial x_i\,\partial x_j$). With this
-reading,
+Here $x$ is a vector-valued state, $\Psi(x)$ is a scalar-valued function,
+$\dfrac{\partial\Psi}{\partial x}$ is its gradient, a column vector with entries
+$\partial\Psi/\partial x_i$, and $\dfrac{\partial^2\Psi}{\partial x^2}$ is its Hessian, the
+matrix of second partials $\partial^2\Psi/\partial x_i\,\partial x_j$. With this reading,
 
 - $\left\langle \dfrac{\partial\Psi}{\partial x}\, ,\ f\right\rangle
   = \sum_i \dfrac{\partial\Psi}{\partial x_i}\, f_i$ pairs the gradient with the drift
@@ -65,12 +72,12 @@ reading,
 - $\left\langle \dfrac{\partial^2\Psi}{\partial x^2}\, g,\ g\right\rangle
   = g^\top \dfrac{\partial^2\Psi}{\partial x^2}\, g
   = \sum_{i,\,j} \dfrac{\partial^2\Psi}{\partial x_i\,\partial x_j}\, g_i\, g_j$
-  is the **quadratic form** in the diffusion vector $g$ (first the Hessian acts on $g$,
-  then we take the inner product with $g$ again).
+  is the quadratic form in the diffusion vector $g$. The Hessian acts on $g$, and then we take
+  the inner product with $g$ again.
 
-When $x$ is scalar, every inner product collapses to ordinary multiplication —
-$\langle \Psi', f\rangle = \Psi' f$ and $\langle \Psi'' g,\, g\rangle = \Psi'' g^2$ — which
-is the form used in the scalar example at the end of this chapter.
+When $x$ is scalar, every inner product collapses to ordinary multiplication:
+$\langle \Psi', f\rangle = \Psi' f$ and $\langle \Psi'' g,\, g\rangle = \Psi'' g^2$. The scalar
+example at the end of this chapter uses that form.
 ```
 
 To generate this rule, we use {eq}`eq-7-approx` for $\lambda > 0$ and using rule {eq}`eq-5-rule1` to obtain
@@ -168,21 +175,17 @@ $$
 dx = f(x,\, t)dt + g(x,\, t)dW(t).
 $$
 
-A word about where Itô's rule is used later, since the answer is more selective than one might
-expect. The *linear* theory that occupies most of this book — the constant-coefficient models
-of {doc}`11_linear_sde`, the prediction formulas of {doc}`12_prediction`, and everything built
-on them — integrates white noise against a **deterministic** kernel $p(\tau)$. For such an
-integrand the second-order term above vanishes, and, as the note in {doc}`11_linear_sde`
-records, the Itô integral, the Stratonovich integral, and the ordinary mean square integral all
-coincide. The Itô correction is invisible there precisely because nothing is nonlinear.
+Later chapters use Itô's rule sparingly. The linear theory of {doc}`11_linear_sde` and
+{doc}`12_prediction` integrates white noise against a deterministic kernel $p(\tau)$. For such an
+integrand the second-order term above vanishes, and the Itô integral, the Stratonovich integral,
+and the ordinary mean square integral coincide. A note in {doc}`11_linear_sde` records this.
 
-The correction does real work in one place: the derivation of the Riccati equation of the
-Kalman–Bucy filter in {doc}`15_kalman_filter_spectral_factorization`. There one applies the rule
-to the *quadratic* function $\Psi(e) = e\,e^\top$ of the estimation error, and the second-order
-term supplies exactly the noise-intensity terms $BB^\top + KRK^\top$ that the Riccati equation
-balances against the quadratic term $\Sigma C^\top R^{-1} C\,\Sigma$. Beyond that, the value of
-Chapters 5 through 7 for what follows is that they *construct* the white noise the linear theory
-takes as given, and show that the Poisson and Wiener cases are two faces of one limiting
+The correction does work in one place, the derivation of the Riccati equation of the Kalman–Bucy
+filter in {doc}`15_kalman_filter_spectral_factorization`. Applying the rule to the quadratic
+function $\Psi(e) = e\,e^\top$ of the estimation error, the second-order term supplies the
+noise-intensity terms $BB^\top + KRK^\top$ that the Riccati equation balances against
+$\Sigma C^\top R^{-1} C\,\Sigma$. Chapters 5 through 7 otherwise serve to construct the white
+noise that the linear theory takes as given, from Poisson and Wiener cases by one limiting
 argument.
 
 Our second rule is
@@ -195,8 +198,8 @@ This rule can be derived by the same limiting process. For $\lambda > 0$, we hav
 
 $$
 \begin{aligned}
-d\Psi(x) &= \left\langle \frac{\partial\Psi}{\partial x}\, , \ f(x,\, t)\right\rangle dt + \left( \Psi(x + \frac{1}{\sqrt\lambda}\ g(x,\, t)\right) \\
-&- \Psi(x)\bigr) dN_1 + \left(\Psi(x - \frac{1}{\sqrt\lambda}\ g\left(x,\, t)\right) - \Psi(x)\right)dN_2
+d\Psi(x) &= \left\langle \frac{\partial\Psi}{\partial x}\, , \ f(x,\, t)\right\rangle dt + \left( \Psi\Bigl(x + \tfrac{1}{\sqrt\lambda}\ g(x,\, t)\Bigr) - \Psi(x) \right) dN_1 \\
+&+ \left(\Psi\Bigl(x - \tfrac{1}{\sqrt\lambda}\ g(x,\, t)\Bigr) - \Psi(x)\right)dN_2
 \end{aligned}
 $$
 
@@ -239,8 +242,8 @@ $$
 $$
 
 As an example of the use of these formulas, we take the linear stochastic differential
-equation — the *Ornstein–Uhlenbeck process*, the simplest member of the constant-coefficient
-class studied systematically in {doc}`11_linear_sde`,
+equation, the *Ornstein–Uhlenbeck process*, the simplest member of the constant-coefficient
+class that {doc}`11_linear_sde` studies systematically,
 
 $$
 dx(t) = -ax(t)dt + bdW(t),\ x(0) = 0,\ a,\ b > 0.
@@ -256,6 +259,12 @@ dx(t)^2 &= \left(-2ax(t)^2 + b^2\right) dt + 2bx(t)\, dW(t). \\
 \frac{d}{d\tau}\ Ex(t) x(t + \tau) &= -aEx(t) x(t + \tau),\ \tau > 0.
 \end{aligned}
 $$
+
+```{eval-rst}
+.. index::
+   single: Ornstein-Uhlenbeck process; definition
+   single: stationary variance
+```
 
 ## Exercises
 
@@ -389,15 +398,15 @@ plt.show()
 ```
 
 The estimated autocovariance tracks $e^{-a\tau}$. Note that $R(\tau) = R(0)e^{-a|\tau|}$ has a
-kink at $\tau = 0$ — exactly like the $e^{-2\lambda|\tau|}$ of the telegraph wave of Chapter 5,
-and for the same reason. The kink means that $R'(0^+) = -aR(0)$ while $R'(0^-) = +aR(0)$, so
+kink at $\tau = 0$, like the $e^{-2\lambda|\tau|}$ of the telegraph wave of Chapter 5, and for
+the same reason. The kink means that $R'(0^+) = -aR(0)$ while $R'(0^-) = +aR(0)$, so
 $R''(0)$ does not exist; by Theorem 4 of
 {doc}`02_mean_square_continuity_differentiability` the Ornstein–Uhlenbeck process is therefore,
 like the telegraph wave, mean square continuous but **not** mean square differentiable. In the language of
 {doc}`11_linear_sde` this is the case $n = 1$, $m = 0$, giving $n - 1 - m = 0$ derivatives; by
 {doc}`13_locally_unpredictable` such a process is locally unpredictable. The two processes
-differ in their sample paths — the diffusion is continuous, the telegraph wave jumps — but
-their second moments are alike in precisely this respect.
+differ in their sample paths, since the diffusion is continuous and the telegraph wave jumps.
+Their second moments are alike in this respect.
 
 ```{solution-end}
 ```

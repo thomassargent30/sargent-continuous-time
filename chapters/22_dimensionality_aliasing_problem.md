@@ -24,16 +24,14 @@ kernelspec:
 ```{note}
 This chapter reports and paraphrases Lars Peter Hansen and Thomas J. Sargent, "The
 Dimensionality of the Aliasing Problem in Models with Rational Spectral Densities,"
-*Econometrica* **51** (1983), no. 2, pp. 377–387. We retell the argument in the third person —
-"Hansen and Sargent show," "the authors" — while preserving the original section, equation, and
-theorem numbering. The original paper contains no figures or tables; the first-order Markov
-results of {ref}`sec-22-4` are **illustrated numerically in Python** with a concrete worked
-example (in the spirit of the one in the companion Federal Reserve Bank of Minneapolis Staff
-Report No. 72).
+*Econometrica* **51** (1983), no. 2, pp. 377–387. We retell the argument in the third person,
+writing "Hansen and Sargent show" and "the authors," and we preserve the original section,
+equation, and theorem numbering. The paper contains no figures or tables. We illustrate the
+first-order Markov results of {ref}`sec-22-4` numerically in Python with a worked example like
+the one in the companion Federal Reserve Bank of Minneapolis Staff Report No. 72.
 
-Because the paper's own numbering is retained, Theorems 1–5 below are *the paper's* theorems.
-They are unrelated to the book's running sequence of Theorems 1–16, which ends with Theorem 16
-of {doc}`13_locally_unpredictable`.
+Theorems 1–5 below are the paper's theorems. They are unrelated to the book's running sequence
+of Theorems 1–16, which ends with Theorem 16 of {doc}`13_locally_unpredictable`.
 ```
 
 In this paper Hansen and Sargent reconsider the aliasing problem of identifying the parameters
@@ -76,10 +74,18 @@ studied by P. C. B. Phillips (1973), in which the true continuous time model is 
 vector Markov process; there, Hansen and Sargent show that there generally exists a discrete
 sampling interval fine enough for the continuous time model to be identified.
 
+```{eval-rst}
+.. index::
+   single: aliasing problem; dimensionality of
+   single: observational equivalence; class of models
+   single: covariance stationarity; and the aliasing problem
+   single: Nyquist frequency; and folding
+```
+
 ## 2. The aliasing problem under covariance stationarity
 
 Consider an $n$ dimensional continuous time stochastic process, $x$, that is covariance
-stationary and linearly regular. For simplicity the process is assumed to have a moving average
+stationary and linearly indeterministic. For simplicity the process is assumed to have a moving average
 representation
 
 ```{math}
@@ -165,11 +171,18 @@ this number is uncountable.[^fn22-1] Thus, at the general level of the model {eq
 dimensionality of the class of observationally equivalent models given equispaced discrete time
 observations is uncountable.
 
+```{eval-rst}
+.. index::
+   single: spectral folding; illustration of
+   single: band decomposition; used in reverse
+   single: total power; preserved by folding
+```
+
 ### Illustration: spectral folding and observational equivalence
 
 The folding formula {eq}`eq-22-5` is the engine of the aliasing problem. We illustrate it with
 a scalar first order Markov process $Dx(t) = -a\, x(t) + \epsilon(t)$ (intensity $v$), whose
-continuous time spectral density is the Lorentzian $f(\omega) = v/(a^2 + \omega^2)$ — the same
+continuous time spectral density is the Lorentzian $f(\omega) = v/(a^2 + \omega^2)$, the same
 Ornstein–Uhlenbeck spectrum met in {doc}`08_spectral_densities` and {doc}`17_discrete_sampling_folding`.
 Sampling at the integers folds all of the $2\pi$-shifted copies $f(\omega + 2\pi j)$ down onto
 the band $[-\pi, \pi]$. As a check, the resulting $F(\omega)$ must equal the spectral density of
@@ -221,15 +234,15 @@ folds to the *same* $F$. Following the bandlimited construction of [^fn22-1] (wi
 \pi$), put all of $f^*$'s power in the high-frequency band $\pi < |\omega| < 3\pi$, setting it
 equal to $\tfrac{1}{2} F$ there. Its fold onto $[-\pi, \pi]$ then equals $F$, so $x$ and $x^*$ are
 observationally indistinguishable from integer-sampled data even though their continuous time
-spectra could hardly be more different — one a smooth low-frequency Lorentzian, the other
-concentrated entirely at high frequencies.
+spectra differ completely. One is a smooth low-frequency Lorentzian; the other is concentrated
+entirely at high frequencies.
 
 The device that manufactures $x^*$ is the band-pass window $B_{cd}(w)$ of
 {doc}`10_cramer_representation`, applied at frequencies above the Nyquist rate. There it was
 used to *decompose* a process into orthogonal frequency bands, each carrying its own share of
 the variance; here it is used in reverse, to *assemble* a process whose entire variance sits in
-bands that sampling folds down on top of the observable one. That the two processes have the
-same total power — the variance printed below is $v/2a$ for both — is no accident: folding
+bands that sampling folds down on top of the observable one. The two processes have the
+same total power, and the variance printed below is $v/2a$ for both. Folding
 preserves the sum of the band variances and destroys only the information about how the sum was
 divided among them.
 
@@ -260,7 +273,7 @@ ax1.legend(fontsize=9)
 ax2.plot(w_in, F_fold_star(w_in), 'C3', lw=5, alpha=0.45, label=r'fold of $f^*$')
 ax2.plot(w_in, F_fold(w_in), 'C0', lw=2, label=r'fold of $f$')
 ax2.set_xlabel(r'$\omega$'); ax2.set_ylabel(r'$F(\omega)$')
-ax2.set_title('…with identical discrete spectrum — observationally equivalent')
+ax2.set_title('…with identical discrete spectrum: observationally equivalent')
 ax2.legend(fontsize=9)
 plt.tight_layout(); plt.show()
 ```
@@ -269,15 +282,22 @@ The two continuous processes have the same total power (variance $v/2a$) and the
 integer-sampled spectrum, yet different continuous spectra; varying $\omega^*$ over the
 uncountable set $\{\omega^* > \pi\}$ generates uncountably many such aliases. This is the
 uncountable dimensionality of the general covariance-stationary case. The rest of the paper shows
-how dramatically the rational/Markov restriction shrinks this class — from uncountable, to
-finite, and often to a single point.
+how far the rational and Markov restrictions shrink this class, from uncountable to finite, and
+often to a single point.
+
+```{eval-rst}
+.. index::
+   single: rational spectral density matrix; and identification
+   single: positive semidefiniteness; as an identifying restriction
+   single: admissible model
+```
 
 ## 3. The aliasing problem with a rational spectral density matrix
 
 In applications it is necessary to adopt a finite parameterization of the matrix function $c$. A
-convenient parameterization is to assume that $c$ has a rational Laplace transform — the rational
-spectral densities of {doc}`08_spectral_densities` and the sum-of-exponentials kernels of the
-linear stochastic differential equations of {doc}`11_linear_sde`. In
+convenient parameterization is to assume that $c$ has a rational Laplace transform, giving the
+rational spectral densities of {doc}`08_spectral_densities` and the sum-of-exponentials kernels
+of the linear stochastic differential equations of {doc}`11_linear_sde`. In
 particular, suppose that
 
 ```{math}
@@ -375,6 +395,13 @@ dimensionality of the special case of {eq}`eq-22-7` studied by P. C. B. Phillips
 up in the following section.
 
 (sec-22-4)=
+```{eval-rst}
+.. index::
+   single: first order Markov process; aliasing in
+   single: Ornstein-Uhlenbeck process; and aliasing
+   single: countable infinity of observationally equivalent models
+```
+
 ## 4. First order Markov models
 
 Hansen and Sargent now study identification of the parameters of continuous time first order
@@ -647,8 +674,8 @@ print(f"\nObservationally equivalent continuous-time models at h={h}: "
 
 Every $A_k$ reproduces the discrete autoregressive matrix $B_0$ exactly, yet only the five values
 $k \in \{-3, -2, -1, 0, 1\}$ deliver a positive semidefinite intensity $V_k$. The class of
-observationally equivalent continuous time models is therefore **finite** — five, not the
-countable infinity that the autoregressive matrix alone would suggest — exactly as Theorems 3 and
+observationally equivalent continuous time models is therefore **finite**: five, not the
+countable infinity that the autoregressive matrix alone would suggest, exactly as Theorems 3 and
 4 assert. The figure plots the smallest eigenvalue of $V_k$ against $k$; admissibility is the
 shaded region where it is nonnegative.
 
@@ -706,8 +733,8 @@ print(f"For this example the model is identified once h <= {h_star:.3f} "
       f"(only the true continuous-time model survives).")
 ```
 
-The count of observationally equivalent models is *always finite* — never the uncountable
-infinity of the purely covariance-stationary case (§2) — and it collapses to one as $h \to 0$.
+The count of observationally equivalent models is *always finite*, never the uncountable
+infinity of the purely covariance-stationary case of §2, and it collapses to one as $h \to 0$.
 
 ## 5. Conclusion
 
@@ -731,7 +758,7 @@ Phillips (1973) and Hansen and Sargent (1981).
 
 The discrete autoregressive matrix $B_0 = \exp(A_0)$ on its own leaves a *countable infinity* of
 continuous time coefficient matrices undetermined; adding the discrete innovation covariance
-$W_0$ — and insisting that the implied intensity be positive semidefinite — cuts this down to a
+$W_0$, and insisting that the implied intensity be positive semidefinite, cuts this down to a
 *finite* set. Make this contrast quantitative for the example of {ref}`sec-22-4`
 ($a = 0.2$, $\omega = 6$, $V_0 = \begin{bmatrix} 1 & 0.3 \\ 0.3 & 0.8 \end{bmatrix}$, $h = 1$):
 
@@ -767,7 +794,7 @@ print(f"     -> {len(psd)} continuous-time models survive; true model k=0 in set
 ```
 
 The autoregressive matrix admits infinitely many aliases (part a), but only five survive the
-positive-semidefiniteness requirement on the intensity (part b) — and the true model is one of
+positive-semidefiniteness requirement on the intensity (part b), and the true model is one of
 them. The discrete innovation covariance $W_0$ thus carries identifying information about $A_0$
 that $B_0$ alone does not, which is the central point of the paper.
 
@@ -787,8 +814,8 @@ eigenvectors of $A_0$, and check that it has no zero elements (so Theorem 4 guar
 
 (b) Construct a *singular* example that realizes Theorem 2's countable infinity: take $V_0 = I$
 (so that the rotation generator commutes with the intensity) and verify numerically that the
-*same* intensity $V_k = I$ reproduces $W_0$ for many different aliases $k$ — i.e. infinitely many
-observationally equivalent models all share $V_0 = I$.
+*same* intensity $V_k = I$ reproduces $W_0$ for many different aliases $k$, so that infinitely
+many observationally equivalent models all share $V_0 = I$.
 
 ```{exercise-end}
 ```
@@ -825,7 +852,7 @@ With $V_0 = I$ the rotation generator $A_k$ is orthogonal-times-scalar over $[0,
 $\int_0^1 \exp(A_k\tau)\, I\, \exp(A_k'\tau)\, d\tau$ does not depend on the rotation rate: the
 *same* intensity $V_k = I$ reproduces $W_0$ for every $k$. This is precisely the singular
 configuration of Theorem 2 that produces a countable infinity of observationally equivalent
-models. The generic case of part (a) — $R_0$ with no zero elements — is the finite one, and is
+models. The generic case of part (a), $R_0$ with no zero elements, is the finite one, and is
 what one encounters with probability one.
 
 ```{solution-end}
@@ -861,7 +888,7 @@ Singer, B., and S. Spilerman (1976). The Representation of Social Processes by M
     observationally equivalent $x^*$ processes is uncountably infinite.
 
 [^fn22-erg]: "Estimable" here means that the sample counterparts of $B_0$ and $W_0$, computed
-    from a single realization, converge to them — which requires the sampled process to be
+    from a single realization, converge to them. That requires the sampled process to be
     *covariance ergodic*, a restriction on fourth moments rather than second. It holds
     comfortably for the Gaussian first order Markov processes of this section. See
     {doc}`/appendices/ergodicity`, and note the caveat of

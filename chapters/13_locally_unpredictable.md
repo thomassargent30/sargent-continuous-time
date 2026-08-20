@@ -29,9 +29,21 @@ This chapter is where the thread begun in {doc}`02_mean_square_continuity_differ
 arrives at its economic payoff. There, mean square differentiability was tied to the existence
 of $R''(0)$; in {doc}`09_characterizations_ms_differentiability` that became the condition
 $p(0) = 0$ on the Wold kernel; in {doc}`11_linear_sde` it became a count, $n - 1 - m$, read off
-the degrees of two polynomials. Here the failure of that condition acquires a meaning: a process
-whose kernel does not vanish at the origin is, over short intervals, essentially unforecastable.
-We use the following definition:
+the degrees of two polynomials. Here the failure of that condition means something. Over short intervals, a process whose
+kernel does not vanish at the origin is unforecastable. We use the following definition:
+
+```{eval-rst}
+.. index::
+   single: locally unpredictable process; definition
+   single: local unpredictability
+   single: forecast error variance; over short intervals
+```
+
+```{eval-rst}
+.. index::
+   single: Sims, C. A.
+   single: permanent income; and local unpredictability
+```
 
 **Definition 10.** A stochastic process $x(t)$ with finite second moments is said to
 be *locally unpredictable* if
@@ -48,6 +60,11 @@ E_t x(t+\delta) \simeq x(t).
 $$
 
 We have the following theorem.
+
+```{eval-rst}
+.. index::
+   single: local unpredictability; kernel criterion
+```
 
 **Theorem 16.** Let $x(t)$ be a linearly indeterministic covariance stationary
 stochastic process with Wold representation
@@ -94,8 +111,8 @@ dividing line is explicit. There $x(t)$ is mean square differentiable $n - 1 - m
 $n$ and $m$ are the degrees of the denominator operator $\theta(D)$ and the numerator operator
 $\psi(D)$; by the initial value theorem, $p(0) = \lim_{s\to\infty} s\tilde P(s) \neq 0$ exactly
 when $m = n - 1$. The locally unpredictable members of this family are therefore precisely those
-with $n - 1 - m = 0$ — a numerator just one degree below the denominator — while every smoother
-member ($m < n - 1$) is locally predictable.
+with $n - 1 - m = 0$, a numerator just one degree below the denominator. Every smoother member,
+with $m < n - 1$, is locally predictable.
 
 Using the preceding theorem and our formula {eq}`eq-12-gen` for geometric distributed leads from
 {doc}`12_prediction`, it is straightforward to
@@ -132,12 +149,18 @@ of mean square differentiability of $x(t)$.) We know that $\tilde P (-\rho) \neq
 because $\tilde P(s)$ has no zeroes in the right half plane, by the assumption
 that {eq}`eq-13-wold` is a Wold representation.
 
-This last result is the one with the most economic content in the book. It says that the
-*operation of taking a present value* manufactures local unpredictability. However smooth the
+This last result carries the chapter's economic content. Taking a present value manufactures
+local unpredictability. However smooth the
 dividend, income, or endowment process $x$ may be, the asset price or permanent income built
 from it behaves, over short intervals, like a martingale. Nothing about tastes or market
 structure is needed for the conclusion; it follows from the algebra of the annihilation
 operator.
+
+```{eval-rst}
+.. index::
+   single: asset prices; and local unpredictability
+   single: random walk; as a local martingale
+```
 
 ## Exercises
 
@@ -186,8 +209,8 @@ $\varrho \to 1$ for $p_1$ and $\varrho \to 0$ for $p_2$.
 
 (b) Explain the *rates*. Show analytically that for a kernel with $p(0)\neq 0$ the numerator of
 {eq}`eq-13-ratio` is $O(\delta)$ while the second term of the denominator is $O(\delta^2)$,
-whereas for a kernel with $p(0)=0$ they are $O(\delta^3)$ and $O(\delta^2)$ respectively — so
-that $\varrho(\delta) \to 1$ and $\varrho(\delta) = O(\delta)\to 0$ in the two cases.
+whereas for a kernel with $p(0)=0$ they are $O(\delta^3)$ and $O(\delta^2)$ respectively. Hence
+$\varrho(\delta) \to 1$ in the first case and $\varrho(\delta) = O(\delta)\to 0$ in the second.
 
 ```{exercise-end}
 ```
@@ -239,8 +262,8 @@ The figure shows why the *limit at zero* is the thing to look at. At long horizo
 curves are indistinguishable: both tend to $\tfrac12$, as they must for any stationary process,
 since the forecast error variance tends to $R(0)$ while
 $E(x(t+\delta)-x(t))^2 \to 2R(0)$. It is only as $\delta \to 0$ that the processes separate, and
-then they separate completely — for $p_1$ essentially all of the movement over $[t, t+\delta]$
-is unforecastable, for $p_2$ essentially none of it is. The two kernels differ only by a factor
+then they separate completely. For $p_1$ nearly all of the movement over $[t, t+\delta]$
+is unforecastable; for $p_2$ nearly none of it is. The two kernels differ only by a factor
 of $\tau$; that is, only in their behaviour at the origin.
 
 ```{solution-end}
@@ -283,7 +306,7 @@ $e^{\rho s}$ and integrating over $s$ gives $x^* = \int_0^\infty g(\tau)w(t-\tau
 $g$ as stated. For $p(\tau)=\tau e^{-a\tau}$,
 $g(s) = e^{-as}\int_0^\infty (s+u)e^{-(a-\rho)u}du$, which integrates to the displayed form.
 Setting $s=0$ gives $g(0) = (a-\rho)^{-2}$, and $\tilde P(s) = (s+a)^{-2}$ evaluated at $-\rho$
-is the same thing — confirming $g(0) = \tilde P(-\rho)$ of the text.
+is the same thing, confirming $g(0) = \tilde P(-\rho)$ of the text.
 
 ```{code-cell} ipython3
 rho = -0.5
@@ -315,9 +338,9 @@ The present-value operator moves the process across the dividing line. The reaso
 the closed form for $g$: the operator adds a constant term $(a-\rho)^{-2}$ to a kernel that
 previously vanished at the origin. This is the formal content of the observation, due to Sims
 and to Hall, that asset prices and consumption should look like martingales at high frequency
-even when the fundamentals driving them are smooth — and it is why
-{doc}`18_time_aggregation_var` finds that the sampling distortions of Table 1 are *less* severe
-for present-value variables than for the smooth processes underlying them.
+even when the fundamentals driving them are smooth. {doc}`18_time_aggregation_var` finds for
+that reason that the sampling distortions of Table 1 are *less* severe for present-value
+variables than for the smooth processes underlying them.
 
 ```{solution-end}
 ```

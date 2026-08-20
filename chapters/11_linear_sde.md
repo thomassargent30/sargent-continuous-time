@@ -11,6 +11,14 @@ kernelspec:
   name: python3
 ---
 
+```{eval-rst}
+.. index::
+   single: linear stochastic differential equation; definition
+   single: rational spectral density; and linear SDEs
+   single: differential operator D
+   single: characteristic roots
+```
+
 # 11. Linear Stochastic Differential Equations
 
 ```{eval-rst}
@@ -72,40 +80,42 @@ $$
 $$
 
 ```{note}
-**What integrating the white noise against $p(\tau)$ does.** The white noise $w(t)$ is not an
-ordinary function. As in Chapters 4 and 6, it is a *generalized* process: it has the
-$\delta$-function autocovariance $E\,w(t)\,w(t-\tau)=\delta(\tau)$, hence infinite instantaneous
-variance, and it acquires a well-defined meaning only underneath an integral sign. The
-moving-average integral {eq}`eq-11-b` is exactly such an object, and it is most precisely read
-as a **mean square (Wiener) stochastic integral** against the increments of the Wiener process
-$W$ of Chapter 6. Writing $dW(t) = w(t)\,dt$,
+The white noise $w(t)$ is not an ordinary function. Chapters 4 and 6 construct it as a
+generalized process with the $\delta$-function autocovariance
+$E\,w(t)\,w(t-\tau)=\delta(\tau)$. Its instantaneous variance is infinite, and it means
+something only underneath an integral sign. The moving average {eq}`eq-11-b` is such an
+integral. Read it as a mean square (Wiener) stochastic integral against the increments of the
+Wiener process $W$ of Chapter 6. Write $dW(t) = w(t)\,dt$. Then
 
 $$
 x(t) = \int_0^\infty p(\tau)\, w(t-\tau)\, d\tau = \int_0^\infty p(\tau)\, dW(t-\tau),
 $$
 
-is defined as the mean square (that is, $L^2$) limit of the approximating sums
-$\sum_i p(\tau_i)\,[\,W(t-\tau_i) - W(t-\tau_{i+1})\,]$ built from the *independent* Gaussian
-increments of $W$. Provided $\int_0^\infty p(\tau)^2\,d\tau < \infty$ — which holds here because
-$p(\tau)=\sum_j g_j e^{\lambda_j\tau}$ decays exponentially — this limit exists, and the integral
-converts the unruly generalized noise into an ordinary, finite-variance, covariance stationary,
-mean square continuous process. By the Itô isometry its variance is
-$E\,x(t)^2 = \int_0^\infty p(\tau)^2\,d\tau$ and its autocovariance is
-$R(s) = \int_0^\infty p(\tau)\,p(\tau+s)\,d\tau$. In short, the kernel acts as a *causal linear
-filter* that **colors** — smooths — the white noise, weighting the recent past of the
-innovations by $p$. Each elementary factor
-$\frac{1}{D-\lambda_j}\,w(t) = \int_0^\infty e^{\lambda_j u}\,w(t-u)\,du$ is a one-sided
-exponential smoother — the Ornstein–Uhlenbeck building block of Chapter 7 — and the stationary
-solution is a sum of these smoothers.
+The right side is the $L^2$ limit of the approximating sums
+$\sum_i p(\tau_i)\,[\,W(t-\tau_i) - W(t-\tau_{i+1})\,]$ built from the independent Gaussian
+increments of $W$. The limit exists when $\int_0^\infty p(\tau)^2\,d\tau < \infty$. The Itô
+isometry then gives $E\,x(t)^2 = \int_0^\infty p(\tau)^2\,d\tau$ and
+$R(s) = \int_0^\infty p(\tau)\,p(\tau+s)\,d\tau$. Integration converts a generalized noise into
+an ordinary process with finite variance, covariance stationary and mean square continuous. The
+kernel is a causal linear filter that weights the recent past of the innovations by $p$. Square
+integrability holds here because $p(\tau)=\sum_j g_j e^{\lambda_j\tau}$ decays exponentially.
+Each factor $\frac{1}{D-\lambda_j}\,w(t) = \int_0^\infty e^{\lambda_j u}\,w(t-u)\,du$ is a
+one-sided exponential smoother, the Ornstein–Uhlenbeck building block of Chapter 7. The
+stationary solution sums these smoothers.
 
-**Itô versus Stratonovich.** Because the kernel $p(\tau)$ is *deterministic* — it does not depend
-on the path of $W$ — there is no ambiguity in how the stochastic integral is formed. The Itô and
-Stratonovich integrals differ only by the quadratic-variation correction term that appears when
-the integrand depends on the very Brownian motion against which it is integrated (as in the
-nonlinear $g(x)\,dW$ terms of Chapter 7); for a deterministic integrand that correction term
-vanishes. Here, therefore, the Itô integral, the Stratonovich integral, and the ordinary mean
-square integral all coincide, and {eq}`eq-11-b` may be read in whichever of these senses the
-reader prefers.
+The kernel $p(\tau)$ is deterministic. It does not depend on the path of $W$, so how we form
+the stochastic integral does not matter. The Itô and Stratonovich integrals differ by a
+quadratic variation correction that appears when the integrand depends on the Brownian motion
+against which it is integrated, as the $g(x)\,dW$ terms of Chapter 7 do. A deterministic
+integrand kills that correction. Here the Itô integral, the Stratonovich integral, and the mean
+square integral coincide.
+```
+
+```{eval-rst}
+.. index::
+   single: sum of exponentials kernel
+   single: Ito isometry
+   single: Stratonovich integral
 ```
 
 A partial fraction representation of $\tilde P(D)$ is
@@ -147,6 +157,12 @@ or
 $$
 x(t) = \sum_{j=1}^{n} g_j \int^\infty_0 e^{\lambda_j u}\ w(t - u)\, du.
 $$
+
+```{eval-rst}
+.. index::
+   single: stationary solution; of a linear SDE
+   single: mean square differentiability; the count n-1-m
+```
 
 This equation is said to represent the *stationary solution* of the stochastic differential
 equation. These rational-spectral-density processes are precisely the ones that admit a
@@ -194,7 +210,7 @@ $$
 \begin{aligned}
 \theta(D) &= (D^n + \theta_{n-1}\, D^{n-1}+\ldots + \theta_0) \\
 &= (D - \lambda_1)\ (D - \lambda_2) \ldots (D - \lambda_n),\ re(\lambda_j)< 0,\ j = 1,\ldots, n \\
-\Psi(D) &= 1 + \Psi_1 D + \ldots + \Psi_m D^m,\ m \leq n-1. \\
+\Psi(D) &= \Psi_0 + \Psi_1 D + \ldots + \Psi_m D^m,\ \Psi_0 = 1,\ m \leq n-1. \\
 E w(t) &\, w(t - \tau) = \delta(\tau).
 \end{aligned}
 $$
@@ -239,23 +255,29 @@ which equals zero only if $n > m + 1$. Proceeding in this way, it can be verifie
 $x(t)$ is mean square differentiable $n - 1 - m$ times, but no more.
 
 ```{note}
-**Smooth kernels here; discontinuous kernels in Chapter 23.** The kernels
-$p(\tau) = \sum_j g_j\, e^{\lambda_j \tau}$ delivered by rational linear stochastic differential
-equations are not merely continuous but *analytic*, so the processes of this chapter are
-automatically mean square continuous, and their differentiability is decided entirely by how many
-of the leading values $p(0), p'(0), \ldots$ vanish — the count $n - 1 - m$ just obtained, an
-application of the criteria of {doc}`09_characterizations_ms_differentiability`.
-{doc}`23_temporal_aggregation_streamlined` deliberately leaves this smooth class: Marcet posits
-one-sided kernels that are *discontinuous*, the leading case being a jump at the origin,
-$p(0) \neq 0$. Such a process is still mean square continuous — Theorem 14 of
-{doc}`09_characterizations_ms_differentiability` requires only square integrability of the
-kernel, not its continuity — yet it is no longer mean square differentiable, and so is *locally
-unpredictable* in the sense of {doc}`13_locally_unpredictable`. It is exactly these
-discontinuities, and the jumps they force on the sampled discrete-time kernel at every integer,
-that drive the aliasing and the manufactured-or-destroyed Granger causality analyzed there.
+The kernels $p(\tau) = \sum_j g_j\, e^{\lambda_j \tau}$ that rational linear stochastic
+differential equations deliver are analytic. The processes of this chapter are therefore mean
+square continuous, and their differentiability depends only on how many of the leading values
+$p(0), p'(0), \ldots$ vanish. That is the count $n - 1 - m$ just obtained, an application of the
+criteria of {doc}`09_characterizations_ms_differentiability`.
+{doc}`23_temporal_aggregation_streamlined` leaves this smooth class. Marcet posits one-sided
+kernels that are discontinuous, the leading case being a jump at the origin, $p(0) \neq 0$. Such
+a process remains mean square continuous, because Theorem 14 of
+{doc}`09_characterizations_ms_differentiability` asks only that the kernel be square integrable,
+not that it be continuous. It is not mean square differentiable, so it is locally unpredictable
+in the sense of {doc}`13_locally_unpredictable`. Those discontinuities, and the jumps they force
+on the sampled discrete-time kernel at every integer, drive the aliasing and the manufactured or
+destroyed Granger causality that Chapter 23 analyzes.
 ```
 
 The following theorem pulls together a number of our earlier results.
+
+```{eval-rst}
+.. index::
+   single: analytic function; rigidity of
+   single: identity theorem
+   single: degenerate process
+```
 
 **Theorem 15.** Let $x(t)$ be a covariance stationary, zero mean, linearly indeterministic
 stochastic process, with Wold representation
@@ -273,14 +295,15 @@ R(\tau) = \sum_{n=0}^{\infty} R^{(n)}(0)\ \frac{\tau^n}{n!}
 ```
 
 where $R^{(n)}(\tau) \equiv \frac{d^n}{d\tau^n}\ R(\tau)$. Then it follows that $x(t)$ is
-mean square differentiable $m$ times, for any $1 \leq m \leq \infty$. Indeed, it follows
+mean square differentiable $k$ times, for every $k \geq 1$ (the letter $m$ is reserved in this
+chapter for the degree of $\Psi$). Indeed, it follows
 from {eq}`eq-11-star` that
 
 $$
-R^{(2m)}(\tau) = \sum_{n=2m}^{\infty}\, R^{(n)}(0)\ \frac{\tau^{(n-2m)}}{(n - 2m)!}\, ,
+R^{(2k)}(\tau) = \sum_{n=2k}^{\infty}\, R^{(n)}(0)\ \frac{\tau^{(n-2k)}}{(n - 2k)!}\, ,
 $$
 
-so that $R^{(2m)}(\tau)$ exists and itself has a convergent Taylor series representation.
+so that $R^{(2k)}(\tau)$ exists and itself has a convergent Taylor series representation.
 Furthermore, $p(\tau)$ is by hypothesis analytic and so has a convergent
 Taylor series representation
 
@@ -297,35 +320,31 @@ with analytic autocovariance function $R(\tau)$ and analytic Wold integrating ke
 $p(\tau)$ is the trivial process $x(t) = 0$.
 
 ```{note}
-**What "analytic" means.** A real-valued function $R$ of a real variable is *(real-)analytic*
-on an interval if, around every point $\tau_0$ of that interval, it agrees with a convergent
-power series,
+A real-valued function $R$ of a real variable is analytic on an interval if around every point
+$\tau_0$ of that interval it agrees with a convergent power series
 
 $$
 R(\tau) = \sum_{n=0}^{\infty} \frac{R^{(n)}(\tau_0)}{n!}\,(\tau - \tau_0)^n,
 $$
 
-the series having a strictly positive radius of convergence. Equivalently — and this is the
-precise sense the term carries in *complex analysis* — $R$ is the restriction to the real axis
-of a function that is **holomorphic** (complex-differentiable) on an open neighborhood of that
-interval in the complex plane $\mathbb{C}$. A central theorem of complex analysis is that a
-function complex-differentiable even *once* on an open set is automatically infinitely
-complex-differentiable there and equals its own Taylor series; so for complex functions
-"differentiable," "infinitely differentiable," and "equal to a convergent power series" all
-coincide — in sharp contrast to the real case.
+having a strictly positive radius of convergence. Equivalently, $R$ is the restriction to the
+real axis of a function holomorphic on an open neighborhood of that interval in the complex
+plane $\mathbb{C}$. A theorem of complex analysis says that a function complex-differentiable
+once on an open set is infinitely complex-differentiable there and equals its own Taylor series.
+For complex functions, "differentiable," "infinitely differentiable," and "equal to a convergent
+power series" say the same thing. For real functions they do not.
 
-Analytic functions are **rigid**. By the identity theorem, an analytic function on a connected
-domain is completely determined by its values on any subset that has a limit point; in
-particular, if all of its derivatives vanish at a single point — or if it vanishes on any
-interval, however small — then it vanishes *identically*.
+Analytic functions are rigid. The identity theorem says that an analytic function on a connected
+domain is determined by its values on any subset having a limit point. If all its derivatives
+vanish at a single point, or if it vanishes on an interval however short, then it vanishes
+identically.
 
-This rigidity is precisely what powers Theorem 15, and it is strictly stronger than mere
-smoothness. A function can be infinitely differentiable ($C^\infty$) without being analytic:
-the standard example $f(\tau) = e^{-1/\tau^2}$ (with $f(0)=0$) has $f^{(n)}(0)=0$ for every $n$,
-yet is not identically zero, so it is *not* analytic at the origin. Mere smoothness of $p(\tau)$
-would therefore permit a nonzero kernel all of whose derivatives vanish at $\tau = 0$; it is the
-assumed *analyticity* of $R$ — inherited by $p$ — that upgrades $p^{(n)}(0) = 0$ for all $n$ into
-$p \equiv 0$, and hence into the degenerate conclusion $x(t) \equiv 0$.
+That rigidity drives Theorem 15, and it asks more than smoothness. A function can be infinitely
+differentiable ($C^\infty$) without being analytic. Take $f(\tau) = e^{-1/\tau^2}$ with
+$f(0)=0$. Every $f^{(n)}(0)$ vanishes, yet $f$ is not identically zero, so $f$ is not analytic
+at the origin. Smoothness of $p(\tau)$ would therefore permit a nonzero kernel all of whose
+derivatives vanish at $\tau = 0$. Analyticity of $R$, inherited by $p$, upgrades
+$p^{(n)}(0) = 0$ for all $n$ into $p \equiv 0$, and so into $x(t) \equiv 0$.
 ```
 
 ## Exercises
@@ -351,7 +370,7 @@ which is the numerical example of {doc}`18_time_aggregation_var`, Table 1.
 (a) Compute the roots $\lambda_j$ of $\theta$, form the residues
 $g_j = \lim_{s\to\lambda_j}(s-\lambda_j)\tilde P(s)$, and build
 $p(\tau) = \sum_j g_j e^{\lambda_j\tau}$. Confirm numerically that
-$p(0) = p'(0) = 0$ while $p''(0) \neq 0$ — so the process is twice but not three times mean
+$p(0) = p'(0) = 0$ while $p''(0) \neq 0$, so that the process is twice but not three times mean
 square differentiable, i.e. $n-1-m = 2$.
 
 (b) Confirm the same count with the initial value theorem of
@@ -407,9 +426,9 @@ print(f"check by initial value theorem: s*P(s) at s=1e6 -> "
 ```
 
 Both routes agree. With $\psi = 1$ the first two derivatives of $p$ vanish at the origin and the
-third does not, so $x$ is twice mean square differentiable — which is why
+third does not, so $x$ is twice mean square differentiable. That is why
 {doc}`18_time_aggregation_var` finds the sampled moving-average coefficients of this process so
-badly behaved: the kernel is *too smooth* near zero for the discrete innovation to resemble the
+badly behaved. The kernel is *too smooth* near zero for the discrete innovation to resemble the
 continuous one. Raising the numerator degree to $m = n-1 = 2$ moves the process to the other
 side of the dividing line, where $p(0)\neq 0$ and local unpredictability sets in.
 

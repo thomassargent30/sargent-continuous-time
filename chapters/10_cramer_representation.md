@@ -11,11 +11,19 @@ kernelspec:
   name: python3
 ---
 
+```{eval-rst}
+.. index::
+   single: Cramér representation; statement
+   single: random spectral measure; definition
+   single: spectral distribution function
+   single: frequency domain; representation of a process
+```
+
 # 10. The Cramér Representation
 
 ```{eval-rst}
 .. index::
-   single: Cramer representation
+   single: Cramér representation
    single: random spectral measure
    single: orthogonal increments
    single: band-pass filter
@@ -23,52 +31,52 @@ kernelspec:
 
 The spectral density accomplishes an orthogonal decomposition by frequency of the variance of a covariance stationary stochastic process. The Cramér representation exhibits this decomposition in a general way.
 
-Let $x(t)$ be a covariance stationary, zero mean stochastic process with autocorrelation function $R(\tau)$. Let the spectral density of $x$ be denoted $S(w)$, where
+Let $x(t)$ be a covariance stationary, zero mean stochastic process with autocorrelation function $R(\tau)$. Let the spectral density of $x$ be denoted $S(\omega)$, where
 
 $$
-S(w) = \int^\infty_{-\infty} R(\tau) e^{-iw\tau} d\tau.
+S(\omega) = \int^\infty_{-\infty} R(\tau) e^{-i\omega\tau} d\tau.
 $$
 
-Associated with $x(t)$, there exists a complex valued random process $Z(w)$ defined by
+Associated with $x(t)$, there exists a complex valued random process $Z(\omega)$ defined by
 
 (i) $Z(0) = 0$
 
-(ii) $Z(-w) = \overline{Z(w)}$, where the bar denotes complex conjugation.
+(ii) $Z(-\omega) = \overline{Z(\omega)}$, where the bar denotes complex conjugation.
 
-(iii) $Z(w)$ is a process with orthogonal increments, and in particular
-
-$$
-E Z'(\lambda) \overline{Z'(\mu)} = S(\mu) \delta(\mu - \lambda),
-$$
-
-where the prime denotes the (possibly generalized) derivative of $Z(\lambda)$ with respect to $\lambda$. The process $Z(\lambda)$ is called the "random spectral measure" of the $x(t)$ process. This orthogonal-increments random measure reappears as the foundational object $W$ of the Hansen–Sargent prediction calculus in {doc}`19_prediction_formulas_continuous_time`. In terms of this random process, the $x(t)$ process has the Cramér representation
+(iii) $Z(\omega)$ is a process with orthogonal increments, and in particular
 
 $$
-x(t) = \frac{1}{\sqrt{2\pi}}\, \int^\infty_{-\infty} e^{i\lambda t} dZ(\lambda)
+E Z'(\omega) \overline{Z'(\nu)} = S(\nu) \delta(\nu - \omega),
+$$
+
+where the prime denotes the (possibly generalized) derivative of $Z(\omega)$ with respect to $\omega$. The process $Z(\omega)$ is called the "random spectral measure" of the $x(t)$ process. This orthogonal-increments random measure reappears as the foundational object $W$ of the Hansen–Sargent prediction calculus in {doc}`19_prediction_formulas_continuous_time`. In terms of this random process, the $x(t)$ process has the Cramér representation
+
+$$
+x(t) = \frac{1}{\sqrt{2\pi}}\, \int^\infty_{-\infty} e^{i\omega t} dZ(\omega)
 $$
 
 or
 
 ```{math}
 :label: eq-10-cramer
-x(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\lambda t}\, Z'(\lambda) d\lambda.
+x(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\omega t}\, Z'(\omega) d\omega.
 ```
 
 To help motivate this representation, we use {eq}`eq-10-cramer` to calculate $R(\tau) = Ex(t) x(t-\tau)$,
 
 $$
 \begin{aligned}
-Ex(t) x(t-\tau) &= E\, \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\lambda t}\, Z' d\lambda \int^\infty_{-\infty} e^{-i\mu (t-\tau)}\, \overline{Z'(\mu)} d\mu \\
-&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\mu (t - \tau)} \int^\infty_{-\infty} e^{i\lambda t}\, EZ'(\lambda)\, \overline{Z'(\mu)}\, d\lambda d\mu \\
-&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\mu (t - \tau)} \int^\infty_{-\infty} e^{i\lambda t}\, S(\mu) \delta(\mu - \lambda) d\lambda d\mu \\
-&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\mu (t - \tau)}\, e^{i\mu t}\, S(\mu) d\mu
+Ex(t) x(t-\tau) &= E\, \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\omega t}\, Z' d\omega \int^\infty_{-\infty} e^{-i\nu (t-\tau)}\, \overline{Z'(\nu)} d\nu \\
+&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\nu (t - \tau)} \int^\infty_{-\infty} e^{i\omega t}\, EZ'(\omega)\, \overline{Z'(\nu)}\, d\omega d\nu \\
+&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\nu (t - \tau)} \int^\infty_{-\infty} e^{i\omega t}\, S(\nu) \delta(\nu - \omega) d\omega d\nu \\
+&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\nu (t - \tau)}\, e^{i\nu t}\, S(\nu) d\nu
 \end{aligned}
 $$
 
 or
 
 $$
-R(\tau) = \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\mu \tau} S(\mu) d\mu.
+R(\tau) = \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\nu \tau} S(\nu) d\nu.
 $$
 
 This is the inversion formula {eq}`eq-8-2` for recovering the autocorrelation function from the spectral density.
@@ -76,24 +84,24 @@ This is the inversion formula {eq}`eq-8-2` for recovering the autocorrelation fu
 There is a sense in which the random spectral measure can be defined formally as the Fourier transform of $x(t)$,
 
 $$
-Z'(\lambda,\, w) = \frac{1}{\sqrt{2\pi}}\, \int^\infty_{-\infty} e^{-i\lambda t}\, x(t,\, w) dt,
+Z'(\omega,\, w) = \frac{1}{\sqrt{2\pi}}\, \int^\infty_{-\infty} e^{-i\omega t}\, x(t,\, w) dt,
 $$ (eq-10-Zhat)
 
-provided that the integral is interpreted delicately. In {eq}`eq-10-Zhat`, we have added the argument $w \in \Omega$ explicitly to emphasize the both $x(t,\, w)$ and $Z'(\lambda,\,w)$ are random processes defined on the same underlying probability space $(\Omega,\, \mathcal{F},\, P)$.
+provided that the integral is interpreted delicately. In {eq}`eq-10-Zhat`, we have added the argument $w \in \Omega$ explicitly to emphasize that both $x(t,\, w)$ and $Z'(\omega,\, w)$ are random processes defined on the same underlying probability space $(\Omega,\, \mathcal{F},\, P)$.
 
 Differentiating {eq}`eq-10-cramer` formally with respect to time, we have that the mean square derivative of $x(t)$, if it exists, has Cramér representation
 
 $$
-x'(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} i\, \lambda\, e^{i\lambda t}\, Z'(\lambda) d\lambda.
+x'(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} i\, \omega\, e^{i\omega t}\, Z'(\omega) d\omega.
 $$
 
-The derivative of the random spectral measure associated with $x'(t)$ is thus $\lambda Z'(\lambda)$, which being proportional to $Z'(\lambda)$ is itself the derivative of a process with orthogonal increments and obeys
+The derivative of the random spectral measure associated with $x'(t)$ is thus $\omega Z'(\omega)$, which being proportional to $Z'(\omega)$ is itself the derivative of a process with orthogonal increments and obeys
 
 $$
-E \lambda Z'(\lambda)\ \overline{\mu Z'(\mu)} = \mu^2 S(\mu) \delta(\mu - \lambda).
+E \omega Z'(\omega)\ \overline{\nu Z'(\nu)} = \nu^2 S(\nu) \delta(\nu - \omega).
 $$
 
-Thus the spectral density of $Dx(t)$ is $\mu^2 S(\mu)$. More generally, consider the distributed lag
+Thus the spectral density of $Dx(t)$ is $\nu^2 S(\nu)$. More generally, consider the distributed lag
 
 $$
 y(t) = \int^\infty_{-\infty} b(\tau) x(t - \tau) d\tau
@@ -104,58 +112,58 @@ where $b(\tau) \in L_2\, (-\infty,\, \infty)$. Then using {eq}`eq-10-cramer`, we
 ```{math}
 :label: eq-10-1
 \begin{aligned}
-y(t) &= \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} b(\tau) \int^\infty_{-\infty} e^{i\lambda (t-\tau)}\, Z'(\lambda) d\lambda \\
-&= \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} \int^\infty_{-\infty} b(\tau)\, e^{-i\lambda \tau}\, d\tau\, e^{i\lambda t}\, Z'(\lambda) d\lambda \\
-y(t) &= \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\lambda t}\, B(\lambda)\, Z'(\lambda) d\lambda
+y(t) &= \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} b(\tau) \int^\infty_{-\infty} e^{i\omega (t-\tau)}\, Z'(\omega) d\omega \\
+&= \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} \int^\infty_{-\infty} b(\tau)\, e^{-i\omega \tau}\, d\tau\, e^{i\omega t}\, Z'(\omega) d\omega \\
+y(t) &= \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\omega t}\, B(\omega)\, Z'(\omega) d\omega
 \end{aligned}
 ```
 
-where $B(\lambda)$ is the Fourier transform of $b(t)$, namely
+where $B(\omega)$ is the Fourier transform of $b(t)$, namely
 
 $$
-B(\lambda) = \int^\infty_{-\infty} b(\tau) e^{-i\lambda \tau}\, d\tau.
+B(\omega) = \int^\infty_{-\infty} b(\tau) e^{-i\omega \tau}\, d\tau.
 $$
 
-From {eq}`eq-10-1`, it follows that the random spectral measure of $y(t)$ has derivative $B(\lambda) Z'(\lambda)$, and that $y(t)$ has spectral density
+From {eq}`eq-10-1`, it follows that the random spectral measure of $y(t)$ has derivative $B(\omega) Z'(\omega)$, and that $y(t)$ has spectral density
 
 $$
-B(\lambda)\ \overline{B(\lambda)}\ S(\lambda)
+B(\omega)\ \overline{B(\omega)}\ S(\omega)
 $$
 
 or
 
 ```{math}
 :label: eq-10-2
-S_y(w) = |B(w)|^2 S_x(w)
+S_y(\omega) = |B(\omega)|^2 S_x(\omega)
 ```
 
-where $S_x(w) \equiv S(w)$ is the spectral density of $x(t)$.
+where $S_x(\omega) \equiv S(\omega)$ is the spectral density of $x(t)$.
 
-Equation {eq}`eq-10-2` can be used to view from another angle the orthogonal decomposition across frequencies induced by $S_x(w)$. For $0 < c < d$, we create the "window" $B_{cd}(w)$ according to
+Equation {eq}`eq-10-2` can be used to view from another angle the orthogonal decomposition across frequencies induced by $S_x(\omega)$. For $0 < c < d$, we create the "window" $B_{cd}(\omega)$ according to
 
 $$
-B_{cd}(w) = \begin{cases} 1 & w \in [c,\, d]\ \text{ or }\ [-d,\,-c] \\ 0 & \text{otherwise} \end{cases}
+B_{cd}(\omega) = \begin{cases} 1 & \omega \in [c,\, d]\ \text{ or }\ [-d,\,-c] \\ 0 & \text{otherwise} \end{cases}
 $$
 
 $$
 \text{where }\ d > c > 0.
 $$
 
-The band-pass filter $B_{cd}(w)$ is illustrated in {numref}`fig-10-1`.
+The band-pass filter $B_{cd}(\omega)$ is illustrated in {numref}`fig-10-1`.
 
 ```{figure} figures/fig-10-1_bandpass_window.png
 :name: fig-10-1
 :width: 90%
 :align: center
 
-Figure 1. The band-pass filter ("window") $B_{cd}(w)$, defined on the frequency axis $w \in (-\infty,\, \infty)$. It equals $1$ on the two symmetric frequency bands $[c,\, d]$ and $[-d,\, -c]$ and equals $0$ everywhere else, with $d > c > 0$.
+Figure 1. The band-pass filter ("window") $B_{cd}(\omega)$, defined on the frequency axis $\omega \in (-\infty,\, \infty)$. It equals $1$ on the two symmetric frequency bands $[c,\, d]$ and $[-d,\, -c]$ and equals $0$ everywhere else, with $d > c > 0$.
 ```
 
 Define the time function
 
 $$
 \begin{aligned}
-b_{cd}(t) &= \frac{1}{2\pi} \int^\infty_{-\infty} B_{cd}(w) e^{+iwt}\, dw \\
+b_{cd}(t) &= \frac{1}{2\pi} \int^\infty_{-\infty} B_{cd}(\omega) e^{+i\omega t}\, d\omega \\
 &= \frac{1}{\pi}\ \left[ \frac{\sin\ dt}{t}\ - \ \frac{\sin\ ct}{t}\right]
 \end{aligned}
 $$
@@ -169,28 +177,28 @@ $$
 has the spectral density $S_{cd}$ given by
 
 $$
-S_{cd}(w) = \begin{cases} S_x(w) & w \in [c,\, d]\ \text{ or }\ [-d,\, -c] \\ 0 & \text{otherwise} \end{cases}
+S_{cd}(\omega) = \begin{cases} S_x(\omega) & \omega \in [c,\, d]\ \text{ or }\ [-d,\, -c] \\ 0 & \text{otherwise} \end{cases}
 $$
 
-If we choose an interval parameterized by $0 < e < f$ such that $[e,\,f] \cap [c,\, d] = 0$, it follows from the orthogonal increments property of $Z(\lambda)$ that $y_{ef}(t)$ is orthogonal to $y_{cd}(t-\tau)$ for all $t$. For using the Cramér representation, we have
+If we choose an interval parameterized by $0 < e < f$ such that $[e,\,f] \cap [c,\, d] = 0$, it follows from the orthogonal increments property of $Z(\omega)$ that $y_{ef}(t)$ is orthogonal to $y_{cd}(t-\tau)$ for all $t$. For using the Cramér representation, we have
 
 $$
 \begin{aligned}
-Ey_{cd}(t) y_{ef}(t-\tau) &= \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\lambda t}\, B_{cd}(\lambda) Z'(\lambda) \\
-&\quad \int^\infty_{-\infty} e^{-i\mu (t-\tau)}\, \overline{B_{ef}(\mu)}\, Z'(\mu) d\mu d\lambda \\
-&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\mu (t - \tau)}\, \overline{B_{ef}(\mu)} \\
-&\quad \int^\infty_{-\infty} B_{cd}(\lambda) S(\mu) \delta(\mu - \lambda) d\lambda d\mu \\
-&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\mu (t - \tau)}\, \overline{B_{ef}(\mu)}\ B_{cd}(\mu) S(\mu) d\mu \\
+Ey_{cd}(t) y_{ef}(t-\tau) &= \frac{1}{2\pi} \int^\infty_{-\infty} e^{i\omega t}\, B_{cd}(\omega) Z'(\omega) \\
+&\quad \int^\infty_{-\infty} e^{-i\nu (t-\tau)}\, \overline{B_{ef}(\nu)}\, Z'(\nu) d\nu d\omega \\
+&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\nu (t - \tau)}\, \overline{B_{ef}(\nu)} \\
+&\quad \int^\infty_{-\infty} B_{cd}(\omega) S(\nu) \delta(\nu - \omega) d\omega d\nu \\
+&= \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\nu (t - \tau)}\, \overline{B_{ef}(\nu)}\ B_{cd}(\nu) S(\nu) d\nu \\
 &= 0
 \end{aligned}
 $$
 
-since $\overline{B_{ef}(\mu)}\ B_{cd}(\mu) = 0$ for all $\mu$.
+since $\overline{B_{ef}(\nu)}\ B_{cd}(\nu) = 0$ for all $\nu$.
 
 We also have that $y_{ef}(t)$ has spectral density
 
 $$
-S_{ef}(w) = \begin{cases} S_x(w) & w \in [e,\, f]\ \text{ or }\ [-f,\, -e] \\ 0 & \text{otherwise} \end{cases}
+S_{ef}(\omega) = \begin{cases} S_x(\omega) & \omega \in [e,\, f]\ \text{ or }\ [-f,\, -e] \\ 0 & \text{otherwise} \end{cases}
 $$
 
 By filtering the process $x(t)$ with filters formed by taking disjoint frequency intervals, $[c,\,d]$, $[e,\,f]$, we create processes that are orthogonal at all leads and lags, but whose respective spectral densities equal that of $x(t)$ over the intervals $[c,\,d]$ and $[e,\,f]$.
@@ -198,15 +206,15 @@ By filtering the process $x(t)$ with filters formed by taking disjoint frequency
 To motivate from another angle the frequency decomposition induced by the spectral density, it is useful to note that the Cramér representation
 
 $$
-x(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\lambda t}\, Z'(\lambda) d\lambda
+x(t) = \frac{1}{\sqrt{2\pi}} \int^\infty_{-\infty} e^{i\omega t}\, Z'(\omega) d\omega
 $$
 
-can be also represented in a couple of alternative ways. Let the complex valued random process $Z'(\lambda)$ be represented in the alternative forms
+can be also represented in a couple of alternative ways. Let the complex valued random process $Z'(\omega)$ be represented in the alternative forms
 
 $$
 \begin{aligned}
-z'(\lambda) &= a(\lambda) + b(\lambda)i \\
-z'(\lambda) &= r(\lambda)e^{i\theta(\lambda)}.
+z'(\omega) &= a(\omega) + b(\omega)i \\
+z'(\omega) &= r(\omega)e^{i\theta(\omega)}.
 \end{aligned}
 $$
 
@@ -214,47 +222,47 @@ Then it is straightforward to derive the Cramér representation in the forms
 
 ```{math}
 :label: eq-10-3
-x(t) = \sqrt{\frac{2}{\pi}} \int^\infty_0\ a(\lambda)\ \cos\ \lambda t\, d\lambda \ - \ \sqrt{\frac{2}{\pi}} \int^\infty_0 b(\lambda)\ \sin\ \lambda t\, d\lambda
+x(t) = \sqrt{\frac{2}{\pi}} \int^\infty_0\ a(\omega)\ \cos\ \omega t\, d\omega \ - \ \sqrt{\frac{2}{\pi}} \int^\infty_0 b(\omega)\ \sin\ \omega t\, d\omega
 ```
 
 where
 
 $$
-E (a(\lambda) + ib(\lambda))\ (a(\mu) - ib(\mu)) = S(\mu) \delta(\mu - \lambda);
+E (a(\omega) + ib(\omega))\ (a(\nu) - ib(\nu)) = S(\nu) \delta(\nu - \omega);
 $$
 
 and
 
 ```{math}
 :label: eq-10-4
-x(t) = \sqrt{\frac{2}{\pi}} \int^\infty_0 r(\lambda)\ \cos\ (\lambda t + \theta(\lambda)) d\lambda
+x(t) = \sqrt{\frac{2}{\pi}} \int^\infty_0 r(\omega)\ \cos\ (\omega t + \theta(\omega)) d\omega
 ```
 
 where
 
 $$
-Er(\lambda) e^{i\theta(\lambda)}\, r(\mu) e^{-i\theta(\mu)} = S(\mu) \delta(\mu - \lambda).
+Er(\omega) e^{i\theta(\omega)}\, r(\nu) e^{-i\theta(\nu)} = S(\nu) \delta(\nu - \omega).
 $$
 
 The factor $\sqrt{2/\pi}$ arises because the conjugate symmetry (ii) makes the negative
 frequencies duplicate the positive ones: $x(t) = (2/\sqrt{2\pi})\,\operatorname{Re}
-\int_0^\infty e^{i\lambda t} Z'(\lambda)\, d\lambda$, and $2/\sqrt{2\pi} = \sqrt{2/\pi}$.
+\int_0^\infty e^{i\omega t} Z'(\omega)\, d\omega$, and $2/\sqrt{2\pi} = \sqrt{2/\pi}$.
 
-Representation {eq}`eq-10-3` expresses $x(t)$ as a weighted sum of cosine and sine waves, with the weights being random processes $a(\lambda)$ and $b(\lambda)$. Equation {eq}`eq-10-4` represents $x(t)$ as a sum of cosine waves with amplitude $r(\lambda)$ and phase $\theta(\lambda)$ being governed by random processes.
+Representation {eq}`eq-10-3` expresses $x(t)$ as a weighted sum of cosine and sine waves, with the weights being random processes $a(\omega)$ and $b(\omega)$. Equation {eq}`eq-10-4` represents $x(t)$ as a sum of cosine waves with amplitude $r(\omega)$ and phase $\theta(\omega)$ being governed by random processes.
 
 Using representation {eq}`eq-10-3`, it is possible to show that
 
 $$
-Ex(t)^2 = \frac{1}{2\pi} \int^\infty_{-\infty} S(\lambda)\, d\lambda
-= \frac{1}{\pi} \int^\infty_0 S(\lambda)\, d\lambda ,
+Ex(t)^2 = \frac{1}{2\pi} \int^\infty_{-\infty} S(\omega)\, d\omega
+= \frac{1}{\pi} \int^\infty_0 S(\omega)\, d\omega ,
 $$
 
-the last equality using $S(\lambda) = S(-\lambda)$. Formally
-$E\,[a(\lambda)^2 + b(\lambda)^2] = E\,|Z'(\lambda)|^2 = S(\lambda)\,\delta(0)$, so the
-"random amplitudes" $a(\lambda),\ b(\lambda)$ are, like $Z'$ itself, generalized processes:
+the last equality using $S(\omega) = S(-\omega)$. Formally
+$E\,[a(\omega)^2 + b(\omega)^2] = E\,|Z'(\omega)|^2 = S(\omega)\,\delta(0)$, so the
+"random amplitudes" $a(\omega),\ b(\omega)$ are, like $Z'$ itself, generalized processes:
 the statement that has ordinary meaning is the one about *increments*, namely that the
-variance contributed by the frequency band $[c,\, d]$ is $\frac{1}{\pi}\int_c^d S(\lambda)\,
-d\lambda$ — which is exactly what the band-pass construction above computed.
+variance contributed by the frequency band $[c,\, d]$ is $\frac{1}{\pi}\int_c^d S(\omega)\,
+d\omega$, which is what the band-pass construction above computed.
 
 ```{eval-rst}
 .. index::
@@ -267,6 +275,13 @@ d\lambda$ — which is exactly what the band-pass construction above computed.
    single: random constant
    pair: ergodicity; sample mean
    see: ergodic; ergodicity
+```
+
+```{eval-rst}
+.. index::
+   single: time average; as a filter
+   single: mean square ergodicity; spectral criterion
+   single: random constant; and ergodicity
 ```
 
 ## The time average as a filter: mean square ergodicity
@@ -283,52 +298,52 @@ $$
 \bar x_T = \frac{1}{2T}\int^{T}_{-T} x(t)\, dt .
 $$
 
-Call $x(t)$ *mean square ergodic* if $E(\bar x_T - \mu)^2 \to 0$ as $T \to \infty$ — that is, if
+Call $x(t)$ *mean square ergodic* if $E(\bar x_T - \mu)^2 \to 0$ as $T \to \infty$, so that
 $\bar x_T$ converges in mean square to $\mu$.
 
 Now observe that $\bar x_T$ is the output of a filter applied to $x$, with weighting function
 $b(\tau) = 1/2T$ on $[-T,T]$ and zero elsewhere. Its transfer function is
 
 $$
-B_T(\lambda) = \frac{1}{2T}\int^{T}_{-T} e^{-i\lambda t}\, dt = \frac{\sin \lambda T}{\lambda T},
+B_T(\omega) = \frac{1}{2T}\int^{T}_{-T} e^{-i\omega t}\, dt = \frac{\sin \omega T}{\omega T},
 $$
 
 so by {eq}`eq-10-1` the centered time average has the Cramér representation
-$\bar x_T - \mu = (2\pi)^{-1/2}\int B_T(\lambda) Z'(\lambda)\, d\lambda$, and by
+$\bar x_T - \mu = (2\pi)^{-1/2}\int B_T(\omega) Z'(\omega)\, d\omega$, and by
 {eq}`eq-10-2` its variance is
 
 ```{math}
 :label: eq-10-erg
 E(\bar x_T - \mu)^2 = \frac{1}{2\pi}\int^\infty_{-\infty}
-\left(\frac{\sin \lambda T}{\lambda T}\right)^{2} S(\lambda)\, d\lambda .
+\left(\frac{\sin \omega T}{\omega T}\right)^{2} S(\omega)\, d\omega .
 ```
 
 Equation {eq}`eq-10-erg` answers the question by inspection. The kernel
-$(\sin \lambda T/\lambda T)^2$ never exceeds $1$, equals $1$ at $\lambda = 0$, and tends to $0$
-at every $\lambda \neq 0$ as $T$ grows. So as the record lengthens, the filter annihilates
+$(\sin \omega T/\omega T)^2$ never exceeds $1$, equals $1$ at $\omega = 0$, and tends to $0$
+at every $\omega \neq 0$ as $T$ grows. So as the record lengthens, the filter annihilates
 every frequency except the origin: **time averaging is a band-pass filter whose band collapses
 onto zero frequency.** What survives in the limit is whatever variance the process carries
-*exactly at* $\lambda = 0$.
+*exactly at* $\omega = 0$.
 
 For processes with an ordinary spectral density that limit is zero, and $x$ is mean square
 ergodic. But the linearly deterministic component of Wold's theorem
 ({doc}`08_spectral_densities`) carries $\delta$-functions,
-$S_d(\lambda) = \sum_j a_j\pi[\delta(\lambda - \lambda_j) + \delta(\lambda + \lambda_j)]$, and
+$S_d(\omega) = \sum_j a_j\pi[\delta(\omega - \lambda_j) + \delta(\omega + \lambda_j)]$, and
 if one of the $\lambda_j$ is zero then {eq}`eq-10-erg` retains a term that never vanishes. Hence
 
 > **Criterion.** A covariance stationary process is mean square ergodic **if and only if its
-> spectral density carries no $\delta$-function at frequency zero** — equivalently, iff its
+> spectral density carries no $\delta$-function at frequency zero**, equivalently iff its
 > linearly deterministic component contains no zero-frequency term.
 
 Failure has exactly one form: a *random constant*. If $x(t) \equiv A$ with $EA = 0$ and
 $EA^2 = \sigma^2$, then $R(\tau) = \sigma^2$ for every $\tau$, the spectral density is
-$2\pi\sigma^2\delta(\lambda)$, and $\bar x_T = A$ for every $T$ — the time average never
+$2\pi\sigma^2\delta(\omega)$, and $\bar x_T = A$ for every $T$. The time average never
 approaches the ensemble mean, because there is nothing to average. Every purely linearly
 indeterministic process is therefore mean square ergodic, since its spectral density
-$|\tilde P(i\lambda)|^2$ is an ordinary function with no atoms. The book's standing assumption
+$|\tilde P(i\omega)|^2$ is an ordinary function with no atoms. The book's standing assumption
 already delivers the property.
 
-Two consequences are worth recording. First, when $\int |R(\tau)|\,d\tau < \infty$, letting
+Two consequences follow. First, when $\int |R(\tau)|\,d\tau < \infty$, letting
 $T \to \infty$ in the time-domain counterpart of {eq}`eq-10-erg`,
 
 $$
@@ -347,16 +362,22 @@ origin, divided by the length of the record.** The "long-run variance" of time s
 econometrics is nothing but the spectrum at zero frequency.
 
 Second, and less comfortably: this settles the sample *mean* only. Whether the sample
-*autocovariances* converge to $R(\tau)$ — the property that the estimation in
-{doc}`21_phillips_continuous_time_estimation` and
-{doc}`22_dimensionality_aliasing_problem` actually relies on — is a question about *fourth*
-moments, which the second-moment theory of this book does not settle.
+*autocovariances* converge to $R(\tau)$ is a question about *fourth* moments. That is the
+property on which the estimation in {doc}`21_phillips_continuous_time_estimation` and
+{doc}`22_dimensionality_aliasing_problem` relies, which the second-moment theory of this book does not settle.
 {doc}`/appendices/ergodicity` takes that up.
+
+```{eval-rst}
+.. index::
+   single: band decomposition
+   single: frequency band; variance carried by
+   pair: sampling; frequency bands
+```
 
 ## The band decomposition and sampling
 
-The picture built here — a process as a superposition of mutually orthogonal frequency bands,
-each carrying a definite share of the variance — is the right one to keep in mind when reading
+This chapter exhibits a process as a superposition of mutually orthogonal frequency bands, each
+carrying a definite share of the variance. Keep that picture in mind when reading
 {doc}`17_discrete_sampling_folding`. Sampling at interval $T$ does not destroy the bands; it
 *wraps* them. Every band is translated by a multiple of $2\pi/T$ onto the observable interval
 $[-\pi/T,\, \pi/T]$ and there added to whatever was already present, which is precisely what the
@@ -367,10 +388,10 @@ bands that fold onto it. Nothing tells the observer how that total was divided a
 That last sentence is the aliasing problem, and {doc}`22_dimensionality_aliasing_problem` turns
 it into a construction: given any continuous spectral density, one can build a *different* one,
 supported entirely on high-frequency bands, that folds onto the same discrete spectrum. The
-alternative process is manufactured with exactly the band-pass window $B_{cd}(w)$ of this
+alternative process is manufactured with exactly the band-pass window $B_{cd}(\omega)$ of this
 chapter, applied at frequencies above the Nyquist rate. Two processes that could hardly look
-less alike in continuous time — one concentrated at low frequencies, the other carrying all of
-its power above $\pi$ — are then indistinguishable in the sampled data.
+less alike in continuous time, one concentrated at low frequencies and the other carrying all of
+its power above $\pi$, are then indistinguishable in the sampled data.
 
 ## Exercises
 
@@ -385,19 +406,19 @@ from scipy.integrate import quad
 
 **Variance by frequency band, and what sampling does to it.** Take the Ornstein–Uhlenbeck
 process of {doc}`07_wiener_driven_sde` with $a = 1$, $b = 0.7$, whose spectral density is
-$S(w) = b^2/(a^2+w^2)$.
+$S(\omega) = b^2/(a^2+\omega^2)$.
 
 (a) Verify that the band variances add up: partition $[0,\infty)$ into bands and check that
-$\sum_{\text{bands}} \frac{1}{\pi}\int_c^d S(w)\, dw = R(0) = b^2/(2a)$, which is property (iii)
+$\sum_{\text{bands}} \frac{1}{\pi}\int_c^d S(\omega)\, d\omega = R(0) = b^2/(2a)$, which is property (iii)
 of {doc}`08_spectral_densities`.
 
 (b) Report the share of the variance lying *above* the Nyquist frequency $\pi/T$ for
 $T = 0.5$, $1$ and $3$. This is the power that sampling at interval $T$ folds back into the
-observable band rather than discarding — the quantity that governs how badly
-{doc}`17_discrete_sampling_folding`'s formula distorts the spectrum.
+observable band rather than discarding. That quantity governs how badly the formula of
+{doc}`17_discrete_sampling_folding` distorts the spectrum.
 
 (c) Confirm the orthogonality claim of the text numerically in the frequency domain: for
-disjoint bands, $\int B_{cd}(w)\,B_{ef}(w)\,S(w)\,dw = 0$, so the band-pass filtered series are
+disjoint bands, $\int B_{cd}(\omega)\,B_{ef}(\omega)\,S(\omega)\,d\omega = 0$, so the band-pass filtered series are
 uncorrelated at all leads and lags.
 
 ```{exercise-end}
@@ -440,8 +461,8 @@ The band variances sum to $R(0)$, and disjoint bands contribute nothing to each 
 is the quantitative form of the warning in {doc}`17_discrete_sampling_folding`: at $T = 0.5$
 about a tenth of the variance sits above the Nyquist frequency, so the folded spectrum departs
 from the continuous one only modestly; by $T = 3$ nearly half of it does, and the discrete
-spectrum is visibly inflated. Note how slowly the share falls — the Lorentzian tail decays only
-as $w^{-2}$, so halving the sampling interval does not come close to halving the aliased power. {doc}`22_dimensionality_aliasing_problem` pushes this to its extreme by
+spectrum is visibly inflated. The share falls slowly. The Lorentzian tail decays only as
+$\omega^{-2}$, so halving the sampling interval does not come close to halving the aliased power. {doc}`22_dimensionality_aliasing_problem` pushes this to its extreme by
 building a process whose variance lies *entirely* above the Nyquist frequency, yet which is
 indistinguishable from this one in sampled data.
 
@@ -453,20 +474,20 @@ indistinguishable from this one in sampled data.
 ```
 
 **Mean square ergodicity, and how it fails.** Continue with the Ornstein–Uhlenbeck process,
-$R(\tau) = \frac{b^2}{2a}e^{-a|\tau|}$, $S(\lambda) = b^2/(a^2+\lambda^2)$, $a=1$, $b=0.7$.
+$R(\tau) = \frac{b^2}{2a}e^{-a|\tau|}$, $S(\omega) = b^2/(a^2+\omega^2)$, $a=1$, $b=0.7$.
 
 (a) Evaluate $E(\bar x_T-\mu)^2$ from the time-domain formula
 $\frac{1}{2T}\int_{-2T}^{2T}(1-|\tau|/2T)R(\tau)d\tau$ for $T = 5, 20, 100$, and confirm it
 approaches $S(0)/2T$ of {eq}`eq-10-longrun`.
 
 (b) Confirm the same numbers from the frequency-domain formula {eq}`eq-10-erg`, integrating
-$(\sin\lambda T/\lambda T)^2 S(\lambda)$. The two routes are the same computation seen from the
+$(\sin\omega T/\omega T)^2 S(\omega)$. The two routes are the same computation seen from the
 two sides of the Cramér representation.
 
 (c) Now break ergodicity. Add a random constant: $y(t) = x(t) + A$ with $A$ independent of $x$,
 mean zero, variance $\sigma^2 = 0.5$. Show that $E(\bar y_T - \mu)^2 \to \sigma^2$ rather than
-to zero, however long the record — the $\delta$-function that the spectral density of $y$
-carries at $\lambda = 0$.
+to zero, however long the record. The spectral density of $y$ carries a $\delta$-function at
+$\omega = 0$.
 
 ```{exercise-end}
 ```
@@ -503,8 +524,8 @@ for T in [5.0, 20.0, 100.0, 1000.0]:
 The time-domain and frequency-domain evaluations agree to eight digits, and both approach
 $S(0)/2T$. Adding the random constant puts an atom at the origin, and the variance of the
 sample mean falls to $\sigma^2$ and stops: no record, however long, locates $\mu$. Note that
-$A$ is invisible in any *centered* second moment — it shifts $R(\tau)$ by $\sigma^2$ at every
-lag, which is exactly what the sample autocovariances of a demeaned record cannot detect.
+$A$ is invisible in any *centered* second moment. It shifts $R(\tau)$ by $\sigma^2$ at every
+lag, which the sample autocovariances of a demeaned record cannot detect.
 
 ```{solution-end}
 ```

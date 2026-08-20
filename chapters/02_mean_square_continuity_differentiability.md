@@ -6,15 +6,21 @@
    single: mean square differentiability
    single: mean square derivative
    single: Cauchy criterion
-   single: analytic autocovariance function
+   single: analytic function; autocovariance
    pair: smoothness; predictability
 ```
 
 Having characterized a process through its autocovariance function $R(\tau)$ in
 {doc}`01_covariance_stationary_processes`, we now ask how the smoothness of $R$ at the origin
-translates into the regularity — continuity and differentiability — of $x(t)$ itself. We
+translates into the continuity and differentiability of $x(t)$ itself. We
 begin by defining two notions of stochastic continuity. First, a stronger notion of
 continuity than we shall need is "continuity almost everywhere."
+
+```{eval-rst}
+.. index::
+   single: continuity; almost sure
+   single: sample path; continuity of
+```
 
 **Definition 3.** The stochastic process $x_t = x(t,w)$ is said to be continuous almost
 everywhere at the point $t$ if
@@ -27,6 +33,12 @@ Definition 3 states that the realizations of $x(t,w)$ that are continuous at $t$
 probability 1.
 
 The weaker concept of continuity that we shall use is "mean square continuity."
+
+```{eval-rst}
+.. index::
+   single: mean square continuity; definition
+   single: mean square convergence
+```
 
 **Definition 4.** A stochastic process $x_t = x(t,w)$ is said to be *mean square
 continuous* at the point $t$ if
@@ -75,6 +87,12 @@ Taking limits as $\tau \to 0$ proves the theorem.
 
 We also have the following theorem:
 
+```{eval-rst}
+.. index::
+   single: mean square continuity; criterion for
+   single: autocovariance function; continuity at the origin
+```
+
 **Theorem 3.** A covariance stationary stochastic process $x(t,w)$ is mean square
 continuous if and only if its autocorrelation function $R(\tau) = E x(t) x(t-\tau)$ is
 continuous for $\tau = 0$.
@@ -101,6 +119,12 @@ $$
 
 We shall see that the concept of mean square differentiability has this property.
 
+```{eval-rst}
+.. index::
+   single: mean square derivative; definition
+   single: mean square differentiability; definition
+```
+
 **Definition 6.** A stochastic process $x(t, w)$ is said to have a *mean square derivative*
 $x'(t)$ at $t$ if there is a random variable $x'(t)$ such that
 
@@ -122,6 +146,13 @@ $$
 $$
 
 We have the following theorem:
+
+```{eval-rst}
+.. index::
+   single: autocovariance function; differentiability of
+   single: mean square differentiability; criterion in terms of the autocovariance
+   pair: smoothness; autocovariance
+```
 
 **Theorem 4.** Let $x(t,w)$ be a covariance stationary process with autocorrelation
 function $R(\tau)$. If $x'(t)$ exists in the mean square sense, then $R''(0)$ exists.
@@ -169,7 +200,7 @@ Taking limits first as $\epsilon_2 \to 0$, then as $\epsilon_1 \to 0$ gives
 ```{math}
 :label: eq-2-6
 \begin{aligned}
-\lim_{\epsilon_1,\, \epsilon_2 \to 0}\ &\big\{ \frac{x(t + \epsilon_1) - x(t)}{\epsilon_1}\ \cdot\ \frac{x(t + \epsilon_2) - x(t)}{\epsilon_2}\big\} = \\
+\lim_{\epsilon_1,\, \epsilon_2 \to 0}\ &E\big\{ \frac{x(t + \epsilon_1) - x(t)}{\epsilon_1}\ \cdot\ \frac{x(t + \epsilon_2) - x(t)}{\epsilon_2}\big\} = \\
 \lim_{\epsilon_1 \to 0}\ & -\ \frac{R'(\epsilon_1) - R'(0)}{\epsilon_1}\ =\ - R''(0).
 \end{aligned}
 ```
@@ -178,7 +209,7 @@ Using {eq}`eq-2-5` and {eq}`eq-2-6`, we find that
 
 $$
 \begin{aligned}
-\lim_{\epsilon_1,\, \epsilon_2 \to 0}\ &\biggl\{ \Big[ \frac{x(t + \epsilon_1) - x(t)}{\epsilon_1}\ - \ \frac{x(t + \epsilon_2) - x(t)}{\epsilon_2}\Big]^2\biggr\} \\
+\lim_{\epsilon_1,\, \epsilon_2 \to 0}\ &E\biggl\{ \Big[ \frac{x(t + \epsilon_1) - x(t)}{\epsilon_1}\ - \ \frac{x(t + \epsilon_2) - x(t)}{\epsilon_2}\Big]^2\biggr\} \\
 &= \ - 2R''(0) + 2R''(0) = 0.
 \end{aligned}
 $$
@@ -314,7 +345,7 @@ The following construction demonstrates a link between the existence of mean squ
 derivatives of arbitrarily high orders, and the predictability of a series. Let $x(t, w)$
 be a covariance stationary process with autocorrelation function $R(\tau)$. We say that
 $R(\tau)$ is *analytic* if its derivatives of all orders exist for all $\tau$, and if
-$R(\tau)$ has the Taylors (Maclaurin) series representation.
+$R(\tau)$ has the Taylor (Maclaurin) series representation:
 
 $$
 R(\tau) = \sum_{n=0}^{\infty} \ R^{(n)}\ (0)\ \frac{\tau^n}{n!}
@@ -322,6 +353,11 @@ $$ (eq-2-analytic)
 
 We note that if $R(\tau)$ is analytic, then for all integer $n > 0$, the $n^{th}$ mean
 square derivative $x^{(n)}\,(t)$ exists; we can now state the following theorem.
+
+```{eval-rst}
+.. index::
+   single: Taylor series; of an autocovariance
+```
 
 **Theorem 9.** Let $x(t, w)$ be a covariance stationary stochastic process with analytic
 autocorrelation function $R(\tau)$. Then $x(t)$ can be expanded in a Taylor series, i.e.,

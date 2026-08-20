@@ -46,23 +46,23 @@ $\lim_{T\to\infty}(2T)^{-1}\int_{-T}^{T} x(t,w)\, dt$, and then says that under 
 ergodicity" the two kinds of average agree, and that such conditions "must be imposed to
 acquire a practical theory of estimation."
 
-This matters because *every* estimator in the second part of the book — the sampled
+This matters because *every* estimator in the second part of the book, among them the sampled
 autocovariances $\phi_\tau$ that Phillips inverts in
 {doc}`/chapters/21_phillips_continuous_time_estimation`, the matrix covariogram
 $\Gamma_0, \Gamma_1$ factored in {doc}`/chapters/20_aggregation_inverse_optimal_predictor`, the
 discrete spectral density $S^d(\omega)$ of {doc}`/chapters/17_discrete_sampling_folding`, the
 vector autoregressions whose interpretation occupies
-{doc}`/chapters/18_time_aggregation_var` — is a *time* average, computed from one realization,
-and is being asked to converge to an *ensemble* quantity. Ergodicity is the hypothesis that
+{doc}`/chapters/18_time_aggregation_var`, is a *time* average computed from one realization, and
+is asked to converge to an *ensemble* quantity. Ergodicity is the hypothesis that
 licenses the substitution.
 
-The one substantive message is worth stating in advance:
+One message governs everything below.
 
 ```{important}
 **Mean square ergodicity is a restriction on second moments. Covariance ergodicity is a
 restriction on *fourth* moments.** Everything the book has built characterizes second moments,
-which is exactly enough to settle when the sample *mean* is consistent — and not enough to
-settle when the sample *autocovariances* are.
+which settles when the sample *mean* is consistent. It does not settle when the sample
+*autocovariances* are.
 ```
 
 **Notation.** Frequency is written $\omega$ here, as in Chapters 19, 22 and 23, rather than the
@@ -70,8 +70,8 @@ $w$ of Chapters 8, 10 and 17, so as not to collide with the white noise $w(t)$. 
 $\tilde x(t) = x(t)-\mu$ for the centered process and
 $C(\tau) = E\,\tilde x(t)\tilde x(t-\tau)$ for the autocovariance (the book's $R(\tau)$ when
 $\mu = 0$). When a spectral density exists it is
-$S(\omega) = \int C(\tau)e^{-i\omega\tau}d\tau$; when it does not — the case that matters
-below — we use the *spectral distribution* $F$, the nondecreasing function of bounded variation
+$S(\omega) = \int C(\tau)e^{-i\omega\tau}d\tau$. When it does not, which is the case that
+matters below, we use the *spectral distribution* $F$, the nondecreasing function of bounded variation
 with
 
 $$
@@ -99,10 +99,16 @@ $$
 $$
 
 This is the weakest thing one could ask: a single realization, observed long enough, reveals
-the ensemble mean. It is a statement in the same $L^2$ sense used throughout the book — the
-mean square convergence of {doc}`/chapters/02_mean_square_continuity_differentiability` — not
+the ensemble mean. It is a statement in the $L^2$ sense used throughout the book, the mean
+square convergence of {doc}`/chapters/02_mean_square_continuity_differentiability`, not
 almost-sure convergence. The mean square version is the one second-moment theory can settle,
 and the one that delivers consistency of estimators.
+
+```{eval-rst}
+.. index::
+   single: time average; variance of
+   single: Cesaro average
+```
 
 ### The variance of the time average
 
@@ -123,14 +129,14 @@ E(\bar x_T - \mu)^2 = \frac{1}{2T}\int_{-2T}^{2T}\Big(1 - \frac{|\tau|}{2T}\Big)
 Formula {eq}`eq-erg-var` is the whole of first-order ergodic theory. The weight
 $1-|\tau|/(2T)$ is the Bartlett triangle: a record of length $2T$ sees the lag $\tau$ only
 through the $2T-|\tau|$ pairs of dates that are $\tau$ apart and both inside the window. The
-process is mean square ergodic if and only if this Cesàro average of $C$ vanishes — Slutsky's
-condition. It is necessary and sufficient but awkward to check; the frequency domain does
+process is mean square ergodic if and only if this Cesàro average of $C$ vanishes. That is
+Slutsky's condition. It is necessary and sufficient but awkward to check; the frequency domain does
 better.
 
 ### A necessary and sufficient condition
 
 {doc}`/chapters/10_cramer_representation` derives the criterion by treating $\bar x_T$ as a
-filter, and the result is worth recording here in the form used below.
+filter. The form used below is this.
 
 ```{admonition} Theorem A1
 :class: tip
@@ -140,17 +146,17 @@ $\lim_{T\to\infty} E(\bar x_T-\mu)^2 = F(\{0\})/2\pi$.
 ```
 
 Mean square ergodicity therefore fails in exactly one way: when the process contains a *random
-constant* — a component of nonzero variance that never moves — for then no amount of time
-averaging can average it away.
+constant*, a component of nonzero variance that never moves. No amount of time averaging can
+average it away.
 
 ### Sufficient conditions
 
 Theorem A1 requires knowing $F$ near the origin. The following are what one checks in practice.
 
 **(S1) $C(\tau)\to0$ as $|\tau|\to\infty$.** If the autocovariance dies out at all, the Cesàro
-average in {eq}`eq-erg-var` dies out. This is the workhorse condition. It is *not* necessary —
-$C$ may oscillate without decaying and still average to zero — but it covers every model in
-this book.
+average in {eq}`eq-erg-var` dies out. This is the workhorse condition. It is not necessary.
+$C$ may oscillate without decaying and still average to zero. It covers every model in this
+book.
 
 **(S2) $\int_{-\infty}^{\infty}|C(\tau)|d\tau < \infty$.** Absolute integrability gives
 ergodicity *and* a rate. Letting $T\to\infty$ in {eq}`eq-erg-var` by dominated convergence,
@@ -160,7 +166,7 @@ ergodicity *and* a rate. Letting $T\to\infty$ in {eq}`eq-erg-var` by dominated c
 2T\cdot E(\bar x_T-\mu)^2 \;\longrightarrow\; \int_{-\infty}^{\infty} C(\tau)\, d\tau = S(0).
 ```
 
-**The variance of the sample mean is asymptotically $S(0)/2T$** — the spectral density at zero
+**The variance of the sample mean is asymptotically $S(0)/2T$**, the spectral density at zero
 frequency divided by the length of the record. The "long-run variance" of time series
 econometrics is nothing but the spectrum at the origin.
 
@@ -186,7 +192,7 @@ autocovariance $R^d(\tau)=\sum_j a_j\cos(\omega_j\tau)$. Those $\delta$'s are ex
 of $F$, so Theorem A1 translates into the book's own decomposition:
 
 > A covariance stationary process is mean square ergodic **iff its linearly deterministic
-> component contains no zero-frequency term** — iff no $\omega_j = 0$ in $S_d$.
+> component contains no zero-frequency term**, that is, iff no $\omega_j = 0$ in $S_d$.
 
 A deterministic component at a *nonzero* frequency, such as a fixed seasonal cycle, does no
 harm: it averages out over a long record. Only the frequency-zero atom survives averaging.
@@ -217,7 +223,7 @@ $$
 
 (In a finite record one integrates over $|t|\le T-|\tau|$; dividing by $2T$ rather than
 $2T-|\tau|$ costs a bias of order $|\tau|/T$ but keeps $\hat C_T$ a positive semidefinite
-function of $\tau$ — the property {doc}`/chapters/01_covariance_stationary_processes` identifies
+function of $\tau$, the property that {doc}`/chapters/01_covariance_stationary_processes` identifies
 as necessary for $\hat C_T$ to be *some* process's autocovariance, and which spectral estimation
 needs.)
 
@@ -254,6 +260,11 @@ characterize a process entirely through $C(\tau)$ and $S(\omega)$, and two proce
 identical second moments can have wildly different fourth moments, one covariance ergodic and
 the other not. Something must be assumed beyond covariance stationarity.
 
+```{eval-rst}
+.. index::
+   single: Gaussian process; and covariance ergodicity
+```
+
 ### The Gaussian route
 
 If $x$ is *Gaussian*, its fourth moments are determined by its second moments and the question
@@ -270,13 +281,13 @@ C_{y_\tau}(s) = C(s)^2 + C(s+\tau)\, C(s-\tau).
 ```{admonition} Theorem A2 (Gaussian case)
 :class: tip
 Let $x$ be a stationary Gaussian process. Then $x$ is covariance ergodic if the Cesàro average
-of $C(s)^2 + C(s+\tau)C(s-\tau)$ vanishes for every $\tau$ — in particular if
+of $C(s)^2 + C(s+\tau)C(s-\tau)$ vanishes for every $\tau$, and in particular if
 $C(s)\to 0$ as $|s|\to\infty$.
 ```
 
 So **for a Gaussian process the same condition $C\to0$ that delivers mean square ergodicity also
-delivers covariance ergodicity.** If moreover $C\in L^2$ — equivalently, by Parseval,
-$\int S(\omega)^2 d\omega<\infty$ — then {eq}`eq-erg-cov` is $O(1/T)$ and
+delivers covariance ergodicity.** If moreover $C\in L^2$, equivalently by Parseval
+$\int S(\omega)^2 d\omega<\infty$, then {eq}`eq-erg-cov` is $O(1/T)$ and
 
 $$
 2T\cdot E\big(\hat C_T(\tau)-C(\tau)\big)^2 \longrightarrow
@@ -287,6 +298,12 @@ Every process generated by the linear stochastic differential equations of
 {doc}`/chapters/11_linear_sde` with Gaussian white noise satisfies this:
 $p(\tau)=\sum_j g_j e^{\lambda_j\tau}$ with $\operatorname{re}\lambda_j<0$ gives an
 exponentially decaying $C$, hence $C \in L^1\cap L^2$.
+
+```{eval-rst}
+.. index::
+   single: fourth cumulant; condition on
+   single: cumulant
+```
 
 ### The general route: fourth cumulants
 
@@ -332,9 +349,9 @@ $$
 \underbrace{\text{mean square ergodicity}}_{\text{second moments}} .
 $$
 
-The two do different jobs: covariance ergodicity makes the second-moment time average converge,
-mean square ergodicity makes the *centering* harmless. Failure of the latter alone wrecks the
-former, and it is worth seeing how. Let $x(t)=\mu+A+\nu(t)$ with $A$ of mean zero and variance
+Covariance ergodicity makes the second-moment time average converge; mean square ergodicity
+makes the *centering* harmless. Failure of the latter alone wrecks the
+former. Let $x(t)=\mu+A+\nu(t)$ with $A$ of mean zero and variance
 $\sigma^2$ and $\nu$ a well-behaved ergodic noise with autocovariance $C_\nu$. The true
 autocovariance is $C(\tau)=\sigma^2+C_\nu(\tau)$. But the sample mean converges to $\mu+A$, not
 $\mu$, so the centered data are $x(t)-\bar x_T \to \nu(t)-\bar\nu_T$ and
@@ -343,7 +360,7 @@ $$
 \hat C_T(\tau) \longrightarrow C_\nu(\tau) = C(\tau)-\sigma^2 .
 $$
 
-The estimator converges — to the wrong thing, understating the autocovariance by exactly
+The estimator converges to the wrong thing. It understates the autocovariance by exactly
 $\sigma^2$ at *every* lag. Demeaning removes the random constant along with the mean, and with
 it all trace of the non-ergodic component. Nothing in the sample reveals the error.
 
@@ -377,11 +394,17 @@ the $\hat C_T(\tau)$ inside.
 *It is nonetheless inconsistent*: $\operatorname{Var}I_T(\omega)\to S(\omega)^2$ for
 $\omega\ne0$, and $2S(0)^2$ at the origin. The reason is structural. $I_T(\omega)$ is the
 squared modulus of a *single* Fourier coefficient, itself asymptotically complex Gaussian with
-variance $S(\omega)$ — a fixed number of random quantities, however long the record. So
+variance $S(\omega)$, a fixed number of random quantities however long the record. So
 $I_T(\omega)/S(\omega)$ is asymptotically $\tfrac12\chi^2_2$, with mean 1 and variance 1, and
 stays that way forever. Lengthening the record buys more *frequencies*, not more precision at
 any one of them. The exercises of {doc}`/chapters/08_spectral_densities` verify this
 numerically.
+
+```{eval-rst}
+.. index::
+   single: spectral window
+   single: bandwidth; conditions on
+```
 
 ### Smoothing restores consistency
 
@@ -421,6 +444,12 @@ $\hat C_T(\tau)$ converge, controlling the *bias*. The fourth-cumulant condition
 uncorrelated, so that averaging $Tb_T$ of them reduces variance by a factor $Tb_T$. Without the
 fourth-order condition, smoothing need not help at all.
 
+```{eval-rst}
+.. index::
+   single: coherence; and smoothing
+   single: cross-spectral density; estimation of
+```
+
 ### Cross-spectra, coherence, and a trap
 
 For a vector process write $C_{jk}(\tau)=E\,\tilde x_j(t+\tau)\tilde x_k(t)$ and
@@ -441,7 +470,7 @@ $$
 \operatorname{cov}\big(y_\tau(t+s),y_\tau(t)\big) = C_{jj}(s)C_{kk}(s) + C_{jk}(s+\tau)C_{kj}(s-\tau),
 $$
 
-so $C_{jk}(s)\to0$ for all $j,k$ suffices — the direct analogue of Theorem A2.
+so $C_{jk}(s)\to0$ for all $j,k$ suffices, the direct analogue of Theorem A2.
 
 There is, however, a trap with no univariate counterpart. Define the cross-periodogram from the
 finite Fourier transforms $d_j(\omega)=\int_{-T}^{T}\tilde x_j(t)e^{-i\omega t}dt$ as
@@ -456,7 +485,7 @@ independent white noises yield an estimated squared coherence of exactly one. Sm
 a refinement here; it is the entire content of the estimator. The moral is the previous one,
 sharpened: a single frequency ordinate carries a fixed amount of information no matter how long
 the record, so consistency at a point in the frequency domain always comes from pooling
-neighbouring frequencies — and it is the fourth-order condition that makes the pooling work.
+neighbouring frequencies. The fourth-order condition makes the pooling work.
 
 ## A1.5 Discrete records: span, not sampling rate
 
@@ -488,12 +517,11 @@ frequency zero. That mechanism, and the example that exhibits it, are given in
 | **rate, when available** | $\operatorname{Var}\bar x_T \sim S(0)/2T$ | $O(1/T)$ when $C\in L^2$ |
 | **what it licenses** | centering; the long-run variance | sample autocovariances; spectral and cross-spectral estimation |
 
-Three points are worth carrying away.
+Three points summarize this appendix.
 
 1. **The two concepts are not variations on one theme.** Mean square ergodicity is settled by
    the theory this book contains; covariance ergodicity is not, and requires either Gaussianity
-   or an explicit condition on fourth cumulants. Covariance stationarity does not give it to
-   you.
+   or an explicit condition on fourth cumulants. Covariance stationarity does not deliver it.
 
 2. **Ergodicity delivers consistent autocovariances, and that is all.** It does *not* deliver a
    consistent spectral density estimator. The periodogram is asymptotically unbiased and

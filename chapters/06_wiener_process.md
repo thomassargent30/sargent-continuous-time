@@ -11,6 +11,15 @@ kernelspec:
   name: python3
 ---
 
+```{eval-rst}
+.. index::
+   single: Wiener process; definition
+   single: Gaussian process
+   single: independent increments; of the Wiener process
+   single: Wiener process; as a limit of Poisson processes
+   single: sample path; nondifferentiability of
+```
+
 # 6. The Wiener Process
 
 ```{eval-rst}
@@ -36,7 +45,7 @@ R(t,\, t + \tau) &= \min\ (t,\, t + \tau)
 \end{aligned}
 $$
 
-and so are independent of $\lambda$. These functions also characterize the process that results in the limit as $\lambda \to \infty$. It turns out that the sample paths of the limiting process is continuous (almost everywhere) but differentiable nowhere. Roughly speaking, the sample paths are continuous because the jumps in the process become infinitesimal as $\lambda \to \infty$; the sample paths are differentiable nowhere because there are "so many" of these infinitesimal jumps in a small interval of time.
+and so are independent of $\lambda$. These functions also characterize the process that results in the limit as $\lambda \to \infty$. The sample paths of the limiting process are continuous with probability one but differentiable nowhere. Roughly speaking, the sample paths are continuous because the jumps in the process become infinitesimal as $\lambda \to \infty$; the sample paths are differentiable nowhere because there are "so many" of these infinitesimal jumps in a small interval of time.
 
 We begin by computing the $p^{th}$ moments of the process governed by
 
@@ -65,7 +74,7 @@ $$ (eq-6-even)
 
 $$
 \begin{aligned}
-\frac{d}{dt}\ E x^p &= \binom{p}{2}\ \left(\frac{1}{\lambda}\right)\ E x^{p-2}\, \lambda + \binom{p}{4}\ \left(\frac{1}{\lambda}\right)^2\, E x^{p-4}\, \cdot\, \lambda + \ldots + \left(\frac{1}{\sqrt\lambda}\right)^{p-1}\ E x \cdot \lambda \\
+\frac{d}{dt}\ E x^p &= \binom{p}{2}\ \left(\frac{1}{\lambda}\right)\ E x^{p-2}\, \lambda + \binom{p}{4}\ \left(\frac{1}{\lambda}\right)^2\, E x^{p-4}\, \cdot\, \lambda + \ldots + \binom{p}{p-1} \left(\frac{1}{\sqrt\lambda}\right)^{p-1}\ E x \cdot \lambda \\
 &\ p\ \text{ odd}
 \end{aligned}
 $$ (eq-6-odd)
@@ -103,13 +112,14 @@ and so on.
 Now for the Gaussian density function
 
 $$
-f(x) = (2 \pi \sigma)^{-1/2}\ \exp\ \frac{-x^2}{2 \sigma}\, ,
+f(x) = (2 \pi \sigma^2)^{-1/2}\ \exp\ \frac{-x^2}{2 \sigma^2}\, ,
 $$
 
-integration by parts shows that $E x^p = 0$ for $p$ odd, while for $p$ even
+with variance $\sigma^2$, integration by parts shows that $E x^p = 0$ for $p$ odd, while for
+$p$ even
 
 $$
-E x^p = \sigma^{p/2}\ (p - 1)\ (p - 3)\ \ldots\ 1.\ p\ \text{ even}
+E x^p = \sigma^{p}\ (p - 1)\ (p - 3)\ \ldots\ 1.\ p\ \text{ even}
 $$ (eq-6-gauss)
 
 It is known that if all of the moments of a process equal those of a Gaussian process, then that process is itself Gaussian. Comparing {eq}`eq-6-moments` with {eq}`eq-6-gauss`, we can conclude that the limiting process as $\lambda \to \infty$ is *Gaussian* with mean zero and variance $t$. That is, $x(t)$ has density
@@ -130,7 +140,7 @@ The Wiener process $W(t)$ is characterized by the following properties.
 
 (iv) Sample paths or realizations of $W(t)$ are continuous with probability 1.
 
-Property (ii) is the *independent increments* property, and is inherited from the Poisson process of which $W(t)$ is the limit. Stochastic differential equations driven by this $W(t)$ — and Itô's rule for manipulating them — are the subject of {doc}`07_wiener_driven_sde`.
+Property (ii) is the *independent increments* property, and is inherited from the Poisson process of which $W(t)$ is the limit. {doc}`07_wiener_driven_sde` studies stochastic differential equations driven by this $W(t)$ and states Itô's rule for manipulating them.
 
 ## Exercises
 
@@ -155,7 +165,7 @@ independent $\operatorname{Poisson}(\lambda/2)$ variables.
 
 Draw many samples of $x(1)$ for $\lambda \in \{4, 40, 400\}$ and show that the histogram
 of $x(1)$ converges to the standard normal density (mean $0$, variance $1$) as $\lambda$
-grows — i.e. illustrate that the limiting process is Gaussian with $E\,x(1)^2 = 1$.
+grows, illustrating that the limiting process is Gaussian with $E\,x(1)^2 = 1$.
 
 ```{exercise-end}
 ```
@@ -202,8 +212,8 @@ increments.
 $E\,W(1)^2 = 1$, $E\,W(1)^4 = 3$, and $E\,W(1)^6 = 15$.
 
 (b) Verify that the **quadratic variation** $\sum_k \bigl(W(t_{k+1}) - W(t_k)\bigr)^2$
-over $[0, 1]$ concentrates at $1$ as the mesh shrinks — the hallmark of a process that is
-continuous but of unbounded variation, and the source of the extra term in Itô's rule
+over $[0, 1]$ concentrates at $1$ as the mesh shrinks. A process that is continuous but of
+unbounded variation behaves this way, and this is the source of the extra term in Itô's rule
 (Chapter 7).
 
 ```{exercise-end}
